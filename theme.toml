@@ -1,11 +1,11 @@
-# Name       : Tikva
-# Version    : 0.4.0
-# Released   : 2023-02-16
+# Name       : Felmdrav
+# Version    : 0.1.0
+# Released   : 2025-12-10
 
-name = "Tikva"
+name = "Felmdrav"
 license = "MIT"
-licenselink = "https://github.com/geschke/hugo-tikva/blob/master/LICENSE.md"
-description = "Tikva is a minimalistic Hugo theme, based on Bootstrap 4 framework"
+licenselink = "https://github.com/geschke/hugo-felmdrav/blob/master/LICENSE.md"
+description = "Felmfrav is a minimalistic Hugo theme, based on Bootstrap 5 framework"
 homepage = "https://github.com/geschke/hugo-tikva/"
 tags = ["theme", "core", "modern", "responsive", "bootstrap", "minimal", "blog", "font awesome", "white", "dark", "light" ]
 features = ["responsive","blog"]
@@ -17,6 +17,6 @@ min_version = "0.100.0"
 
 # If porting an existing theme
 [original]
-  name = "Tikva theme for Grav CMS"
-  homepage = "https://www.kuerbis.org/tikva-theme-for-grav-cms/"
-  repo = "https://github.com/geschke/grav-theme-tikva"
+  name = "Felmdraf theme for Hugo static website genrator"
+  homepage = "https://www.kuerbis.org/felmdrav/"
+  repo = "https://github.com/geschke/hugo-felmdrav"
