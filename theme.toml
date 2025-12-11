@@ -9,7 +9,7 @@ description = "Felmfrav is a minimalistic Hugo theme, based on Bootstrap 5 frame
 homepage = "https://github.com/geschke/hugo-tikva/"
 tags = ["theme", "core", "modern", "responsive", "bootstrap", "minimal", "blog", "font awesome", "white", "dark", "light" ]
 features = ["responsive","blog"]
-min_version = "0.100.0"
+min_version = "0.146.0"
 
 [author]
   name = "Ralf Geschke"
