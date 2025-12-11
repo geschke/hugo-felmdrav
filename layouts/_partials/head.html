@@ -6,17 +6,34 @@
 
     {{ range $metaName, $metaValue := .Site.Params.Meta }}
     <meta name="{{ $metaName }}" content="{{ htmlUnescape $metaValue }}">{{ end }}
-
+{{/* 
     {{ if .Site.Params.Theme.BootstrapTheme }}
     <link href="{{ .Site.BaseURL }}css/bootswatch/{{ .Site.Params.Theme.BootstrapTheme }}.min.css" rel="stylesheet">
     {{ else }}
     <link href="{{ .Site.BaseURL }}css/bootstrap.min.css" rel="stylesheet">
     {{ end }}
-    <link href="{{ .Site.BaseURL }}css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="{{ .Site.BaseURL }}css/custom.css" rel="stylesheet">
+
+*/}}
+
 {{ if .Site.Params.Favicon }}
 <link rel="icon" type="image/x-icon" href="{{ .Site.BaseURL }}{{ .Site.Params.Favicon }}" />
 {{ end }}
+
+
+{{/* Hugo Pipes: Bootstrap + Bootstrap Icons + Theme-CSS bündeln */}}
+{{- $bootstrap := resources.Get "css/bootstrap.min.css" -}}
+{{- $felmdrav  := resources.Get "css/felmdrav.css" -}}
+
+{{- $styles := slice $bootstrap $felmdrav
+    | resources.Concat "css/felmdrav-bundle.css"
+    | resources.Minify
+    | resources.Fingerprint
+-}}
+
+
+<link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}">
+<link rel="stylesheet" href="{{ "css/bootstrap-icons.min.css" | relURL }}">
 
 
 <script type="text/javascript">
