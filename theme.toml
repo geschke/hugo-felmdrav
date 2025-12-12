@@ -6,7 +6,7 @@ name = "Felmdrav"
 license = "MIT"
 licenselink = "https://github.com/geschke/hugo-felmdrav/blob/master/LICENSE.md"
 description = "Felmfrav is a minimalistic Hugo theme, based on Bootstrap 5 framework"
-homepage = "https://github.com/geschke/hugo-tikva/"
+homepage = "https://github.com/geschke/hugo-felmdrav/"
 tags = ["theme", "core", "modern", "responsive", "bootstrap", "minimal", "blog", "font awesome", "white", "dark", "light" ]
 features = ["responsive","blog"]
 min_version = "0.146.0"
@@ -17,6 +17,6 @@ min_version = "0.146.0"
 
 # If porting an existing theme
 [original]
-  name = "Felmdraf theme for Hugo static website genrator"
+  name = "Felmdrav theme for Hugo static website genrator"
   homepage = "https://www.kuerbis.org/felmdrav/"
   repo = "https://github.com/geschke/hugo-felmdrav"

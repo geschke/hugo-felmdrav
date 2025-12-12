@@ -1,8 +1,8 @@
-# Tikva Theme for Hugo
+# Felmdrav Theme for Hugo
 
-Tikva is a minimalistic Hugo theme, based on [Bootstrap v4](https://getbootstrap.com/) CSS framework.
-It is a port of the Tikva theme which I developed a while ago for Grav CMS and WordPress, but there are also some features added from the (still unpublished) Azbalac Theme for WordPress.
-Tikva integrates multiple Bootstrap styles from the Bootswatch project and adds some customized styles.
+Felmdrav is a minimalistic Hugo theme, based on [Bootstrap v5](https://getbootstrap.com/) CSS framework.
+It is a port of the Tikva theme which I developed a while ago for Grav CMS and WordPress, but there are also some features added from the Azbalac Theme for WordPress.
+Felmdrav integrates multiple Bootstrap styles from the Bootswatch project and adds some customized styles.
 It's also possible to edit some color options by config option.
 
 ## Features
@@ -18,7 +18,7 @@ It's also possible to edit some color options by config option.
 
 ## Demo
 
-You can find a demo [here](https://themes.gohugo.io/theme/hugo-tikva/).
+You can find a demo [here](https://themes.gohugo.io/theme/hugo-felmdrav/).
 
 ## Screenshots
 
@@ -26,19 +26,19 @@ Some examples of different designs:
 
 * "header" style, header image and "darkly" theme:
 
-![preview](https://raw.githubusercontent.com/geschke/hugo-tikva/master/images/screenshot.png)
+![preview](https://raw.githubusercontent.com/geschke/hugo-felmdrav/master/images/screenshot.png)
 
 * "fixed-top" style, with "flatly" theme and customized footer colors:
 
-![preview](https://raw.githubusercontent.com/geschke/hugo-tikva/master/images/screenshot01.png)
+![preview](https://raw.githubusercontent.com/geschke/hugo-felmdrav/master/images/screenshot01.png)
 
 * "header" style, header image, title above header image, "signa" theme:
 
-![preview](https://raw.githubusercontent.com/geschke/hugo-tikva/master/images/screenshot02.png)
+![preview](https://raw.githubusercontent.com/geschke/hugo-felmdrav/master/images/screenshot02.png)
 
 * "header" style, header image, title and subtitle as overlay, "materia" theme:
 
-![preview](https://raw.githubusercontent.com/geschke/hugo-tikva/master/images/screenshot03.png)
+![preview](https://raw.githubusercontent.com/geschke/hugo-felmdrav/master/images/screenshot03.png)
 
 ## Installation
 
@@ -46,13 +46,13 @@ Inside the folder of your Hugo site run:
 
 ```bash
     cd themes
-    git clone https://github.com/geschke/hugo-tikva.git
+    git clone https://github.com/geschke/hugo-felmdrav.git
 ```
 
 As a second option you can use the submodule feature of Git:
 
 ```bash
-    git submodule add -f https://github.com/geschke/hugo-tikva themes/hugo-tikva
+    git submodule add -f https://github.com/geschke/hugo-felmdrav themes/hugo-felmdrav
 ```
 
 For more information read the official [setup guide](//gohugo.io/overview/installing/) of Hugo.
@@ -120,11 +120,11 @@ Open sourced under the [MIT license](./LICENSE.md).
 
 ## Contributing
 
-If you find a bug or have an idea for a feature, feel free to use the [issue tracker](https://github.com/geschke/hugo-tikva/issues) to let me know.
+If you find a bug or have an idea for a feature, feel free to use the [issue tracker](https://github.com/geschke/hugo-felmdrav/issues) to let me know.
 
 ## Thanks to / Used third-party components
 
 * The [Bootstrap](https://getbootstrap.com) project, which is licensed under the MIT license
+* [Bootstrap Icons](https://icons.getbootstrap.com/)
 * Thomas Park and the contributors of the [Bootswatch](https://bootswatch.com/) project
-* [Font Awesome](https://fontawesome.com/v4.7.0/)
 * Image render hook from [hugo-theme-bootstrap](https://github.com/razonyang/hugo-theme-bootstrap) by Razon Yang

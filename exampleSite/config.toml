@@ -1,8 +1,8 @@
 baseurl = "https://example.com/"
 languageCode = "en_US"
-title = "Hugo Tikva Theme"
+title = "Hugo Felmdrav Theme"
 
-theme = "hugo-tikva"
+theme = "hugo-felmdrav"
 
 # Language setting of the site, for language configuration see
 #  https://gohugo.io/content-management/multilingual/
@@ -57,7 +57,7 @@ paginate = 2
 
 [params.meta]
     description = "This is only an example value for the meta description"
-    keywords = "example, site, theme, tikva"
+    keywords = "example, site, theme, felmdrav"
     author = "John Doe"
     "DC.Copyright" = "Karl Mustermann"
     
@@ -146,7 +146,7 @@ paginate = 2
     fontColor = '' # Text color in subfooter. Leave empty to use the theme default. 
     linkColor = '' # Link color in subfooter. Leave empty to use the theme default. 
     backgroundColor = '' # Background color of subfooter. Leave empty to use the theme default. 
-    demoContent = 'Powered by <a href="https://gohugo.io">Hugo</a>. Theme <a href="https://github.com/geschke/hugo-tikva">Tikva</a> by <a href="https://www.kuerbis.org">Ralf Geschke</a>. As you can see, this text is only an example of the area below the footer. To change this, please have a look at the included example site and the section "Subfooter configuration" in the config.toml file. '
+    demoContent = 'Powered by <a href="https://gohugo.io">Hugo</a>. Theme <a href="https://github.com/geschke/hugo-felmdrav">Felmdrav</a> by <a href="https://www.kuerbis.org">Ralf Geschke</a>. As you can see, this text is only an example of the area below the footer. To change this, please have a look at the included example site and the section "Subfooter configuration" in the config.toml file. '
 
 # Font configuration
 

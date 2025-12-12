@@ -2,7 +2,7 @@
 title: Post 02
 type: post
 
-tags: ["Text","Blog","Post","Example","Tikva","Lorem Ipsum"]
+tags: ["Text","Blog","Post","Example","Felmdrav","Lorem Ipsum"]
 author: "Ralf Geschke"
 
 ---

@@ -16,8 +16,8 @@
   </li>
   <span class="mx-2"></span>
   {{ else }}
-  <li class="nav-item {{ if eq $currentPage.RelPermalink .URL }}active{{ end }}">
-    <a class="nav-link" href="{{ .URL }}">
+  <li class="nav-item">
+    <a class="nav-link {{ if eq $currentPage.RelPermalink .URL }}active{{ end }}" href="{{ .URL }}">
       {{ .Pre }}
       {{ .Name }}
     </a>

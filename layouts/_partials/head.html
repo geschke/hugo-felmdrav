@@ -21,16 +21,31 @@
 {{ end }}
 
 
-{{/* Hugo Pipes: Bootstrap + Bootstrap Icons + Theme-CSS bündeln */}}
-{{- $bootstrap := resources.Get "css/bootstrap.min.css" -}}
-{{- $felmdrav  := resources.Get "css/felmdrav.css" -}}
+{{/* Hugo Pipes: Bootstrap + Theme-CSS */}}
+
+{{- $bootstrapPath := "css/bootstrap.min.css" -}}
+{{- with .Site.Params.Theme.BootstrapTheme -}}
+  {{- if ne . "" -}}
+    {{- $bootstrapPath = printf "css/bootswatch/%s/bootstrap.min.css" . -}}
+  {{- end -}}
+{{- end -}}
+
+
+{{- $bootstrap := resources.Get $bootstrapPath -}}
+
+{{- if not $bootstrap -}}
+  {{- /* fallback if Bootswatch path is wrong/missing */ -}}
+  {{- $bootstrapPath = "css/bootstrap.min.css" -}}
+  {{- $bootstrap = resources.Get $bootstrapPath -}}
+{{- end -}}
+
+{{- $felmdrav := resources.Get "css/felmdrav.css" -}}
 
 {{- $styles := slice $bootstrap $felmdrav
     | resources.Concat "css/felmdrav-bundle.css"
     | resources.Minify
     | resources.Fingerprint
 -}}
-
 
 <link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}">
 <link rel="stylesheet" href="{{ "css/bootstrap-icons.min.css" | relURL }}">
