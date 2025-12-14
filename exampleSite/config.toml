@@ -12,7 +12,7 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 
 # To enable a demo of pagination, this value is set to 2 instead of the default. See https://gohugo.io/getting-started/configuration/
 # for all site variables. The paginate default is 10
-paginate = 2
+# paginate = 2
 
 # Google Analytics setting, see Hugo internal templates
 #googleAnalytics = "UA-123-45"
