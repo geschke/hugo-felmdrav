@@ -1,15 +1,10 @@
-{{- $navbarColorScheme := "navbar-dark" -}}
-{{- if .Site.Params.navbar.color_scheme -}}
-{{- $navbarColorScheme = .Site.Params.navbar.color_scheme -}}
-{{- end -}}
-{{- $navbarBgScheme := "bg-primary" -}}
-{{- if .Site.Params.navbar.bg_scheme -}}
-{{- $navbarBgScheme = .Site.Params.navbar.bg_scheme -}}
-{{- end -}}
+{{- $navbarColorScheme := default "navbar-dark" site.Params.navbar.color_scheme -}}
+{{- $navbarBgScheme := default "bg-primary" site.Params.navbar.bg_scheme -}}
+
 
 <nav class="navbar fixed-top navbar-expand-lg {{ $navbarColorScheme }} {{ $navbarBgScheme }}">
   <div class="container-fluid">
-     <a class="navbar-brand" href="{{ .Site.BaseURL }}">{{ if .Site.Params.Navbar.BrandImage }}<img src="{{ .Site.BaseURL }}{{ .Site.Params.navbar.brand_image }}" width="30" height="30" class="d-inline-block align-top" alt="">&nbsp; {{ end }}{{ .Site.Title }}</a>
+     <a class="navbar-brand" href="{{ "/" | relURL }}">{{ if .Site.Params.navbar.brand_image }}<img src="{{ .Site.BaseURL }}{{ .Site.Params.navbar.brand_image }}" width="30" height="30" class="d-inline-block align-top" alt="">&nbsp; {{ end }}{{ .Site.Title }}</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

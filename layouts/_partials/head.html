@@ -43,10 +43,10 @@
 
 
 <script type="text/javascript">
-    var azbalacSettingHeaderMoveTitle = '{{ .Site.Params.Theme.Header.MoveTitle }}';
+    var azbalacSettingHeaderMoveTitle = '{{ .Site.Params.theme.header.move_title }}';
 </script>
-<script src="{{ .Site.BaseURL }}js/jquery-3.7.1.min.js"></script>
-<script src="{{ .Site.BaseURL }}js/functions.js"></script>
+<script src="{{ "js/jquery-3.7.1.min.js" | relURL }}"></script>
+<script src="{{ "js/functions.js" | relURL }}"></script>
 
 
 {{- $overlayBackgroundColorFallback := "#000000" -}}
@@ -57,8 +57,8 @@
     {{- $overlayBackgroundColorFallback = .Site.Params.theme.header.overlay_background_color -}}
 {{ end }}
 {{- $overlayTransparency := 70 -}} {{- /* default transparency 70% */ -}} 
-{{- if .Site.Params.Theme.Header.OverlayTransparency -}}
-    {{- $overlayTransparency = int .Site.Params.Theme.Header.OverlayTransparency -}}
+{{- if .Site.Params.theme.header.overlay_transparency -}}
+    {{- $overlayTransparency = int .Site.Params.theme.header.overlay_transparency -}}
 {{- end -}}
 
 {{- $overlayBackgroundTranspHex := printf "%1.2f" (div $overlayTransparency 100.0) -}}
@@ -110,20 +110,20 @@ body {
 {{- if .Site.Params.theme.footer.background_color -}}
 .footer-container { background-color: {{ .Site.Params.theme.footer.background_color }}; }
 {{- end -}}
-{{- if .Site.Params.theme.footer.FontColor -}}
-.footer-container { color: {{ .Site.Params.theme.footer.FontColor }}; }
+{{- if .Site.Params.theme.footer.font_color -}}
+.footer-container { color: {{ .Site.Params.theme.footer.font_color }}; }
 {{- end -}}
-{{- if .Site.Params.theme.footer.LinkColor -}}
-.footer-container a { color: {{ .Site.Params.theme.footer.LinkColor }}; }
+{{- if .Site.Params.theme.footer.link_color -}}
+.footer-container a { color: {{ .Site.Params.theme.footer.link_color }}; }
 {{- end -}}
 {{- if .Site.Params.theme.subfooter.background_color -}}
 .subfooter-container { background-color: {{ .Site.Params.theme.subfooter.background_color }}; }
 {{- end -}}
-{{- if .Site.Params.theme.subfooter.FontColor -}}
-.subfooter-container { color: {{ .Site.Params.theme.subfooter.FontColor }}; }
+{{- if .Site.Params.theme.subfooter.font_color -}}
+.subfooter-container { color: {{ .Site.Params.theme.subfooter.font_color }}; }
 {{- end -}}
-{{- if .Site.Params.theme.align.LinkColor -}}
-.subfooter-container a { color: {{ .Site.Params.theme.subfooter.LinkColor }}; }
+{{- if .Site.Params.theme.subfooter.link_color -}}
+.subfooter-container a { color: {{ .Site.Params.theme.subfooter.link_color }}; }
 {{- end -}}
 
 </style>
@@ -243,7 +243,7 @@ body {
         {{- $sizeH5 := printf "%d%s" (int $sizeBase) "px" -}}
         {{- $sizeH6 := printf "%d%s" (int (math.Ceil (mul $sizeBase 0.85))) "px" -}}
         {{- $sizeSubtitle := printf "%d%s" (int (math.Floor (mul $sizeBase 1.5))) "px" -}}
-        {{- $sizeJumbotronHeading := printf "%d%s" (int (math.Ceil (mul $sizeBase 4.5))) "px" -}}
+        
         h1 {
             font-size: {{ safeCSS $sizeH1 }};
             }
@@ -265,9 +265,6 @@ body {
         #site-description {
             font-size: {{ safeCSS $sizeSubtitle }};
         }
-        .jumbotron h1 {
-            font-size: {{ safeCSS $sizeJumbotronHeading }};
-        }
     {{- end -}}
 </style>
 
@@ -288,38 +285,33 @@ body {
         }
     </style>
     {{/* end */}}
-    {{ if .Site.Params.Theme.Header.OverlayDistanceBetween }}
+    {{ if .Site.Params.theme.header.overlay_distance_between }}
     <style type="text/css">
         #site-header-box-title {
-            margin-bottom: {{ .Site.Params.Theme.Header.OverlayDistanceBetween }}px;
+            margin-bottom: {{ .Site.Params.theme.header.overlay_distance_between }}px;
         }
     </style>
     {{ end }}
-    {{ if or .Site.Params.Theme.Header.OverlayDistanceVertical .Site.Params.Theme.Header.OverlayDistanceHorizontal }}
+    {{ if or .Site.Params.theme.header.overlay_distance_vertical .Site.Params.theme.header.overlay_distance_horizontal }}
     <style type="text/css">
         #site-header-container-overlay {
-        {{ if or (eq .Site.Params.Theme.Header.OverlayAlignment "lt") (eq .Site.Params.Theme.Header.OverlayAlignment "lb") }}
-            left: {{ .Site.Params.Theme.Header.OverlayDistanceHorizontal }}px;
-        {{ else if or (eq .Site.Params.Theme.Header.OverlayAlignment "mt") ( eq .Site.Params.Theme.Header.OverlayAlignment "mb") }}
+        {{ if or (eq .Site.Params.theme.header.overlay_alignment "lt") (eq .Site.Params.theme.header.overlay_alignment "lb") }}
+            left: {{ .Site.Params.theme.header.overlay_distance_horizontal }}px;
+        {{ else if or (eq .Site.Params.theme.header.overlay_alignment "mt") ( eq .Site.Params.theme.header.overlay_alignment "mb") }}
             
-        {{ else if or (eq .Site.Params.Theme.Header.OverlayAlignment "rt") ( eq .Site.Params.Theme.Header.OverlayAlignment "rb") }}
-            right: {{ .Site.Params.Theme.Header.OverlayDistanceHorizontal }}px;
+        {{ else if or (eq .Site.Params.theme.header.overlay_alignment "rt") ( eq .Site.Params.theme.header.overlay_alignment "rb") }}
+            right: {{ .Site.Params.theme.header.overlay_distance_horizontal }}px;
         {{ end }}
-        {{ if or (eq .Site.Params.Theme.Header.OverlayAlignment "lt") (eq .Site.Params.Theme.Header.OverlayAlignment "mt") (eq .Site.Params.Theme.Header.OverlayAlignment "rt") }}
-            top: {{ .Site.Params.Theme.Header.OverlayDistanceVertical }}px;
-        {{ else if or ( eq .Site.Params.Theme.Header.OverlayAlignment "lb") ( eq .Site.Params.Theme.Header.OverlayAlignment "mb")  ( eq .Site.Params.Theme.Header.OverlayAlignment "rb") }}
-            bottom: {{ .Site.Params.Theme.Header.OverlayDistanceVertical }}px;
+        {{ if or (eq .Site.Params.theme.header.overlay_alignment "lt") (eq .Site.Params.theme.header.overlay_alignment "mt") (eq .Site.Params.theme.header.overlay_alignment "rt") }}
+            top: {{ .Site.Params.theme.header.overlay_distance_vertical }}px;
+        {{ else if or ( eq .Site.Params.theme.header.overlay_alignment "lb") ( eq .Site.Params.theme.header.overlay_alignment "mb")  ( eq .Site.Params.theme.header.overlay_alignment "rb") }}
+            bottom: {{ .Site.Params.theme.header.overlay_distance_vertical }}px;
         {{ end }}
         }
     </style>
     {{ end }}
 
 {{ end }}
-{{ "<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->" | safeHTML }}
-{{ "<!--[if lt IE 9]>" | safeHTML }}
-        <script src="//cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-        <script src="//cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-{{ "<![endif]-->" | safeHTML }}
 {{- partial "head_includes.html" . }}
 
 {{- partial "javascript_header.html" . }}

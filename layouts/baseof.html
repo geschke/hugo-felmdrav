@@ -25,13 +25,13 @@
         <div class="container">
             <div class="row">
 
-                {{- if and (default false .Site.Params.Sidebar.Enabled) (eq "left" (.Site.Params.Sidebar.Style | default "right" )) }}
+                {{- if and (default false .Site.Params.sidebar.enabled) (eq "left" (.Site.Params.sidebar.style | default "right" )) }}
                 {{ partial "sidebar_container.html" . }}
                 {{- end -}}  
                 <div class="col-md" id="content">
                     {{- block "main" . }}{{- end }}
                 </div>
-                {{- if and (default false .Site.Params.Sidebar.Enabled) (eq "right" (.Site.Params.Sidebar.Style | default "right" )) }}
+                {{- if and (default false .Site.Params.sidebar.enabled) (eq "right" (.Site.Params.sidebar.style | default "right" )) }}
                     {{ partial "sidebar_container.html" . }}
                 {{- end -}}                
             </div>
@@ -47,12 +47,12 @@
 
     <div id="media-width-detection-element"></div>
 
-    {{- if .Site.Params.Analytics.Matomo.Enabled -}}
+    {{- if .Site.Params.analytics.matomo.enabled -}}
     {{ partial "analytics/matomo.html" . }}
     {{- end -}}
 {{/* {{ template "_internal/google_analytics_async.html" . }} */}}
 {{ template "_internal/google_analytics.html" . }}
-{{- if .Site.Params.Analytics.Yandexmetrica.Enabled -}}
+{{- if .Site.Params.analytics.yandexmetrica.enabled -}}
     {{ partial "analytics/yandexmetrica.html" . }}
 {{- end -}}
 {{- partial "bottom.html" . -}}
