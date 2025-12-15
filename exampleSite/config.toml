@@ -35,19 +35,19 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 # Navigation bar settings
 
 [params.navbar]
-    style = "header" # Navigation bar style, values "fixed-top" or "header", default is fixed-top 
+    style = "header" # Navigation bar style, values "fixed-top" or "header", default is fixed-top - sone
     
-    colorScheme = "navbar-dark" # navbar-light, navbar-dark
+    color_scheme = "navbar-dark" # navbar-light, navbar-dark - done
     
-    bgScheme = "bg-primary" # see Bootstrap docs, bg.* utilities https://getbootstrap.com/docs/4.1/utilities/colors/
+    bg_scheme = "bg-primary" # see Bootstrap docs, bg.* utilities https://getbootstrap.com/docs/4.1/utilities/colors/ - done
     
-    backgroundColor = ''  # custom background color parameters, e.g. #e3f2fd !important, If color is set, it will be used for background. Set empty for above selection.
+    background_color = ''  # custom background color parameters, e.g. #e3f2fd !important, If color is set, it will be used for background. Set empty for above selection. - done
     
-    adjustHeader = 20 # Adjust header by adding a distance between navigation and content. Some of the styles need more space, so you can use this option to adjust. Use an integer value of pixels.
+    adjust_header = 20 # Adjust header by adding a distance between navigation and content. Some of the styles need more space, so you can use this option to adjust. Use an integer value of pixels. - done
     
-    textAlignment = '' # don't set or leave empty for default (left), or justify-content-end, justify-content-center
+    text_alignment = '' # don't set or leave empty for default (left), or justify-content-end, justify-content-center - done
 
-    #brandImage = 'img/rg_mod_20.png' # The "brand image" will be set in "fixed-top" style as icon beside the site title. 
+    #brandImage = 'img/rg_mod_20.png' # The "brand image" will be set in "fixed-top" style as icon beside the site title. - todo!
 
 
 # Meta header parameter settings
@@ -66,14 +66,14 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 
 [params.theme]
 
-    bootstrapTheme = 'solar' # Use empty value for default Bootstrap color scheme or one of the following values:
+    bootstrap_theme = 'solar' # Use empty value for default Bootstrap color scheme or one of the following values:
     # bolt, bstrap, btcn, calabaza, cerulean, cosmo, cyborg, darkly, flatly, hoff, journal,
     # kdo_flatly, kdo2, kunsch, lumen, lux, malibu, materia, minim, minty, pulse, sandstone, 
     # signa, simplex, sketchy, slate_accessibility_ready, slate, solar, sonic, spacelab, united, yeti
 
-    backgroundColor = '' # If color is set, it will be used for background. Set empty for default.
-    backgroundImage = '' # Set background image, use file name with path in static folder, e.g. 'img/background.jpg'
-    backgroundImageRepeat = '' # Set background image repeat option, see https://developer.mozilla.org/de/docs/Web/CSS/background-repeat
+    background_color = '' # If color is set, it will be used for background. Set empty for default.
+    background_image = '' # Set background image, use file name with path in static folder, e.g. 'img/background.jpg'
+    background_image_repeat = '' # Set background image repeat option, see https://developer.mozilla.org/de/docs/Web/CSS/background-repeat
 
 
 # Header configuration
@@ -82,7 +82,7 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
     # The following options are mostly used when the navbar is in "header" mode, i.e. not fixed-top
     fontColor = '' # header font color, leave empty for default
     linkColor = '' # header link color, leave empty for default
-    backgroundColor = '' # header background color, leave empty for default
+    background_olor = '' # header background color, leave empty for default
 
     image = 'img/header_bg_example.jpg' # Use header image. This option is only valid if the theme is configured to the "header" style. 
     
@@ -98,7 +98,7 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
     overlayDistanceVertical = '20' # Dependent on the overlayAlignment option, this option is used to modify the vertical distance between the margin and the title/subtitle. This allows to place the title and subtitle on nearly any place related to the header image. 
     overlayDistanceHorizontal = '20' # The same as above, but for horizontal distance. 
     overlayDistanceBetween = '0' # Distance between title and subtitle 
-    overlayBackgroundColor = '#000000'
+    overlay_background_color = '#000000'
     overlayTransparency = '0' # default 70%, allowed values from 0 - 100 (without % sign!). This option enables a transparent background of title and subtitle. This is useful if the "titleOnImage" option is true, so the title is placed as overlay above the image. If this option is set to 0 or an empty value, the transparency color setting will be disabled. 
     moveTitle = false # If title is placed as overlay: Move title above the header image on small smartphone displays, default false
 
@@ -119,7 +119,7 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
     #numberColumns = 3 # Set number of columns available in footer of a page. Use the "footer" folder in the page structure to add content. If nothing is set, the default number is 3. Currently.i.e. since v0.2 not used, the number of columns is identical to the number of files in footer directory.
     fontColor = '#f9fcf9' # set #rgb code, leave empty for default
     linkColor = '' # Set color of links as #rrggbb code, leave empty for default
-    backgroundColor = '#29281f' # Set color of background as #rrggbb code, leave empty for default
+    background_color = '#29281f' # Set color of background as #rrggbb code, leave empty for default
 
     [[params.theme.footer.demoColumn]]
     text = 'This is a placeholder for a content file of the footer. You can use Markdown or HTML here. Just place your content files into a folder "sections/footer" in your content directory, make the page bundle "headless" and enable the footer in the site config file.'
@@ -145,7 +145,7 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
     enabled = true # Show the content below the footer
     fontColor = '' # Text color in subfooter. Leave empty to use the theme default. 
     linkColor = '' # Link color in subfooter. Leave empty to use the theme default. 
-    backgroundColor = '' # Background color of subfooter. Leave empty to use the theme default. 
+    background_color = '' # Background color of subfooter. Leave empty to use the theme default. 
     demoContent = 'Powered by <a href="https://gohugo.io">Hugo</a>. Theme <a href="https://github.com/geschke/hugo-felmdrav">Felmdrav</a> by <a href="https://www.kuerbis.org">Ralf Geschke</a>. As you can see, this text is only an example of the area below the footer. To change this, please have a look at the included example site and the section "Subfooter configuration" in the config.toml file. '
 
 # Font configuration

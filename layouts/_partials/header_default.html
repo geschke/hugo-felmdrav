@@ -27,8 +27,8 @@
     {{- $headerBoxClassSubtitle = " d-flex justify-content-end " -}}
 {{- end -}}
 
-<div id="header" role="banner" style="{{- if .Site.Params.Theme.Header.BackgroundColor -}}background-color: 
-{{ .Site.Params.Theme.Header.BackgroundColor }};{{- end -}}
+<div id="header" role="banner" style="{{- if .Site.Params.theme.header.background_color -}}background-color: 
+{{ .Site.Params.theme.header.background_color }};{{- end -}}
 {{ if .Site.Params.Theme.Header.FontColor }}color: {{  .Site.Params.Theme.Header.FontColor }};{{- end -}}">
 
     <div class="container">
@@ -80,20 +80,25 @@
             </div>
 
     {{ if .Site.Menus.main }}
-    <nav id="navbarMain" class="navbar navbar-expand-sm justify-content-between mb-3 {{ .Site.Params.Navbar.ColorScheme }} {{ .Site.Params.Navbar.BgScheme }}" {{ if .Site.Params.Navbar.BackgroundColor }}style="background-color: {{ .Site.Params.Navbar.BackgroundColor }};" {{ end }}role="navigation">
-        
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <nav id="navbarMain" class="navbar navbar-expand-sm justify-content-between mb-3 {{ .Site.Params.navbar.color_scheme }} {{ .Site.Params.navbar.bg_scheme }}" {{ if .Site.Params.navbar.background_color }}style="background-color: {{ .Site.Params.navbar.background_color }};" {{ end }}role="navigation">
+      
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
         </button>
       
             
-            <div class="sticky-top navbar-collapse collapse  {{ .Site.Params.Navbar.TextAlignment }}" id="navbarSupportedContent"> 
-                <ul class="navbar-nav">
+            <div class="sticky-top navbar-collapse collapse  {{ .Site.Params.navbar.text_alignment }}" id="navbarSupportedContent"> 
+                <ul class="navbar-nav me-auto">
                  {{- partial "navbar_items.html" . -}}
                </ul>
              
             </div><!--/.nav-collapse -->
-        
+             {{/* Right slot */}}
+    <div class="d-flex align-items-center ms-auto">
+      {{- partial "navbar_right.html" . -}}
+    </div>
+    </div>
             
     </nav> <!-- end navbar-->
     {{ end }}
