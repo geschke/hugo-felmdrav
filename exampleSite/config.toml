@@ -116,20 +116,15 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 
 [params.theme.footer]
     enabled = true # Show the footer part
+
+    # add to docs: Sorting weight / name, weight first, then name, if no weight available
+
     #numberColumns = 3 # Set number of columns available in footer of a page. Use the "footer" folder in the page structure to add content. If nothing is set, the default number is 3. Currently.i.e. since v0.2 not used, the number of columns is identical to the number of files in footer directory.
-    font_color = '#f9fcf9' # set #rgb code, leave empty for default
+    font_color = '' # '#f9fcf9' # set #rgb code, leave empty or don't set for default
     link_color = '' # Set color of links as #rrggbb code, leave empty for default
-    background_color = '#29281f' # Set color of background as #rrggbb code, leave empty for default
-
-    [[params.theme.footer.demo_column]]
-    text = 'This is a placeholder for a content file of the footer. You can use Markdown or HTML here. Just place your content files into a folder "sections/footer" in your content directory, make the page bundle "headless" and enable the footer in the site config file.'
-
-    [[params.theme.footer.demo_column]]
-    text = 'More footer content.'
-
-    [[params.theme.footer.demo_column]]
-    text = 'To change this, please have a look at the README.md and the comments of the footer section in the config.toml file.'
-
+    background_color = "" #'#29281f' # Set color of background as #rrggbb code, leave empty for default
+    background_class ="" # optional: e.g. "bg-dark text-light" or "bg-body-tertiary"
+ 
 
 
 # Subfooter configuration
@@ -209,15 +204,8 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 [params.sidebar]
     enabled = true # default false; set to true to enable sidebar
     style = 'right' # options: 'left', 'right'. Left means sidebar on the left side, right displays the sidebar on the right side
+    #background_class = "border" # body-tertiary | none | border
  
-  [[params.sidebar.demoColumn]]
-    title = 'About'
-    text = '<p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>'
-
-    [[params.sidebar.demoColumn]]
-    title = 'Example Content'
-    text = 'You can place everything you want in this area. Just add HTML or Markdown files into a folder named "sections/sidebar" in your content folder and declare the folder as "headless". This is an example of modifying the style with an individual "sidebar_item.html" partial. '
-
 
 # Image processing configuration
 
@@ -262,9 +250,22 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
     identifier = "about"
     name = "About"
     url = "/about/"
+    pageRef = "/about"
     weight = 30
 
-    
+# [[menu.main]]
+#    identifier = "about-team"
+#    name = "Team"
+#    url = "/about/"
+#    parent = "about"
+#    weight = 31
+
+#  [[menu.main]]
+#    identifier = "about-contact"
+#    name = "Kontakt"
+#    url = "/contact/"
+#    parent = "about"
+#    weight = 32    
     
 [taxonomies]
 category = "categories"

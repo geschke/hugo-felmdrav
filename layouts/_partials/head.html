@@ -107,15 +107,6 @@ body {
 }
 
 
-{{- if .Site.Params.theme.footer.background_color -}}
-.footer-container { background-color: {{ .Site.Params.theme.footer.background_color }}; }
-{{- end -}}
-{{- if .Site.Params.theme.footer.font_color -}}
-.footer-container { color: {{ .Site.Params.theme.footer.font_color }}; }
-{{- end -}}
-{{- if .Site.Params.theme.footer.link_color -}}
-.footer-container a { color: {{ .Site.Params.theme.footer.link_color }}; }
-{{- end -}}
 {{- if .Site.Params.theme.subfooter.background_color -}}
 .subfooter-container { background-color: {{ .Site.Params.theme.subfooter.background_color }}; }
 {{- end -}}

@@ -1,6 +1,22 @@
-.footer-container > .container {
-  padding-top: 20px; 
+
+
+.footer-container {
+  background-color: var(--felmdrav-footer-bg, var(--bs-secondary-bg));
+  color: var(--felmdrav-footer-fg, var(--bs-body-color));
 }
+
+.footer-container a {
+  color: var(--felmdrav-footer-link, var(--bs-link-color));
+}
+
+.footer-container a:hover {
+  color: var(--felmdrav-footer-link, var(--bs-link-hover-color));
+}
+
+.footer-container > .container {
+  padding-top: 20px;
+}
+
 
 
 .subfooter-container > .container {
