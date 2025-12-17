@@ -1,23 +1,74 @@
-{{ $dateFormat := .Site.Params.DateFormat | default "Mon Jan 2, 2006"}}
-{{ $author :=  .Params.author | default .Site.Params.author }}
-{{ $showNumberOfWords := .Params.showNumberOfWords | default .Site.Params.showNumberOfWords  }}
+{{- $showNumberOfWords := .Params.show_number_of_words | default .Site.Params.show_number_of_words -}}
+{{- $dateFormat := .Site.Params.date_format | default "Mon Jan 2, 2006" -}}
+
+{{- $author := "" -}}
+{{- with .Params.author -}}
+  {{- $author = . -}}
+{{- else -}}
+  {{- with .Site.Params.author -}}
+    {{- $author = . -}}
+  {{- end -}}
+{{- end -}}
+{{- $author = trim $author " \t\r\n" -}}
+
+{{- $showDate := .Site.Params.show_date | default false -}}
+{{- $hasDate := and $showDate (gt .Date.Year 1) -}}
+{{- $hasAuthor := ne $author "" -}}
 
 <article class="mb-5 post">
-  <header>
+  <header class="mb-2">
 
-    <h2><a href='{{ .Permalink }}'> {{ .Title }}</a> </h2>
+    <h2 class="h4 mb-2">
+      <a class="link-body-emphasis text-decoration-none" href="{{ .RelPermalink }}">
+        {{ .Title }}
+      </a>
+    </h2>
 
-    <div class="post-meta">{{ if .Site.Params.ShowDate }}<span class="byline-icon fa fa-clock-o" aria-hidden="true"></span> <span class="screen-reader-text">{{ i18n "date" }}: </span><time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format $dateFormat }}</time> - {{ end }}{{ if $author }}
-    <span class="byline-icon fa fa-user" aria-hidden="true"></span><span class="screen-reader-text">{{ i18n "author" }}: </span> {{ $author }}{{ end }}
-    {{ if $showNumberOfWords }} - {{ .FuzzyWordCount }} {{ i18n "words" }}{{ end }} </div>
+    {{- if or $hasDate $hasAuthor $showNumberOfWords -}}
+
+    <div class="post-meta small text-body-secondary">
+  {{- if $hasDate -}}
+    <span>
+      <i class="bi bi-clock" aria-hidden="true"></i>
+      <span class="visually-hidden">{{ i18n "date" }}: </span>
+      <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format $dateFormat }}</time>
+    </span>
+  {{- end -}}
+
+  {{- if and $hasDate $hasAuthor -}}
+    <span class="mx-2">–</span>
+  {{- end -}}
+
+  {{- if $hasAuthor -}}
+    <span>
+      <i class="bi bi-person" aria-hidden="true"></i>
+      <span class="visually-hidden">{{ i18n "author" }}: </span>
+      {{ $author }}
+    </span>
+  {{- end -}}
+
+  {{- if (.Params.show_number_of_words | default .Site.Params.show_number_of_words) -}}
+    <span class="ms-2">
+      {{ .FuzzyWordCount }} {{ i18n "words" }}
+    </span>
+  {{- end -}}
+</div>
+    {{- end -}}
+
   </header>
-  {{ .Summary }}
 
-  <footer>
-  {{ if .Truncated }}
-  <a href='{{ .Permalink }}'>  
-  <span class="btn  btn-outline-primary">{{ i18n "readMore" . }} <span class="screen-reader-text">{{ i18n "readMoreOn" }} {{ .Title }}</span><span class="meta-nav"> »</span></span>
-  </a>
-  {{ end }}
-  </footer>
+
+  <div class="mb-3">
+    {{ .Summary }}
+  </div>
+
+  {{- if .Truncated -}}
+    <footer>
+      <a class="btn btn-outline-primary btn-sm" href="{{ .RelPermalink }}">
+        {{ i18n "readMore" . }}
+        <span class="visually-hidden">{{ i18n "readMoreOn" }} {{ .Title }}</span>
+        <span aria-hidden="true">»</span>
+      </a>
+    </footer>
+  {{- end -}}
 </article>

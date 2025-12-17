@@ -1,6 +1,7 @@
 ---
 title: Post 04
 date: 2025-12-11
+author: RG
 tags: ["Text","Blog","Post","Felmdrav","Lorem Ipsum"]
 
 ---

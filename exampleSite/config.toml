@@ -12,7 +12,10 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 
 # To enable a demo of pagination, this value is set to 2 instead of the default. See https://gohugo.io/getting-started/configuration/
 # for all site variables. The paginate default is 10
-# paginate = 2
+
+[pagination]
+  pagerSize = 2
+
 
 # Google Analytics setting, see Hugo internal templates
 #googleAnalytics = "UA-123-45"
@@ -22,14 +25,14 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 
 # Generic parameters
 [params]
-    appendSiteTitle = true # Append site title to title tag on every page. Default false
-    #favicon = 'img/favicon.ico' # Add favicon, default empty
-    subtitle = "Example of Subtitle"
-
-    dateFormat = "02.01.2006" # Format dates with Go's time formatting
-    showDate = true # true|false: Show date on summaries. This is a global setting. If the date should be shown, you have to add a "date" parameter to the content files, otherwise the default value will be used, which is something you don't want.
-    showNumberOfWords = false # true|false: Show number of word on article header of single content page
-    hideMeta = false # Hide meta information on single pages
+  #author= "Heinz"
+  append_site_title = true # Append site title to title tag on every page. Default false
+  #favicon = 'img/favicon.ico' # Add favicon, default empty
+  subtitle = "Example of Subtitle"
+  date_format = "02.01.2006" # Format dates with Go's time formatting
+  show_date = true # true|false: Show date on summaries. This is a global setting. If the date should be shown, you have to add a "date" parameter to the content files, otherwise the default value will be used, which is something you don't want.
+  show_number_of_words = false # true|false: Show number of word on article header of single content page
+  hide_meta = false # Hide meta information on single pages
 
 
 # Navigation bar settings
@@ -58,7 +61,7 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 [params.meta]
     description = "This is only an example value for the meta description"
     keywords = "example, site, theme, felmdrav"
-    author = "John Doe"
+    #author = "John Doe"
     "DC.Copyright" = "Karl Mustermann"
     
 
@@ -141,7 +144,8 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
     font_color = '' # Text color in subfooter. Leave empty to use the theme default. 
     link_color = '' # Link color in subfooter. Leave empty to use the theme default. 
     background_color = '' # Background color of subfooter. Leave empty to use the theme default. 
-    demo_content = 'Powered by <a href="https://gohugo.io">Hugo</a>. Theme <a href="https://github.com/geschke/hugo-felmdrav">Felmdrav</a> by <a href="https://www.kuerbis.org">Ralf Geschke</a>. As you can see, this text is only an example of the area below the footer. To change this, please have a look at the included example site and the section "Subfooter configuration" in the config.toml file. '
+    background_class ="" # optional: e.g. "bg-dark text-light" or "bg-body-tertiary"
+ 
 
 # Font configuration
 

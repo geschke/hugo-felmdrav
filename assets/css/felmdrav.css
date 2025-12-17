@@ -13,15 +13,28 @@
   color: var(--felmdrav-footer-link, var(--bs-link-hover-color));
 }
 
-.footer-container > .container {
+/*.footer-container > .container {
   padding-top: 20px;
+}*/
+
+.subfooter-container {
+  background-color: var(--felmdrav-subfooter-bg, var(--bs-tertiary-bg));
+  color: var(--felmdrav-subfooter-fg, var(--bs-body-color));
+}
+
+.subfooter-container a {
+  color: var(--felmdrav-subfooter-link, var(--bs-link-color));
+}
+
+.subfooter-container a:hover {
+  color: var(--felmdrav-subfooter-link, var(--bs-link-hover-color));
 }
 
 
-
+/*
 .subfooter-container > .container {
   padding-top: 20px; 
-}
+}*/
 
 
 /* media query stuff, new widths come from Bootstrap grid widths */
