@@ -20,6 +20,9 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 # Google Analytics setting, see Hugo internal templates
 #googleAnalytics = "UA-123-45"
 
+[markup.goldmark.renderer]
+  unsafe = true
+
 
 # For all color settings, please use the format "#rrggbb". 
 
@@ -153,30 +156,30 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 
 [params.fonts]
    
-    headerTitle = 'Exo' # set font, use string, e.g. "Lucida, Verdana, sans-serif". You can use any font value. Please activate Google Font option if you want to include Google Fonts, see their names on https://fonts.google.com/
-    headerTitleGoogleFont = true # If the font in the above variable is a Google font, set this option to true. 
-    headerTitleVariant = '800' # font variant, if available, e.g. "regular", "bold" etc. Not every font is available in multiple variants.
-    headerTitleSize = '50px' # set font size, empty for default settings. Valid values are '20px', '1.2em' and so on
+    header_title = 'Exo' # set font, use string, e.g. "Lucida, Verdana, sans-serif". You can use any font value. Please activate Google Font option if you want to include Google Fonts, see their names on https://fonts.google.com/
+    header_title_googlefont = true # If the font in the above variable is a Google font, set this option to true. 
+    header_title_variant = '800' # font variant, if available, e.g. "regular", "bold" etc. Not every font is available in multiple variants.
+    header_title_size = '50px' # set font size, empty for default settings. Valid values are '20px', '1.2em' and so on
     
-    headerSubtitle = 'Exo' # Font settings for subtitle
-    headerSubtitleGoogleFont = true # If the font in the above variable is a Google font, set this option to true. 
-    headerSubtitleVariant = '600' # See above
-    headerSubtitleSize = '30px' # See above
+    header_subtitle = 'Exo' # Font settings for subtitle
+    header_subtitle_googlefont = true # If the font in the above variable is a Google font, set this option to true. 
+    header_subtitle_variant = '600' # See above
+    header_subtitle_size = '30px' # See above
 
     #navbar = 'Lucida, Verdana' # font settings for navigation bar
-    navbarGoogleFont = false # If the font in the above variable is a Google font, set this option to true.  
-    navbarVariant = '' # See above
-    navbarSize = '20px' # See above
+    navbar_googlefont = false # If the font in the above variable is a Google font, set this option to true.  
+    navbar_variant = '' # See above
+    navbar_size = '20px' # See above
 
     body = '' # font settings for body content
-    bodyGoogleFont = false # If the font in the above variable is a Google font, set this option to true. 
-    bodyVariant = '' # See above
-    bodySize = '' # See above
+    body_googlefont = false # If the font in the above variable is a Google font, set this option to true. 
+    body_variant = '' # See above
+    body_size = '' # See above
 
     headline = 'Open Sans' # font settings for body content
-    headlineGoogleFont = true # If the font in the above variable is a Google font, set this option to true. 
-    headlineVariant = '' # See above
-    headlineBaseSize = '' # Set base font of headlines. The real size of H1 - H6 will be calculated based on this size with the same resize factors as in the CSS framework. Choose a size of 0 (zero) to use the default font size of the theme. Please use only integer values without "px", "em" or something else. 
+    headline_googlefont = true # If the font in the above variable is a Google font, set this option to true. 
+    headline_variant = '' # See above
+    headline_base_size = '' # Set base font of headlines. The real size of H1 - H6 will be calculated based on this size with the same resize factors as in the CSS framework. Choose a size of 0 (zero) to use the default font size of the theme. Please use only integer values without "px", "em" or something else. 
 
 
 # Web analytics configuration
@@ -190,7 +193,7 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 [params.analytics.matomo]
     enabled = false # Enable Matomo web analytics
     url = 'https://analytics.example.com' # URL of Matomo application
-    siteId = 0 # Matomo site id. Provided by Matomo when a site is added.
+    site_id = 0 # Matomo site id. Provided by Matomo when a site is added.
 
 # Sidebar section
 
@@ -215,12 +218,12 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 # If no parameter is added to the image in the Markdown code, the default behavior changes the width of the image so that it scales with the parent element.
 
 [params.images]
-    extendedRendering = false # backward compatible default setting is "false"; set to true to activate extended image rendering functions
+    extended_rendering = false # backward compatible default setting is "false"; set to true to activate extended image rendering functions
 
 # Post options
 
 [params.post]
-  imageTitleAsCaption = false # default false; set to true to use image title as caption.
+  image_title_as_caption = false # default false; set to true to use image title as caption.
                               # Markdown example: ![Image Caption](/image.jpg "This is my image title as caption")
 
 

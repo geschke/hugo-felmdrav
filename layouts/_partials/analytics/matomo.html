@@ -5,12 +5,12 @@
   _paq.push(['trackPageView']);
   _paq.push(['enableLinkTracking']);
   (function() {
-    var u="//{{ replace (replace .Site.Params.Analytics.Matomo.Url "https://" "") "http://" "" }}/";
+    var u="//{{ replace (replace .Site.Params.analytics.matomo.url "https://" "") "http://" "" }}/";
     _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', '{{ .Site.Params.Analytics.Matomo.SiteId }}']);
+    _paq.push(['setSiteId', '{{ .Site.Params.analytics.matomo.site_id }}']);
     var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
     g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
   })();
 </script>
-<noscript><p><img src="//{{ replace (replace .Site.Params.Analytics.Matomo.Url "https://" "") "http://" "" }}/piwik.php?idsite={{ .Site.Params.Analytics.Matomo.SiteId }}&amp;rec=1" style="border:0;" alt="" /></p></noscript>
+<noscript><p><img src="//{{ replace (replace .Site.Params.analytics.matomo.url "https://" "") "http://" "" }}/piwik.php?idsite={{ .Site.Params.analytics.matomo.site_id }}&amp;rec=1" style="border:0;" alt="" /></p></noscript>
 {{ "<!-- End Matomo Code -->" | safeHTML }}

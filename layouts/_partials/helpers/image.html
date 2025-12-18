@@ -120,7 +120,7 @@
 
 {{- $alternativeFormats := slice "avif" "webp" "jxl" -}}
 
-{{- $caption := and (default false .page.Site.Params.post.imageTitleAsCaption) .title }}
+{{- $caption := and (default false .page.Site.Params.post.image_title_as_caption) .title }}
 
 {{- if $caption -}}
 {{- $className = printf "%s figure-img" $className -}}
