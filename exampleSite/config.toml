@@ -185,17 +185,13 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 # https://gohugo.io/templates/internal/ 
 # The config option has to be in the first level above the [params] section!
 
-# This theme includes the standard embed codes for Matomo and Yandex Metrica. If you have configured some special options, you can simply overwrite the analytics partials. Just place the snippet code in the file "layouts/partials/analytics/matomo.html" or "layouts/partials/analytics/yandexmetrica.html" in your site folder. Or copy the theme partials from their path and change their options. If you have added custom snippet files, Hugo's lookup order will use your partial file at first. 
+# This theme includes the standard embed codes for Matomo. If you have configured some special options, you can simply overwrite the analytics partials. Just place the snippet code in the file "layouts/partials/analytics/matomo.html" in your site folder. Or copy the theme partials from their path and change their options. If you have added custom snippet files, Hugo's lookup order will use your partial file at first. 
 
 [params.analytics.matomo]
     enabled = false # Enable Matomo web analytics
     url = 'https://analytics.example.com' # URL of Matomo application
     siteId = 0 # Matomo site id. Provided by Matomo when a site is added.
 
-[params.analytics.yandexmetrica]
-    enabled = false # Enable Yandex Metrica
-    tagNumber = '012345678' # Tag ID / number as seen on Yandex Metrica settings page
-    
 # Sidebar section
 
 # To create a sidebar, create a directory "sections/sidebar" into your project’s content directory.
