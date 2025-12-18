@@ -16,7 +16,6 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 [pagination]
   pagerSize = 2
 
-
 # Google Analytics setting, see Hugo internal templates
 #googleAnalytics = "UA-123-45"
 

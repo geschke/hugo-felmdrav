@@ -7,7 +7,7 @@
     {{ .Content }}
   </article>
 
-  {{- $mainSections := site.Params.mainSections | default (slice "posts") -}}
+  {{- $mainSections := .Site.MainSections | default (slice "posts") -}}
   {{- $pages := where site.RegularPages "Type" "in" $mainSections -}}
   {{- $paginator := .Paginate $pages -}}
 

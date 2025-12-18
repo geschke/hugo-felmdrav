@@ -15,7 +15,7 @@
 
 
         <!-- Changes due to 0.57 it seems to work, but feels strange --> 
-        {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+        {{ $pages := where .Site.RegularPages "Type" "in" .Site.MainSections }}
         {{ range $pages -}}
         {{ .Render "summary"}}
         {{ end -}}

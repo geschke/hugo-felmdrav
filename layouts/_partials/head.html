@@ -1,21 +1,21 @@
 <head>
     <meta charset="utf-8" />
-    <title>{{ if .Page.Title }}{{ .Page.Title }}{{ end }}{{ if and (.Page.Title) (.Site.Params.AppendSiteTitle) }} | {{ end }}{{ if .Site.Params.AppendSiteTitle }}{{ .Site.Title }}{{ end }}</title>
+    <title>{{ if .Page.title }}{{ .Page.title }}{{ end }}{{ if and (.Page.title) (.Site.Params.append_site_title) }} | {{ end }}{{ if .Site.Params.append_site_title }}{{ .Site.title }}{{ end }}</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {{ range $metaName, $metaValue := .Site.Params.Meta }}
+    {{ range $metaName, $metaValue := .Site.Params.meta }}
     <meta name="{{ $metaName }}" content="{{ htmlUnescape $metaValue }}">{{ end }}
 
-{{ if .Site.Params.Favicon }}
-<link rel="icon" type="image/x-icon" href="{{ .Site.BaseURL }}{{ .Site.Params.Favicon }}" />
+{{ if .Site.Params.favicon }}
+<link rel="icon" type="image/x-icon" href="{{ .Site.BaseURL }}{{ .Site.Params.favicon }}" />
 {{ end }}
 
 
 {{/* Hugo Pipes: Bootstrap + Theme-CSS */}}
 
 {{- $bootstrapPath := "css/bootstrap.min.css" -}}
-{{- with .Site.Params.Theme.bootstrap_theme -}}
+{{- with .Site.Params.theme.bootstrap_theme -}}
   {{- if ne . "" -}}
     {{- $bootstrapPath = printf "css/bootswatch/%s/bootstrap.min.css" . -}}
   {{- end -}}
@@ -94,12 +94,12 @@ body {
         background-color: {{ .Site.Params.theme.background_color }};
     {{- end -}}
 
-    {{- $backgroundImage := .Site.Params.Theme.BackgroundImage -}}
+    {{- $backgroundImage := .Site.Params.theme.background_image -}}
     {{- if $backgroundImage -}}
         background-image: url("{{ .Site.BaseURL }}{{ $backgroundImage }}");
         {{- $backgroundRepeat := "repeat" -}}
-        {{- if .Site.Params.Theme.BackgroundImageRepeat -}}
-            {{- $backgroundRepeat =  .Site.Params.Theme.BackgroundImageRepeat -}}
+        {{- if .Site.Params.theme.background_image_repeat -}}
+            {{- $backgroundRepeat =  .Site.Params.theme.background_image_repeat -}}
         {{- end -}}
         background-repeat: {{ $backgroundRepeat }};
     {{- end -}}
@@ -203,21 +203,21 @@ body {
 
 {{/* Headline Font Settings */}}
     {{- $headlineVariant := "" -}}
-    {{- if .Site.Params.Fonts.headlineVariant -}}
-        {{- $headlineVariant = (printf ":%s" .Site.Params.Fonts.headlineVariant) -}}
+    {{- if .Site.Params.fonts.headline_variant -}}
+        {{- $headlineVariant = (printf ":%s" .Site.Params.fonts.headline_variant) -}}
     {{- end -}}
-    {{- if and .Site.Params.Fonts.headlineGoogleFont .Site.Params.Fonts.Headline -}}
-        {{- safeHTML (printf "<link id=\"typography-headline-font\" rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?%s\">" (querify "family" (printf "%s%s" (trim .Site.Params.Fonts.headline "\"") $headlineVariant ))    ) -}}
+    {{- if and .Site.Params.fonts.headline_googlefont .Site.Params.fonts.headline -}}
+        {{- safeHTML (printf "<link id=\"typography-headline-font\" rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?%s\">" (querify "family" (printf "%s%s" (trim .Site.Params.fonts.headline "\"") $headlineVariant ))    ) -}}
     {{- end -}}
 <style id="typography-headline" type="text/css">
-    {{- if .Site.Params.Fonts.Headline -}}
+    {{- if .Site.Params.fonts.headline -}}
     h1, h2, h3, h4, h5, h6 {
-                font-family: {{ safeCSS .Site.Params.Fonts.headline }}; 
+                font-family: {{ safeCSS .Site.Params.fonts.headline }}; 
             }
     {{- end -}}
-    {{- if .Site.Params.Fonts.HeadlineBaseSize -}}
+    {{- if .Site.Params.fonts.headline_base_size -}}
         {{/* size calculations from Bootstrap framework */}}
-        {{- $sizeBase := int .Site.Params.Fonts.headlineBaseSize }}
+        {{- $sizeBase := int .Site.Params.fonts.headline_base_size }}
         {{- $sizeH1 := printf "%d%s" (int (math.Floor (mul $sizeBase 2.6))) "px" -}}
         {{- $sizeH2 := printf "%d%s" (int (math.Floor (mul $sizeBase 2.15))) "px" -}}
         {{- $sizeH3 := printf "%d%s" (int (math.Ceil (mul $sizeBase 1.7))) "px" -}}
@@ -252,7 +252,7 @@ body {
 
 
 {{ if eq $navbarStyle "header" }}
-    {{/* if and .Site.Params.Theme.Header.header_background_transp .Site.Params.Theme.Header.header_color_bg */}}
+   
     <script type="text/javascript">
         var azbalacSettingHeaderColor = { 'bg': '{{ $overlayBackgroundColorFallback }}',
             'transp': '{{ $overlayTransparency }}'
