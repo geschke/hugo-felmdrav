@@ -32,7 +32,7 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
   date_format = "02.01.2006" # Format dates with Go's time formatting
   show_date = true # true|false: Show date on summaries. This is a global setting. If the date should be shown, you have to add a "date" parameter to the content files, otherwise the default value will be used, which is something you don't want.
   show_number_of_words = false # true|false: Show number of word on article header of single content page
-  hide_meta = false # Hide meta information on single pages
+  hide_meta = false # Hide meta information (date, author, word count) on summary and single pages
 
 
 # Navigation bar settings
