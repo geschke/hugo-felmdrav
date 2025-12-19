@@ -1,0 +1,30 @@
+{{ define "main" }}
+
+<div class="container py-5">
+
+  {{- $sections := .Params.home.sections | default (slice) -}}
+
+  {{- range $i, $sec := $sections -}}
+    {{- $type := $sec.type | default "" -}}
+    {{- if not $type -}}
+      {{- warnf "home.sections[%d]: missing 'type'" $i -}}
+      {{- continue -}}
+    {{- end -}}
+
+    {{- $contentPath := $sec.content | default "" -}}
+    {{- $block := false -}}
+    {{- if $contentPath -}}
+      {{- $block = site.GetPage $contentPath -}}
+      {{- if not $block -}}
+        {{- warnf "home.sections[%d] (%s): cannot resolve content page '%s'" $i $type $contentPath -}}
+      {{- end -}}
+    {{- end -}}
+
+    {{- $partialPath := printf "elements/%s.html" $type -}}
+    {{- partial $partialPath (dict "root" $ "section" $sec "block" $block) -}}
+
+  {{- end -}}
+
+</div>
+
+{{ end }}
