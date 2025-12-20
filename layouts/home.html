@@ -1,37 +1,14 @@
 {{ define "main" }}
 
-<div class="container py-5">
+  {{- $defaultSidebar := false -}}
+  {{- $withSidebar := .Params.sidebar | default $defaultSidebar -}}
+  {{- $sidebarPos := .Params.sidebar_pos | default (.Site.Params.sidebar.style | default "right") -}}
 
-  {{- $sections := .Params.home.sections | default (slice) -}}
-
-  {{- range $i, $sec := $sections -}}
-  {{- $type := $sec.type | default "" -}}
-  {{- if not $type -}}
-  {{- warnf "home.sections[%d]: missing 'type'" $i -}}
-  {{- continue -}}
-  {{- end -}}
-
-  {{- $contentPath := $sec.content | default "" -}}
-  
-{{- $partialPath := printf "elements/%s.html" $type -}}
-
-{{- $payload := dict "root" $ "section" $sec -}}
-
-{{- $contentPath := $sec.content | default "" -}}
-{{- if $contentPath -}}
-  {{- $p := site.GetPage $contentPath -}}
-  {{- if $p -}}
-    {{- $payload = merge $payload (dict "block" $p) -}}
-  {{- else -}}
-    {{- warnf "home.sections[%d] (%s): cannot resolve content page '%s'" $i $type $contentPath -}}
-  {{- end -}}
-{{- end -}}
-
-{{- partial $partialPath $payload -}}
-
-
-  {{- end -}}
-
-</div>
+  {{ partial "layout/page-grid.html" (dict
+      "root" .
+      "sidebar" $withSidebar
+      "sidebar_pos" $sidebarPos
+      "content_partial" "pages/home-content.html"
+  ) }}
 
 {{ end }}

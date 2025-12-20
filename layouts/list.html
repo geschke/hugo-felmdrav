@@ -1,20 +1,14 @@
 {{ define "main" }}
-<main>
-  <article class="mb-4">
-    <header class="mb-3">
-      <h1 class="mb-1">{{ .Title }}</h1>
-    </header>
-    {{ .Content }}
-  </article>
 
-  {{- $mainSections := .Site.MainSections | default (slice "posts") -}}
-  {{- $pages := where site.RegularPages "Type" "in" $mainSections -}}
-  {{- $paginator := .Paginate $pages -}}
+  {{- $defaultSidebar := eq .Section "posts" -}}
+  {{- $withSidebar := .Params.sidebar | default $defaultSidebar -}}
+  {{- $sidebarPos := .Params.sidebar_pos | default (.Site.Params.sidebar.style | default "right") -}}
 
-  {{- range $paginator.Pages -}}
-    {{ .Render "summary" }}
-  {{- end -}}
+  {{ partial "layout/page-grid.html" (dict
+      "root" .
+      "sidebar" $withSidebar
+      "sidebar_pos" $sidebarPos
+      "content_partial" "pages/list-content.html"
+  ) }}
 
-  {{- partial "paginator.html" (dict "Paginator" $paginator "Page" .) -}}
-</main>
 {{ end }}

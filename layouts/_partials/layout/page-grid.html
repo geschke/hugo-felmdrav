@@ -1,0 +1,24 @@
+{{- $root := .root -}}
+{{- $sidebar := .sidebar | default false -}}
+{{- $sidebarPos := (.sidebar_pos | default ($root.Site.Params.sidebar.style | default "right")) -}}
+{{- $contentPartial := .content_partial | default "" -}}
+
+<div class="container">
+  <div class="row">
+
+    {{- if and $sidebar (eq $sidebarPos "left") -}}
+      {{ partial "sidebar_container.html" $root }}
+    {{- end -}}
+
+    <div class="col-md" id="content">
+      {{- if $contentPartial -}}
+        {{- partial $contentPartial $root -}}
+      {{- end -}}
+    </div>
+
+    {{- if and $sidebar (eq $sidebarPos "right") -}}
+      {{ partial "sidebar_container.html" $root }}
+    {{- end -}}
+
+  </div>
+</div>

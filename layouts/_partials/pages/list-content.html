@@ -1,0 +1,18 @@
+
+
+  <article class="mb-4">
+    <header class="mb-3">
+      <h1 class="mb-1">{{ .Title }}</h1>
+    </header>
+    {{ .Content }}
+  </article>
+
+  {{- $mainSections := .Site.MainSections | default (slice "posts") -}}
+  {{- $pages := where site.RegularPages "Type" "in" $mainSections -}}
+  {{- $paginator := .Paginate $pages -}}
+
+  {{- range $paginator.Pages -}}
+    {{ .Render "summary" }}
+  {{- end -}}
+
+  {{- partial "paginator.html" (dict "Paginator" $paginator "Page" .) -}}
