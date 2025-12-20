@@ -6,8 +6,17 @@ home:
     - type: hero-split
       content: blocks/hero-b
     - type: hero-centered
-      # content later
-    #- type: latest-posts
+      content: blocks/hero-b
+    - type: features-icons
+      #columns: 2
+      content: blocks/features-a  
+    - type: features-hanging-icons
+      columns: 3
+      content: blocks/features-a  
+    - type: features-cards
+      content: blocks/features-cards-a
+      columns: 3
+#- type: latest-posts
     #  count: 6
 date: 2025-12-12T10:00:00+01:00
 title: Welcome to Felmdrav theme for Hugo!

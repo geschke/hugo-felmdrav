@@ -220,3 +220,23 @@
 .main-nav .has-children .has-children > a:after {
   content: "\f105";
 }
+
+
+.feature-icon {
+  width: 4rem;
+  height: 4rem;
+}
+
+.feature-hanging-icon {
+  width: 3rem;
+  height: 3rem;
+}
+
+.card-cover {
+  background-size: cover;
+  background-position: center;
+}
+
+.text-shadow-1 {
+  text-shadow: 0 .125rem .25rem rgba(0, 0, 0, .45);
+}
