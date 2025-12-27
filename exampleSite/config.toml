@@ -204,9 +204,10 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 # You can modify the style with a partial "sidebar_item.html", see example in "layouts/partials/".
 
 [params.sidebar]
-    enabled = false # default false; set to true to enable sidebar
-    style = 'right' # options: 'left', 'right'. Left means sidebar on the left side, right displays the sidebar on the right side
-    #background_class = "border" # body-tertiary | none | border
+  # hint: see documentation, the handling of sidebar defaults and configuration in front matter has to be described!
+    default_pos = 'right' # options: 'left', 'right'. Left means sidebar on the left side, right displays the sidebar on the right side
+    #background_class = "border" # body-tertiary | none | border 
+    # maybe later make background_class more configurable, but currently this seems enough
  
 
 # Image processing configuration

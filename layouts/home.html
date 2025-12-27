@@ -2,7 +2,7 @@
 
   {{- $defaultSidebar := false -}}
   {{- $withSidebar := .Params.sidebar | default $defaultSidebar -}}
-  {{- $sidebarPos := .Params.sidebar_pos | default (.Site.Params.sidebar.style | default "right") -}}
+  {{- $sidebarPos := .Params.sidebar_pos | default (.Site.Params.sidebar.default_pos | default "right") -}}
 
   {{ partial "layout/page-grid.html" (dict
       "root" .

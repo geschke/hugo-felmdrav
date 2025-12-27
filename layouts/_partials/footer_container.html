@@ -15,7 +15,7 @@
            {{- if $lnColor -}}--felmdrav-footer-link: {{ $lnColor }};{{- end -}}
          "
          {{- end -}}>
-      <div class="container p4-4 pb-2">
+      <div class="container pt-3 pb-2">
         <footer>
           <div class="row">
             {{- range sort (sort $footerItems.Resources "Name") "Weight" -}}
