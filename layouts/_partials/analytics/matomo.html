@@ -1,16 +1,21 @@
 {{ "<!-- Matomo -->" | safeHTML }}
-<script type="text/javascript">
-  var _paq = _paq || [];
+<script>
+  var _paq = window._paq = window._paq || [];
   /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
   _paq.push(['trackPageView']);
   _paq.push(['enableLinkTracking']);
   (function() {
     var u="//{{ replace (replace .Site.Params.analytics.matomo.url "https://" "") "http://" "" }}/";
-    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
     _paq.push(['setSiteId', '{{ .Site.Params.analytics.matomo.site_id }}']);
     var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
   })();
 </script>
-<noscript><p><img src="//{{ replace (replace .Site.Params.analytics.matomo.url "https://" "") "http://" "" }}/piwik.php?idsite={{ .Site.Params.analytics.matomo.site_id }}&amp;rec=1" style="border:0;" alt="" /></p></noscript>
-{{ "<!-- End Matomo Code -->" | safeHTML }}
+<!-- End Matomo Code -->
+
+<noscript>
+<!-- Matomo Image Tracker-->
+<img referrerpolicy="no-referrer-when-downgrade" src="{{ replace (replace .Site.Params.analytics.matomo.url "https://" "") "http://" "" }}/matomo.php?idsite={{ .Site.Params.analytics.matomo.site_id }}&amp;rec=1" style="border:0" alt="" />
+{{ "<!-- End Matomo -->" | safeHTML }}
+</noscript>
