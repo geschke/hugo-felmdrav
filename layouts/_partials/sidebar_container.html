@@ -1,8 +1,0 @@
-{{- $sidebarItems := site.GetPage "/sections/sidebar" -}}
-{{- if $sidebarItems -}}
-<aside class="col-md-3 felmdrav-sidebar">
-  {{ range sort (sort $sidebarItems.Resources "Name" ) "Weight" }}
-  {{- partial "sidebar_item.html" . -}}
-  {{- end -}}
-</aside>
-{{- end -}}

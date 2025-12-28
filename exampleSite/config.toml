@@ -205,10 +205,17 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 
 [params.sidebar]
   # hint: see documentation, the handling of sidebar defaults and configuration in front matter has to be described!
-    default_pos = 'right' # options: 'left', 'right'. Left means sidebar on the left side, right displays the sidebar on the right side
+  left = ""
+  right = ""
+  
+  #    default_pos = 'right' # options: 'left', 'right'. Left means sidebar on the left side, right displays the sidebar on the right side
     #background_class = "border" # body-tertiary | none | border 
     # maybe later make background_class more configurable, but currently this seems enough
  
+[params.grid]
+  left = 3
+  main = 6
+  right = 3
 
 # Image processing configuration
 

@@ -1,20 +1,62 @@
 # Felmdrav Theme for Hugo
 
-Felmdrav is a minimalistic Hugo theme, based on [Bootstrap v5](https://getbootstrap.com/) CSS framework.
-It is a port of the Tikva theme which I developed a while ago for Grav CMS and WordPress, but there are also some features added from the Azbalac Theme for WordPress.
-Felmdrav integrates multiple Bootstrap styles from the Bootswatch project and adds some customized styles.
-It's also possible to edit some color options by config option.
+
+Felmdrav is a clean and minimalistic theme for Hugo, built on the
+[Bootstrap v5](https://getbootstrap.com/) CSS framework.
+
+Felmdrav originates from **Tikva**, a theme originally developed by the author for **Grav CMS** and later ported to **Hugo**.
+The Hugo version of Tikva was based on **Bootstrap 4** and selectively incorporated concepts from a parallel Bootstrap-based **WordPress** implementation of the same theme.
+
+The Tikva theme for Hugo remains available but is now considered **deprecated**.
+
+When migrating the Hugo theme from Bootstrap 4 to **Bootstrap 5**, it became clear that the required changes would not be backward-compatible. In addition to the framework upgrade, several structural improvements were introduced, including a more flexible grid system, configurable sidebars, updated icon handling, and additional content blocks.
+
+To clearly distinguish this modernized Hugo theme from its predecessor, the project was renamed to **Felmdrav**, which is now the **Bootstrap 5–based successor of Tikva for Hugo**.
+
+## Evolution and Design Goals
+
+While Felmdrav retains the minimalist design principles of Tikva, it introduces several structural and technical improvements tailored specifically for Hugo:
+
+* Migration to **Bootstrap 5** with a clean, modern markup
+* A **flexible grid system** based on Bootstrap’s 12-column layout
+* **Configurable sidebars** with global defaults and per-page overrides
+* Replacement of Font Awesome with **Bootstrap Icons**
+* A small set of reusable **content blocks**, such as hero sections and feature/icon blocks
+* Integration of multiple **Bootswatch** styles with additional custom refinements
+* Optional color and style adjustments via configuration
+
+The focus is on **clarity, predictability, and extensibility**, rather than feature overload or heavy abstraction.
+
+---
+
+## Philosophy
+
+Felmdrav aims to stay:
+
+* minimal in structure
+* explicit in configuration
+* easy to reason about
+* flexible without becoming complex
+
+Most layout behavior is controlled through clear configuration options, avoiding hidden defaults or implicit logic wherever possible.
+
+
+
 
 ## Features
 
-* Responsive design, using the Bootstrap framework
-* More than 30 designs included, half of them newly created, the other half taken from the Bootswatch project
-* Three main layouts available: Content column without sidebar, sidebar on right and sidebar on left side
-* Customizable font settings (size, font type and variant), support of Google Fonts included
-* Support of Google Analytics (with the internal async template), Matomo and Yandex Metrica
-* Flexible footer handling with multiple columns
-* Support of subfooter, i.e. an area below the footer to add some content like "Powered by..." as seen in the screenshots
-* Integration of custom JavaScript/CSS snippets via placeholder partials: just add a file "javascript_header.html" and/or "javascript_footer.html" into the "layouts/partials/" folder of your site, this will include the code in the head section and/or before closing body tag.
+* Responsive, mobile-first design based on **Bootstrap 5**
+* Flexible **grid system** using Bootstrap’s 12-column layout
+* Configurable **sidebars** with global defaults and per-page overrides
+* Support for **one-, two- and three-column layouts**
+* Integration of **Bootstrap Icons** (no Font Awesome dependency)
+* Multiple built-in visual styles, including selected **Bootswatch** themes
+* Reusable **content blocks** (e.g. hero sections, feature/icon blocks)
+* Customizable typography settings, including **Google Fonts** support
+* Flexible footer and optional subfooter areas
+* Optional analytics integration (Google Analytics, Matomo)
+* Support for custom CSS and JavaScript via placeholder partials
+
 
 ## Demo
 
@@ -62,6 +104,168 @@ For more information read the official [setup guide](//gohugo.io/overview/instal
 Check out `exampleSite/config.toml` for theme configuration options and the contents of `exampleSite` folder.
 
 I've tried to comment as much as possible in the configuration file, but the theme and documentation are far away from being complete. It is still work in progress and currently some features of Hugo aren't supported.
+
+
+---
+
+## Sidebar & Grid Layout Configuration
+
+This theme provides a flexible but simple layout system based on **sidebars** and a **Bootstrap-style grid**.
+Both can be configured globally (site-wide) and overridden per page.
+
+The guiding principle is:
+
+> **Page configuration always overrides site defaults.**
+
+---
+
+### 1. Global Sidebar Configuration (Site Defaults)
+
+Global defaults are defined in `config.toml`:
+
+```toml
+[params.sidebar]
+  left  = ""
+  right = "main"
+```
+
+* `left` / `right` define **which sidebar section** is rendered on each side.
+* The value refers to a content section under:
+
+  ```
+  content/sections/sidebar-<name>/
+  ```
+
+  Example:
+
+  ```toml
+  right = "main"
+  ```
+
+  → renders content from `content/sections/sidebar-main/`.
+
+If a side is set to an empty string (`""`), no sidebar is rendered on that side.
+
+---
+
+### 2. Global Grid Configuration
+
+The grid controls the column widths (Bootstrap 12-column system):
+
+```toml
+[params.grid]
+  left  = 3
+  main  = 6
+  right = 3
+```
+
+Rules:
+
+* `main` must be greater than `0`
+* `left` and `right` may be `0`
+* The sum **must be exactly 12**
+
+Valid examples:
+
+* `3 / 6 / 3` (three columns)
+* `0 / 9 / 3` (main + right sidebar)
+* `4 / 8 / 0` (left sidebar + main)
+* `0 / 12 / 0` (full width)
+
+---
+
+### 3. Page-Level Sidebar Overrides (Front Matter)
+
+A page can override the global sidebar configuration using `sidebar` in its front matter.
+
+#### Enable or change sidebars
+
+```yaml
+sidebar:
+  right: main
+```
+
+```yaml
+sidebar:
+  left: toc
+  right: main
+```
+
+#### Disable all sidebars for a page
+
+```yaml
+sidebar: false
+```
+
+If `sidebar` is defined on the page, **global sidebar defaults are ignored**.
+
+---
+
+### 4. Page-Level Grid Overrides
+
+A page can also override the grid independently:
+
+```yaml
+grid:
+  left: 0
+  main: 8
+  right: 4
+```
+
+This only affects column widths.
+Sidebar visibility is still controlled by `sidebar`.
+
+---
+
+### 5. Priority Rules (Important)
+
+The effective layout is determined in this order:
+
+1. **Page front matter (`sidebar`, `grid`)**
+2. **Site defaults (`params.sidebar`, `params.grid`)**
+3. Fallback to full width (`12`) if configuration is invalid
+
+In short:
+
+* Page settings **always win**
+* Grid and sidebar are **independent**
+* Invalid grid values automatically fall back to a safe layout
+
+---
+
+### 6. Sidebar Content Structure
+
+Sidebars are populated from content sections:
+
+```
+content/
+└── sections/
+    ├── sidebar-main/
+    ├── sidebar-toc/
+    └── sidebar-…
+```
+
+Each sidebar section can contain multiple content files, which are:
+
+* sorted by `weight`
+* then by filename
+
+---
+
+### 7. Design Philosophy
+
+This system is intentionally:
+
+* **explicit** (no magic booleans)
+* **predictable**
+* **easy to reason about**
+* **easy to override per page**
+
+There is no legacy behavior and no implicit sidebar positioning logic.
+
+
+
+--- 
 
 ### Sections (Sidebars, Footer, Subfooter)
 

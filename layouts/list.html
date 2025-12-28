@@ -1,4 +1,13 @@
 {{ define "main" }}
+  {{ partial "layout/page-grid.html" (dict 
+    "page" . 
+    "content_partial" "pages/list-content.html") }}
+{{ end }}
+
+
+
+{{/*
+{{ define "main" }}
 
   {{- $defaultSidebar := eq .Section "posts" -}}
   {{- $withSidebar := .Params.sidebar | default $defaultSidebar -}}
@@ -12,3 +21,4 @@
   ) }}
 
 {{ end }}
+*/}}
