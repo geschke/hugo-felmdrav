@@ -40,19 +40,19 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 # Navigation bar settings
 
 [params.navbar]
-    style = "header" # Navigation bar style, values "fixed-top" or "header", default is fixed-top - sone
+    style = "header" # Navigation bar style, values "fixed-top" or "header", default is fixed-top
     
-    color_scheme = "navbar-dark" # navbar-light, navbar-dark - done
+    color_scheme = "navbar-dark" # navbar-light, navbar-dark
     
-    bg_scheme = "bg-primary" # see Bootstrap docs, bg.* utilities https://getbootstrap.com/docs/4.1/utilities/colors/ - done
+    bg_scheme = "bg-primary" # see Bootstrap docs, bg.* utilities https://getbootstrap.com/docs/4.1/utilities/colors/
     
-    background_color = ''  # custom background color parameters, e.g. #e3f2fd !important, If color is set, it will be used for background. Set empty for above selection. - done
+    background_color = ''  # custom background color parameters, e.g. #e3f2fd !important, If color is set, it will be used for background. Set empty for above selection.
     
-    adjust_header = 20 # Adjust header by adding a distance between navigation and content. Some of the styles need more space, so you can use this option to adjust. Use an integer value of pixels. - done
+    adjust_header = 20 # Adjust header by adding a distance between navigation and content. Some of the styles need more space, so you can use this option to adjust. Use an integer value of pixels.
     
-    text_alignment = '' # don't set or leave empty for default (left), or justify-content-end, justify-content-center - done
+    text_alignment = '' # don't set or leave empty for default (left), or justify-content-end, justify-content-center 
 
-    #brand_image = 'img/rg_mod_20.png' # The "brand image" will be set in "fixed-top" style as icon beside the site title. - todo!
+    #brand_image = 'img/rg_mod_20.png' # The "brand image" will be set in "fixed-top" style as icon beside the site title.
 
 
 # Meta header parameter settings
@@ -91,9 +91,6 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 
     image = 'img/header_bg_example.jpg' # Use header image. This option is only valid if the theme is configured to the "header" style. 
     
-    # width and height settings are not used anymore
-    #width = 2512 # Width of header image. Please set this value to the correct size, because it will be used for size calculation.
-    #height = 673 # Height of header image. Please set this value to the correct size, because it will be used for size calculation.
     alt_text = 'alt text for header image' # Set alt text for header image, default empty
     display_header_text = true # display the title and subtitle - yes or no?
     title_on_image = true # true|false, default false. Display title and subtitle as overlay in the foreground of the image. It is only possible to set the title as image overlay if an image is available. If no image is configured, the theme will do a fallback to non-overlay, i.e. title and subtitle will be displayed above the main navigation. 

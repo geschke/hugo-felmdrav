@@ -41,8 +41,6 @@ Felmdrav aims to stay:
 Most layout behavior is controlled through clear configuration options, avoiding hidden defaults or implicit logic wherever possible.
 
 
-
-
 ## Features
 
 * Responsive, mobile-first design based on **Bootstrap 5**
@@ -60,55 +58,517 @@ Most layout behavior is controlled through clear configuration options, avoiding
 
 ## Demo
 
-You can find a demo [here](https://themes.gohugo.io/theme/hugo-felmdrav/).
+A live demo of the theme, based on the included `exampleSite`, is available here:
 
-## Screenshots
+[https://geschke.github.io/hugo-felmdrav/](https://geschke.github.io/hugo-felmdrav/).
 
-Some examples of different designs:
 
-* "header" style, header image and "darkly" theme:
+## Quick Start
 
-![preview](https://raw.githubusercontent.com/geschke/hugo-felmdrav/master/images/screenshot.png)
+### Install the theme
 
-* "fixed-top" style, with "flatly" theme and customized footer colors:
-
-![preview](https://raw.githubusercontent.com/geschke/hugo-felmdrav/master/images/screenshot01.png)
-
-* "header" style, header image, title above header image, "signa" theme:
-
-![preview](https://raw.githubusercontent.com/geschke/hugo-felmdrav/master/images/screenshot02.png)
-
-* "header" style, header image, title and subtitle as overlay, "materia" theme:
-
-![preview](https://raw.githubusercontent.com/geschke/hugo-felmdrav/master/images/screenshot03.png)
-
-## Installation
-
-Inside the folder of your Hugo site run:
+Inside the `themes` directory of your Hugo site, clone the repository:
 
 ```bash
-    cd themes
-    git clone https://github.com/geschke/hugo-felmdrav.git
-```
+cd themes
+git clone https://github.com/geschke/hugo-felmdrav.git
+````
 
-As a second option you can use the submodule feature of Git:
+Alternatively, you can add the theme as a Git submodule:
 
 ```bash
-    git submodule add -f https://github.com/geschke/hugo-felmdrav themes/hugo-felmdrav
-```
+git submodule add https://github.com/geschke/hugo-felmdrav themes/hugo-felmdrav
+````
 
-For more information read the official [setup guide](//gohugo.io/overview/installing/) of Hugo.
+Then reference the theme in your site configuration:
+
+```toml
+theme = "hugo-felmdrav"
+````
+
+### Run the example site
+
+The repository includes a fully configured `exampleSite` which demonstrates
+the available features of the theme.
+
+From the repository root, run:
+
+```bash
+hugo server \
+  --source exampleSite \
+  --themesDir .. \
+  --theme hugo-felmdrav
+````
+
+Then open:
+
+```
+http://localhost:1313/
+```
 
 ## Configuration
 
-Check out `exampleSite/config.toml` for theme configuration options and the contents of `exampleSite` folder.
+Felmdrav is configured entirely via Hugo's standard `config.toml`.
+The included `exampleSite` demonstrates all supported options
+and serves as the primary reference configuration.
 
-I've tried to comment as much as possible in the configuration file, but the theme and documentation are far away from being complete. It is still work in progress and currently some features of Hugo aren't supported.
+This section gives an overview of the most important configuration
+areas. Detailed examples can be found directly in the `exampleSite/config.toml`.
 
 
+### General Site Settings
+
+Felmdrav relies on Hugo’s standard site configuration and does not introduce
+custom behavior for core settings such as `baseURL`, `languageCode`, `title`
+or taxonomies.
+
+Pagination, multilingual configuration and content organization work exactly
+as described in the Hugo documentation.
+
+The theme supports multilingual sites using Hugo’s built-in language features.
+Only a small number of theme-specific strings are translated. Additional
+languages can be added by extending the theme’s language files.
+
+Note: The `exampleSite` uses a very small pagination size to demonstrate
+pagination behavior. In real projects, you will typically use a higher value.
+
+### Theme Parameters
+
+Felmdrav groups most theme-specific options under the `[params]` section.
+These parameters control global behavior and a few presentation defaults that
+apply site-wide.
+
+The following options are commonly used:
+
+- `subtitle`  
+  Optional subtitle displayed below the site title.
+
+- `append_site_title`  
+  If enabled, the site title is appended to the HTML `<title>` tag of every page.
+
+- `favicon`  
+  Path to a favicon file located in the site’s `static` directory (e.g. `img/favicon.ico`).
+  Leave empty to use no custom favicon.
+
+- `date_format`  
+  Controls how dates are rendered. The value uses Go’s time formatting syntax.
+
+- `show_date`  
+  Enables or disables the date on content summaries.  
+  If enabled, content files should explicitly define a `date` in their front matter.
+
+- `show_number_of_words`  
+  Displays the word count on single content pages.
+
+- `hide_meta`  
+  Hides meta information (date, author, word count) on summaries and single pages.
+
+
+### Navigation Bar
+
+Felmdrav provides a configurable navigation bar based on Bootstrap utilities.
+Navigation settings are defined under `[params.navbar]`.
+
+- `style`  
+  Navigation bar style. Supported values are `fixed-top` and `header`.  
+  The theme default is `fixed-top`.
+
+- `color_scheme`  
+  Bootstrap navbar color scheme: `navbar-light` or `navbar-dark`.
+
+- `bg_scheme`  
+  Bootstrap background utility class (e.g. `bg-primary`).  
+  See Bootstrap documentation for available `bg-*` utilities.
+
+- `background_color`  
+  Optional custom background color as a hex value (`#rrggbb`).  
+  If set, this value is used for the background and overrides `bg_scheme`.
+
+- `adjust_header`  
+  Adds vertical spacing (in pixels) between navigation and content.  
+  Some header/layout combinations require extra space; use an integer pixel value.
+
+- `text_alignment`  
+  Controls horizontal alignment of navigation items.  
+  Leave empty for the default (left aligned), or use Bootstrap flex utilities
+  such as `justify-content-end` or `justify-content-center`.
+
+- `brand_image`  
+  Optional brand icon shown next to the site title **in `fixed-top` mode**.
+  The file must be located in the site’s `static` directory (e.g. `img/logo.png`).
+  (Currently marked as TODO in the example configuration.)
+
+
+### Meta Tags
+
+Felmdrav allows defining custom meta tags that are injected into the HTML
+`<head>` section of the site.
+
+Meta tags are configured under the `[params.meta]` section. Each entry defines
+a meta tag using the following structure:
+
+```html
+<meta name="key" content="value">
+````
+
+This mechanism can be used for standard meta information such as description
+and keywords, as well as for custom or namespaced meta tags.
+
+Example configuration:
+
+```toml
+[params.meta]
+description = "Example meta description"
+keywords = "example, site, theme, felmdrav"
+author = "John Doe"
+"DC.Copyright" = "Your Name"
+````
+
+All entries are rendered exactly as defined. The theme does not enforce or
+validate specific meta keys.
+
+
+### Theme Appearance
+
+Visual appearance and global styling options are grouped under the
+`[params.theme]` section. These settings control the overall look of the site,
+including the Bootstrap color scheme and optional background styling.
+
+#### Bootstrap Theme
+
+Felmdrav supports multiple predefined Bootstrap color themes.
+
+- `bootstrap_theme`  
+  Selects the Bootstrap color theme used by the site.  
+  Set an empty value to use the default Bootstrap styling.
+
+The available themes correspond to predefined Bootstrap theme variants
+included with Felmdrav.
+
+#### Background Settings
+
+- `background_color`  
+  Sets a global background color using a hex value (`#rrggbb`).  
+  Leave empty to use the theme default.
+
+- `background_image`  
+  Defines a background image located in the site’s `static` directory
+  (e.g. `img/background.jpg`).
+
+- `background_image_repeat`  
+  Controls how the background image is repeated.  
+  This value maps directly to the CSS `background-repeat` property
+  (e.g. `no-repeat`, `repeat`, `repeat-x`, `repeat-y`).
+
+
+### Header Configuration
+
+Header-related options are defined under the `[params.theme.header]` section.
+These settings mainly affect layouts where the navigation bar is rendered in
+`header` mode and control the appearance of the page header area.
+
+#### Colors
+
+- `font_color`  
+  Text color used in the header area.  
+  Leave empty to use the theme default.
+
+- `link_color`  
+  Link color used in the header area.  
+  Leave empty to use the theme default.
+
+- `background_color`  
+  Background color of the header area.  
+  Leave empty to use the theme default.
+
+#### Header Image
+
+- `image`  
+  Enables a header image. The file must be located in the site’s `static`
+  directory (e.g. `img/header.jpg`).  
+  This option is only relevant when the navbar style is set to `header`.
+
+- `alt_text`  
+  Alternative text for the header image.
+
+#### Title and Subtitle Display
+
+- `display_header_text`  
+  Enables or disables the display of the site title and subtitle in the header.
+
+- `title_on_image`  
+  If enabled, the title and subtitle are rendered as an overlay on top of the
+  header image.  
+  If no image is configured, the theme falls back to displaying the title and
+  subtitle above the navigation bar.
+
+- `font_color_title`  
+  Text color of the title when rendered on the image overlay.
+
+- `font_color_subtitle`  
+  Text color of the subtitle when rendered on the image overlay.
+
+#### Overlay Positioning
+
+- `overlay_alignment`  
+  Controls the position of the title/subtitle overlay on the image.  
+  Supported values are:
+  `lt`, `mt`, `rt`, `lb`, `mb`, `rb`
+  (left/middle/right × top/bottom).
+
+- `overlay_distance_vertical`  
+  Vertical offset (in pixels) from the selected alignment edge.
+
+- `overlay_distance_horizontal`  
+  Horizontal offset (in pixels) from the selected alignment edge.
+
+- `overlay_distance_between`  
+  Vertical spacing (in pixels) between title and subtitle.
+
+#### Overlay Background
+
+- `overlay_background_color`  
+  Background color of the overlay container.
+
+- `overlay_transparency`  
+  Transparency of the overlay background.  
+  Allowed values range from `0` to `100` (without percent sign).  
+  A value of `0` disables the overlay background.
+
+#### Mobile Behavior
+
+- `move_title`  
+  If enabled and the title is rendered as an image overlay, the title is moved
+  above the header image on small screens to improve readability.
+
+
+### Footer and Subfooter
+
+Felmdrav renders footer and subfooter content using **headless page bundles**.
+Both sections are content-driven and are only rendered if the corresponding
+content structure exists and the section is enabled in the configuration.
+
+#### Footer
+
+The footer is a multi-column content area rendered at the bottom of each page.
+
+Footer content is loaded from:
+
+```
+content/sections/footer/
+```
+
+The directory must contain an `index.md` file with the front matter option
+`headless: true`. Without this setting, the footer will not be rendered.
+
+Each additional Markdown or HTML file inside the directory is rendered as a
+single footer column.
+
+A typical structure looks like this:
+
+```
+content/sections/footer/
+                       ├── index.md
+                       ├── col1.md
+                       ├── col2.md
+                       └── col3.md
+```
+
+The required `index.md` file must contain at least:
+
+```md
+---
+title: "Footer"
+headless: true
+---
+```
+
+
+Each footer column is defined by a single content file inside the footer
+directory. These files may contain a small front matter header.
+
+A typical footer content file looks like this:
+
+```md
+---
+title: "About"
+weight: 10
 ---
 
-## Sidebar & Grid Layout Configuration
+Some footer text or links.
+```
+
+The following front matter options are supported:
+
+- `title`
+Optional title of the footer column.
+If set, it is typically rendered as the column heading.
+
+- `weight`
+Optional numeric value used to control column ordering.
+Lower values are rendered first.
+
+If no `weight` is defined, footer columns are ordered by filename or title.
+Using `weight` is recommended to ensure a predictable and stable layout.
+
+
+Footer appearance is controlled via:
+
+```toml
+[params.theme.footer]
+enabled = true
+font_color = ""
+link_color = ""
+background_color = ""
+background_class = ""
+```
+
+To customize how individual footer columns are rendered, override the following
+partial in your site project:
+
+```
+layouts/partials/footer_column.html
+```
+
+
+#### Subfooter
+
+The subfooter is rendered below the footer and is typically used for small
+meta information such as copyright notices or legal links.
+
+Subfooter content is loaded from:
+
+```
+content/sections/subfooter/
+```
+
+As with the footer, the directory must contain an `index.md` file with
+`headless: true`. Without this setting, the subfooter will not be rendered.
+
+Each additional Markdown or HTML file inside the directory is rendered as a
+single subfooter item.
+
+Subfooter content files use the **same front matter structure and ordering
+rules as footer content files**.
+This includes support for optional `title` and `weight` fields to control
+display and ordering. See the **Footer** section above for details.
+
+Subfooter appearance is controlled via:
+
+```toml
+[params.theme.subfooter]
+enabled = true
+font_color = ""
+link_color = ""
+background_color = ""
+background_class = ""
+```
+
+To customize how individual subfooter items are rendered, override:
+
+```
+layouts/partials/subfooter_item.html
+```
+
+
+
+
+
+### Typography
+
+Felmdrav allows fine-grained font configuration for different parts of the site.
+All typography-related options are grouped under the `[params.fonts]` section.
+
+Fonts can be defined independently for the following areas:
+
+* header title
+* header subtitle
+* navigation bar
+* body text
+* headlines (h1–h6)
+
+Both system fonts and Google Fonts are supported.
+
+#### Header Title
+
+* `header_title`
+  Font family used for the site title in the header.
+  Any valid CSS `font-family` value can be used.
+
+* `header_title_googlefont`
+  Set to `true` if the selected font is a Google Font.
+  If enabled, the font will be loaded automatically.
+
+* `header_title_variant`
+  Font weight or variant (for example `regular`, `600`, `800`).
+  Availability depends on the selected font.
+
+* `header_title_size`
+  Font size for the header title (for example `50px`).
+  Leave empty to use the theme default.
+
+#### Header Subtitle
+
+* `header_subtitle`
+  Font family used for the subtitle.
+
+* `header_subtitle_googlefont`
+  Enable Google Font loading for the subtitle font.
+
+* `header_subtitle_variant`
+  Font weight or variant for the subtitle.
+
+* `header_subtitle_size`
+  Font size for the subtitle text.
+
+#### Navigation Bar
+
+* `navbar`
+  Font family used for navigation items.
+
+* `navbar_googlefont`
+  Enable Google Font loading for the navigation font.
+
+* `navbar_variant`
+  Font weight or variant for the navigation font.
+
+* `navbar_size`
+  Font size for navigation items.
+
+#### Body Text
+
+* `body`
+  Font family used for main content text.
+
+* `body_googlefont`
+  Enable Google Font loading for the body font.
+
+* `body_variant`
+  Font weight or variant for body text.
+
+* `body_size`
+  Font size for body text.
+
+#### Headlines (h1–h6)
+
+* `headline`
+  Font family used for headlines.
+
+* `headline_googlefont`
+  Enable Google Font loading for the headline font.
+
+* `headline_variant`
+  Font weight or variant for headlines.
+
+* `headline_base_size`
+  Base font size used to calculate the sizes of h1–h6.
+  The actual sizes are derived using the same scaling factors as the CSS
+  framework.
+  Set this value to `0` to use the theme default.
+
+
+
+### Sidebar & Grid Layout Configuration
 
 This theme provides a flexible but simple layout system based on **sidebars** and a **Bootstrap-style grid**.
 Both can be configured globally (site-wide) and overridden per page.
@@ -117,9 +577,8 @@ The guiding principle is:
 
 > **Page configuration always overrides site defaults.**
 
----
 
-### 1. Global Sidebar Configuration (Site Defaults)
+#### 1. Global Sidebar Configuration (Site Defaults)
 
 Global defaults are defined in `config.toml`:
 
@@ -146,9 +605,8 @@ Global defaults are defined in `config.toml`:
 
 If a side is set to an empty string (`""`), no sidebar is rendered on that side.
 
----
 
-### 2. Global Grid Configuration
+#### 2. Global Grid Configuration
 
 The grid controls the column widths (Bootstrap 12-column system):
 
@@ -172,9 +630,8 @@ Valid examples:
 * `4 / 8 / 0` (left sidebar + main)
 * `0 / 12 / 0` (full width)
 
----
 
-### 3. Page-Level Sidebar Overrides (Front Matter)
+#### 3. Page-Level Sidebar Overrides (Front Matter)
 
 A page can override the global sidebar configuration using `sidebar` in its front matter.
 
@@ -191,7 +648,7 @@ sidebar:
   right: main
 ```
 
-#### Disable all sidebars for a page
+##### Disable all sidebars for a page
 
 ```yaml
 sidebar: false
@@ -199,9 +656,8 @@ sidebar: false
 
 If `sidebar` is defined on the page, **global sidebar defaults are ignored**.
 
----
 
-### 4. Page-Level Grid Overrides
+#### 4. Page-Level Grid Overrides
 
 A page can also override the grid independently:
 
@@ -215,9 +671,9 @@ grid:
 This only affects column widths.
 Sidebar visibility is still controlled by `sidebar`.
 
----
 
-### 5. Priority Rules (Important)
+
+#### 5. Priority Rules (Important)
 
 The effective layout is determined in this order:
 
@@ -231,9 +687,9 @@ In short:
 * Grid and sidebar are **independent**
 * Invalid grid values automatically fall back to a safe layout
 
----
 
-### 6. Sidebar Content Structure
+
+#### 6. Sidebar Content Structure
 
 Sidebars are populated from content sections:
 
@@ -250,9 +706,9 @@ Each sidebar section can contain multiple content files, which are:
 * sorted by `weight`
 * then by filename
 
----
 
-### 7. Design Philosophy
+
+#### 7. Design Philosophy
 
 This system is intentionally:
 
@@ -263,60 +719,437 @@ This system is intentionally:
 
 There is no legacy behavior and no implicit sidebar positioning logic.
 
+### Analytics
 
+Felmdrav supports web analytics using Hugo’s built-in features and optional
+theme-specific integrations.
 
---- 
+#### Google Analytics
 
-### Sections (Sidebars, Footer, Subfooter)
+Google Analytics is handled via Hugo’s internal templates.
+To enable it, set the `googleAnalytics` option at the **top level** of your
+`config.toml` (not inside `[params]`).
 
-As you can see in the screenshots this theme supports three content sections which aren't shown in the demo site, because in the demo only the default content is used. To enable the sections, create a folder `sections` into your content folder. Then create one or more content folders in the `sections` folder with their special names `footer`, `sidebar` and `subfooter`. In every of these folders you can place any page content you want, make the page bundle "headless" and enable the section (footer, subfooter, sidebars) in the site config file.
+Example:
 
-For a complete example please have a look at the `exampleSite` folder. The directory structure is at follows:
-
-```
-content/
-        [...]
-        sections/
-                 footer/
-                        column01.md
-                        column02.md
-                        column03.md
-                        index.md
-                        [...]
-                 sidebar/
-                         content01.md
-                         content02.html
-                         index.md
-                 subfooter/
-                          content.md
-                          index.md
-                [...]
+```toml
+googleAnalytics = "UA-123-45"
 ```
 
-To activate the content sections, enable them in your config file:
+Felmdrav does not modify or wrap Hugo’s Google Analytics integration.
+Behavior is identical to the standard Hugo implementation.
 
-```
-[params.theme.footer]
-    enabled = true # Show the footer part
-    #numberColumns = 3 # Set number of columns available in footer of a page. Use the "footer" folder in the page structure to add content. If nothing is set, the default number is 3. Currently.i.e. since v0.2 not used, the number of columns is identical to the number of files in footer directory.
- 
-[...]
+#### Matomo
 
-[params.theme.subfooter]
-    enabled = true # Show the content below the footer
-[...]
+Felmdrav includes built-in support for Matomo analytics.
 
+Matomo settings are configured under the following section:
 
-[params.sidebar]
-    enabled = true # default false; set to true to enable sidebar
-    style = 'right' # options: 'left', 'right'. Left means sidebar on the left side, right displays the sidebar on the right side
-
-
+```toml
+[params.analytics.matomo]
+enabled = false
+url = "https://analytics.example.com"
+site_id = 0
 ```
 
-## Menu
+* `enabled`
+  Enables or disables Matomo tracking.
 
-The navbar displays the `main` menus by default. You can find more details about how to configure it [here](https://gohugo.io/templates/menu-templates/), as well as in the `exampleSite`.
+* `url`
+  Base URL of the Matomo instance.
+
+* `site_id`
+  Numeric site ID as defined in Matomo.
+
+#### Custom Analytics Snippets
+
+If you require a custom Matomo setup or want to use a different analytics
+solution, you can override the analytics partials provided by the theme.
+
+Custom snippets can be added by placing your own files in:
+
+```
+layouts/partials/analytics/
+```
+
+Hugo’s lookup order ensures that your custom partials are used instead of the
+theme defaults.
+
+
+### Image Processing
+
+Felmdrav can optionally use image processing features from the upstream project
+*hugo-theme-bootstrap* (HBS). This allows extended rendering behavior for images
+embedded in Markdown content.
+
+Image processing settings are configured under:
+
+```toml
+[params.images]
+extended_rendering = false
+```
+
+* `extended_rendering`
+  Enables extended image rendering.
+  The backward-compatible default is `false`. Set to `true` to activate the
+  extended rendering functions.
+
+If enabled, images may be rendered with additional processing behavior as
+documented by HBS. See the upstream documentation for details:
+
+[https://hbs.razonyang.com/v1/en/docs/image-processing/](https://hbs.razonyang.com/v1/en/docs/image-processing/)
+
+---
+
+### Post Options
+
+Post-related options are configured under:
+
+```toml
+[params.post]
+image_title_as_caption = false
+```
+
+* `image_title_as_caption`
+  If enabled, the image title is used as the caption.
+
+Markdown example:
+
+```md
+![Image Caption](/image.jpg "This is my image title as caption")
+```
+
+When `image_title_as_caption` is set to `true`, the theme uses the image title
+string (`"..."`) as the rendered caption.
+
+
+### Menus
+
+Felmdrav uses Hugo’s standard menu configuration. Menus can be defined in
+`config.toml` (as shown in the `exampleSite`) or directly in content front
+matter.
+
+Example configuration:
+
+```toml
+[menu]
+
+  [[menu.main]]
+    identifier = "home"
+    name = "Home"
+    url = "/"
+    weight = 10
+
+  [[menu.main]]
+    identifier = "posts"
+    name = "Blog"
+    url = "/posts/"
+    weight = 20
+```
+
+For advanced menu features (nested menus, `pageRef`, multilingual menus, etc.),
+refer to the Hugo documentation:
+
+[https://gohugo.io/content-management/menus/](https://gohugo.io/content-management/menus/)
+
+
+### Taxonomies
+
+Felmdrav uses Hugo’s standard taxonomy configuration. Taxonomies are defined at
+the top level of `config.toml`:
+
+```toml
+[taxonomies]
+category = "categories"
+tag = "tags"
+series = "series"
+```
+
+For details on configuring and using taxonomies, refer to the Hugo
+documentation:
+
+[https://gohugo.io/content-management/taxonomies/](https://gohugo.io/content-management/taxonomies/)
+
+
+
+
+## Content Blocks (Page Composition)
+
+Felmdrav implements a **block-based page composition mechanism**.
+Blocks are defined in a page’s front matter and assembled by the page template.
+This allows pages to be composed from reusable content blocks instead of
+hardcoding sections into templates.
+
+Blocks are **not limited to the home page**.
+They can, in principle, be used on any page type. Whether blocks are rendered
+depends on the template used by the page. The provided examples focus on the
+home page because it is the most common use case.
+
+
+### Page Configuration
+
+Blocks are defined in the front matter of a page using a `sections` list.
+Each entry defines one block and its position on the page.
+
+Example (as used in `index.md`):
+
+```
+home:
+  sections:
+    - type: hero-split
+      content: blocks/hero-a
+    - type: hero-split
+      content: blocks/hero-b
+    - type: hero-centered
+      content: blocks/hero-b
+    - type: features-icons
+      content: blocks/features-a
+    - type: features-hanging-icons
+      columns: 3
+      content: blocks/features-a
+    - type: features-cards
+      columns: 3
+      content: blocks/features-cards-a
+```
+
+Each section entry consists of:
+
+* `type`
+  The block type. This determines which template is used to render the block.
+
+* `content`
+  Path to the content file (relative to the `content/` directory) that provides the data for the block.
+
+  Some block types support additional options, such as `columns`.
+
+The order of blocks in the list defines the visual order on the page.
+
+
+### Block Content Files
+
+Each block is backed by a dedicated content file. These files usually contain
+**front matter only** and no body content.
+
+Block content files are typically stored in a dedicated directory, for example:
+
+```
+content/blocks/
+```
+
+
+### Hero Blocks
+
+Hero blocks are used for prominent introductory sections. Felmdrav currently
+provides multiple hero variants (for example split or centered layouts).
+
+A typical hero block defines:
+
+* `title`
+  Main heading of the hero block.
+
+* `lead`
+  Short descriptive text displayed below the title.
+
+* `buttons`
+  Optional list of call-to-action buttons.
+  Each button defines:
+
+  * text
+  * ref or url
+  * style (Bootstrap button style)
+
+* `image`
+  Optional image configuration with `src` and `alt`.
+
+Example hero block:
+
+```
+---
+title: "Hero heading A"
+lead: "Short lead text for hero A."
+buttons:
+  - text: "Primary action"
+    ref: "posts"
+    style: "primary"
+  - text: "Secondary"
+    ref: "about"
+    style: "outline-secondary"
+image:
+  src: "hero.png"
+  alt: "Hero image A"
+---
+```
+
+### Features Blocks
+
+Features blocks are used to present lists of features or highlights. Felmdrav
+supports multiple feature layouts, such as icon-based lists or card-based
+layouts.
+
+Common properties include:
+
+* `title`
+  Optional block heading.
+
+* `items`
+A list of feature entries.
+
+
+Each feature item may define:
+
+* `icon`
+  Icon class name. Felmdrav uses **Bootstrap Icons**.
+
+* `title`
+  Feature title.
+
+* `text`
+  Short descriptive text.
+
+* `link`
+  Optional link definition with `ref` or `url` and a button `style`.
+
+Example (hanging icons):
+
+```
+---
+title: "Features"
+items:
+  - icon: "bi bi-lightning-charge"
+    title: "Fast and minimal"
+    text: "A small set of building blocks that stays understandable."
+    link:
+      text: "Learn more"
+      ref: "posts"
+      style: "primary"
+---
+```
+
+---
+
+### Cards-Based Features
+
+Card-based feature blocks display items as visual cards.
+
+Each card item may define:
+
+* title
+* text
+* image
+* optional tags
+* optional link
+
+Cards without a link are rendered as non-clickable informational elements.
+
+Example:
+
+```
+---
+title: "Custom cards"
+items:
+  - title: "Matrix-like visuals"
+    text: "Abstract code fragments and digital noise as background."
+    image: "card-1.png"
+    tags: ["Design", "Visual"]
+    link:
+      ref: "posts"
+---
+```
+
+---
+
+### Extensibility
+
+Blocks are rendered using dedicated templates. New block types can be added,
+and existing ones customized, by creating or overriding block templates in the
+site’s `layouts/` directory.
+
+The block-based approach keeps responsibilities clearly separated:
+
+* page structure is defined in front matter
+* content lives in block files
+* layout and styling are handled by templates
+
+
+## Migration from Tikva
+
+Felmdrav evolved from the earlier Tikva theme, but it is **not** a drop-in
+replacement. A migration usually means: keep your content, then adapt
+configuration, layout, icons and any template overrides.
+
+### Breaking changes and key differences
+
+**Icons: Font Awesome → Bootstrap Icons**
+Felmdrav uses **Bootstrap Icons** instead of Font Awesome. If your Tikva-based
+site includes Font Awesome assets or uses FA class names, you will need to
+replace them with Bootstrap Icons equivalents.
+
+**Bootstrap version: Bootstrap 5**
+Felmdrav is built around **Bootstrap 5**. Utility class names, layout helpers
+and component markup follow Bootstrap 5 conventions. If your site relied on
+Bootstrap 4 behavior or custom CSS targeting older Bootstrap markup, review and
+adjust accordingly.
+
+**Sidebars and layout: one sidebar → two sidebars + grid**
+Tikva used a simpler sidebar approach. Felmdrav supports **two sidebars**
+(left/right) and a configurable **grid layout**.
+
+Sidebar content is loaded from headless bundles under `content/sections/`, but
+the **directory names depend on the configured sidebar identifiers**.
+If your configuration defines a sidebar name like `sidebar-main`, then the
+corresponding content directory must be named exactly the same, otherwise the
+sidebar will not render.
+
+**Configuration keys renamed (snake_case)**
+Felmdrav uses a consistent naming convention: all theme configuration keys are
+lowercase and use **snake_case**. Do not expect Tikva parameter names to work.
+Use the `exampleSite/config.toml` as the authoritative reference and transfer
+settings manually.
+
+**New content blocks (e.g. Hero / Features)**
+Felmdrav introduces additional optional layout blocks (for example Hero and
+Features). If you want to use them, you will need to add the corresponding
+content and configuration as described in the Felmdrav documentation/examples.
+
+**Template structure and overrides**
+Felmdrav’s template/partial structure differs from Tikva. If you previously
+overrode theme templates (partials, list/single templates, shortcodes, etc.),
+those overrides may no longer apply because:
+
+* file names may have changed
+* partial paths may have changed
+* template context or expected parameters may have changed
+
+Review your `layouts/` overrides and port them to Felmdrav’s structure.
+
+### Recommended migration steps
+
+1. Switch the theme and start from the reference config
+   Use `exampleSite/config.toml` as a baseline and migrate your settings
+   section by section.
+
+2. Update icons
+   Remove Font Awesome usage and replace icon markup with Bootstrap Icons.
+
+3. Rebuild layout configuration
+   Configure the grid and sidebars. Make sure your sidebar content directories
+   match the sidebar identifiers from the configuration exactly.
+
+4. Port template overrides (if you have any)
+   Compare your overridden templates in `layouts/` with Felmdrav’s templates and
+   re-apply changes to the new file structure.
+
+5. Validate pages and styles
+   Check header/navbar behavior, typography, and custom CSS/JS. Verify that any
+   Bootstrap utility classes you use match Bootstrap 5.
+
+### Notes
+
+Felmdrav does not aim to preserve one-to-one compatibility with Tikva’s
+configuration or template structure. The most reliable migration approach is:
+keep your content, then re-apply your layout and design preferences using
+Felmdrav’s configuration and templates.
+
 
 ## License
 
