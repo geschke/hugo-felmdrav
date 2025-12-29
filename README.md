@@ -27,8 +27,6 @@ While Felmdrav retains the minimalist design principles of Tikva, it introduces 
 
 The focus is on **clarity, predictability, and extensibility**, rather than feature overload or heavy abstraction.
 
----
-
 ## Philosophy
 
 Felmdrav aims to stay:
@@ -72,19 +70,19 @@ Inside the `themes` directory of your Hugo site, clone the repository:
 ```bash
 cd themes
 git clone https://github.com/geschke/hugo-felmdrav.git
-````
+```
 
 Alternatively, you can add the theme as a Git submodule:
 
 ```bash
 git submodule add https://github.com/geschke/hugo-felmdrav themes/hugo-felmdrav
-````
+```
 
 Then reference the theme in your site configuration:
 
 ```toml
 theme = "hugo-felmdrav"
-````
+```
 
 ### Run the example site
 
@@ -98,7 +96,7 @@ hugo server \
   --source exampleSite \
   --themesDir .. \
   --theme hugo-felmdrav
-````
+```
 
 Then open:
 
@@ -209,7 +207,7 @@ a meta tag using the following structure:
 
 ```html
 <meta name="key" content="value">
-````
+```
 
 This mechanism can be used for standard meta information such as description
 and keywords, as well as for custom or namespaced meta tags.
@@ -222,7 +220,7 @@ description = "Example meta description"
 keywords = "example, site, theme, felmdrav"
 author = "John Doe"
 "DC.Copyright" = "Your Name"
-````
+```
 
 All entries are rendered exactly as defined. The theme does not enforce or
 validate specific meta keys.
@@ -469,10 +467,6 @@ To customize how individual subfooter items are rendered, override:
 ```
 layouts/partials/subfooter_item.html
 ```
-
-
-
-
 
 ### Typography
 
@@ -799,7 +793,6 @@ documented by HBS. See the upstream documentation for details:
 
 [https://hbs.razonyang.com/v1/en/docs/image-processing/](https://hbs.razonyang.com/v1/en/docs/image-processing/)
 
----
 
 ### Post Options
 
@@ -1025,8 +1018,6 @@ items:
 ---
 ```
 
----
-
 ### Cards-Based Features
 
 Card-based feature blocks display items as visual cards.
@@ -1055,8 +1046,6 @@ items:
       ref: "posts"
 ---
 ```
-
----
 
 ### Extensibility
 
