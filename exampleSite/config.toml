@@ -71,7 +71,7 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 
 [params.theme]
 
-    bootstrap_theme = 'solar' # Use empty value for default Bootstrap color scheme or one of the following values:
+    bootstrap_theme = '' #'solar' # Use empty value for default Bootstrap color scheme or one of the following values:
     # bolt, bstrap, btcn, calabaza, cerulean, cosmo, cyborg, darkly, flatly, hoff, journal,
     # kdo_flatly, kdo2, kunsch, lumen, lux, malibu, materia, minim, minty, pulse, sandstone, 
     # signa, simplex, sketchy, slate_accessibility_ready, slate, solar, sonic, spacelab, united, yeti
@@ -94,10 +94,10 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
     alt_text = 'alt text for header image' # Set alt text for header image, default empty
     display_header_text = true # display the title and subtitle - yes or no?
     title_on_image = true # true|false, default false. Display title and subtitle as overlay in the foreground of the image. It is only possible to set the title as image overlay if an image is available. If no image is configured, the theme will do a fallback to non-overlay, i.e. title and subtitle will be displayed above the main navigation. 
-    font_color_title = '#073642' # For all colors, please use #rrggbb format with # and 6 characters
-    font_color_subtitle = '#333333'
+    font_color_title = '#f8f8f8ff' # For all colors, please use #rrggbb format with # and 6 characters
+    font_color_subtitle = '#242432'
     overlay_alignment = 'lt' # lt = left/top, mt = middle/top, rt = right/top, lb = left/bottom, mb = middle/bottom, rb = right/bottom
-    overlay_distance_vertical = '20' # Dependent on the overlay_alignment option, this option is used to modify the vertical distance between the margin and the title/subtitle. This allows to place the title and subtitle on nearly any place related to the header image. 
+    overlay_distance_vertical = '60' # Dependent on the overlay_alignment option, this option is used to modify the vertical distance between the margin and the title/subtitle. This allows to place the title and subtitle on nearly any place related to the header image. 
     overlay_distance_horizontal = '20' # The same as above, but for horizontal distance. 
     overlay_distance_between = '0' # Distance between title and subtitle 
     overlay_background_color = '#000000'

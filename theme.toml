@@ -5,18 +5,32 @@
 name = "Felmdrav"
 license = "MIT"
 licenselink = "https://github.com/geschke/hugo-felmdrav/blob/master/LICENSE.md"
-description = "Felmfrav is a minimalistic Hugo theme, based on Bootstrap 5 framework"
+description = "Felmdrav is a clean and minimalistic Hugo theme built on the Bootstrap v5 CSS framework, focusing on flexibility and configurable layouts."
 homepage = "https://github.com/geschke/hugo-felmdrav/"
-tags = ["theme", "core", "modern", "responsive", "bootstrap", "minimal", "blog", "font awesome", "white", "dark", "light" ]
-features = ["responsive","blog"]
+demosite = "https://geschke.github.io/hugo-felmdrav/"
+
+tags = [
+  "bootstrap",
+  "bootstrap 5",
+  "responsive",
+  "configurable",
+  "flexible",
+  "grid",
+  "sidebar",
+  "blog"
+]
+
+features = [
+  "bootstrap 5",
+  "flexible layout system",
+  "grid-based layout",
+  "two sidebars",
+  "multiple header layouts",
+  "highly configurable"
+]
+
 min_version = "0.146.0"
 
 [author]
   name = "Ralf Geschke"
   homepage = "https://www.kuerbis.org"
-
-# If porting an existing theme
-[original]
-  name = "Felmdrav theme for Hugo static website genrator"
-  homepage = "https://www.kuerbis.org/felmdrav/"
-  repo = "https://github.com/geschke/hugo-felmdrav"

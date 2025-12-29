@@ -51,36 +51,66 @@
     const themes = [    
 //    "bolt","brite","btcn","calabaza",  "cerulean",  "cosmo",  "cyborg", "darkly", "flatly", "hoff", "journal", "kdo2", "kdo_flatly", "kunsch", "litera",  "lumen", "lux", "malibu", "materia", "minim", "minty", "morph", "pulse", "quartz",  "sandstone", "simplex", "sketchy", "slate", "slate_accessibility_ready", "solar", "sonic", "spacelab", "superhero", "united", "vapor", "versa", "yeti", "zephyr" 
 
-      "bolt","brite", "btcn", "calabaza", "cerulean","cosmo","cyborg","darkly","flatly",
+       "bolt","brite", "btcn", "calabaza", "cerulean","cosmo","cyborg","darkly","flatly",
       "hoff", "journal","kdo2", "kdo_flatly","kunsch", "litera","lumen","lux",
       "malibu", "materia","minim", "minty","morph","pulse","quartz","sandstone","simplex",
       "sketchy", "slate","slate_accessibility_ready", "solar","sonic", "spacelab",
       "superhero","united","vapor","yeti","zephyr"
-      // add the rest of your 30
+     
     ];
 
+
     const $link = $("#bs-theme");
-    const $picker = $("#themePicker");
+const $picker = $("#themePicker");
 
-    if ($picker.length) {
-      themes.forEach(t => $picker.append($("<option/>").val(t).text(t)));
+// Adjust this path to your "pure Bootstrap" CSS file
+const bootstrapDefaultHref = `{{ "css/bootstrap.min.css" | relURL }}`;
 
-      function setTheme(t) {
-        $link.attr("href", `{{ "css/bootswatch" | relURL }}/${t}/bootstrap.min.css`);
-        localStorage.setItem("bootswatchTheme", t);
-        $picker.val(t);
-        const url = new URL(window.location.href);
-        url.searchParams.set("theme", t);
-        history.replaceState(null, "", url.toString());
-      }
+if ($picker.length) {
+  // Add "Default" option (Bootstrap without Bootswatch)
+  $picker.append($("<option/>").val("").text("Bootstrap (default)"));
 
-      const urlTheme = new URL(window.location.href).searchParams.get("theme");
-      const initial = urlTheme || localStorage.getItem("bootswatchTheme") || "{{ default "flatly" site.Params.Theme.bootstrap_theme }}";
-      setTheme(initial);
+  // Add all bootswatch themes
+  themes.forEach(t => $picker.append($("<option/>").val(t).text(t)));
 
-      $picker.on("change", function () { setTheme($(this).val()); });
+  function setTheme(t) {
+    const theme = (t ?? "").toString().trim();
+
+    // If empty: use plain Bootstrap
+    if (!theme) {
+      $link.attr("href", bootstrapDefaultHref);
+      localStorage.setItem("bootswatchTheme", "");
+      $picker.val("");
+
+      const url = new URL(window.location.href);
+      url.searchParams.delete("theme"); // cleaner than theme=default
+      history.replaceState(null, "", url.toString());
+      return;
     }
-  });
+
+    // Otherwise: use bootswatch theme
+    $link.attr("href", `{{ "css/bootswatch" | relURL }}/${theme}/bootstrap.min.css`);
+    localStorage.setItem("bootswatchTheme", theme);
+    $picker.val(theme);
+
+    const url = new URL(window.location.href);
+    url.searchParams.set("theme", theme);
+    history.replaceState(null, "", url.toString());
+  }
+
+  const urlTheme = new URL(window.location.href).searchParams.get("theme");
+  const storedTheme = localStorage.getItem("bootswatchTheme");
+
+  // If site param is empty -> default Bootstrap (pur)
+  const siteDefault = `{{ site.Params.theme.bootstrap_theme | default "" }}`;
+
+  const initial = (urlTheme !== null ? urlTheme : (storedTheme !== null ? storedTheme : siteDefault));
+  setTheme(initial);
+
+  $picker.on("change", function () { setTheme($(this).val()); });
+}
+
+});
 </script>
 
 {{- $overlayBackgroundColorFallback := "#000000" -}}
