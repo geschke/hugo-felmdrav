@@ -152,20 +152,20 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 
 [params.fonts]
    
-    header_title = 'Exo' # set font, use string, e.g. "Lucida, Verdana, sans-serif". You can use any font value. Please activate Google Font option if you want to include Google Fonts, see their names on https://fonts.google.com/
-    header_title_googlefont = true # If the font in the above variable is a Google font, set this option to true. 
-    header_title_variant = '800' # font variant, if available, e.g. "regular", "bold" etc. Not every font is available in multiple variants.
-    header_title_size = '50px' # set font size, empty for default settings. Valid values are '20px', '1.2em' and so on
+    #header_title = 'Exo' # set font, use string, e.g. "Lucida, Verdana, sans-serif". You can use any font value. Please activate Google Font option if you want to include Google Fonts, see their names on https://fonts.google.com/
+    #header_title_googlefont = true # If the font in the above variable is a Google font, set this option to true. 
+    #header_title_variant = '800' # font variant, if available, e.g. "regular", "bold" etc. Not every font is available in multiple variants.
+    #header_title_size = '50px' # set font size, empty for default settings. Valid values are '20px', '1.2em' and so on
     
-    header_subtitle = 'Exo' # Font settings for subtitle
-    header_subtitle_googlefont = true # If the font in the above variable is a Google font, set this option to true. 
-    header_subtitle_variant = '600' # See above
-    header_subtitle_size = '30px' # See above
+    #header_subtitle = 'Exo' # Font settings for subtitle
+    #header_subtitle_googlefont = true # If the font in the above variable is a Google font, set this option to true. 
+    #header_subtitle_variant = '600' # See above
+    #header_subtitle_size = '30px' # See above
 
     #navbar = 'Lucida, Verdana' # font settings for navigation bar
-    navbar_googlefont = false # If the font in the above variable is a Google font, set this option to true.  
-    navbar_variant = '' # See above
-    navbar_size = '20px' # See above
+    #navbar_googlefont = false # If the font in the above variable is a Google font, set this option to true.  
+    #navbar_variant = '' # See above
+    #navbar_size = '20px' # See above
 
     body = '' # font settings for body content
     body_googlefont = false # If the font in the above variable is a Google font, set this option to true. 
