@@ -48,7 +48,7 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
     
     background_color = ''  # custom background color parameters, e.g. #e3f2fd !important, If color is set, it will be used for background. Set empty for above selection.
     
-    adjust_header = 20 # Adjust header by adding a distance between navigation and content. Some of the styles need more space, so you can use this option to adjust. Use an integer value of pixels.
+    adjust_header = 20 # Adjust header by adding a distance between navigation and content. Some of the styles need more space, so you can use this option to adjust. Use an integer value of pixels. Only when using fixed-top
     
     text_alignment = '' # don't set or leave empty for default (left), or justify-content-end, justify-content-center 
 
@@ -84,25 +84,77 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 # Header configuration
 
 [params.theme.header]
-    # The following options are mostly used when the navbar is in "header" mode, i.e. not fixed-top
-    font_color = '' # header font color, leave empty for default
-    link_color = '' # header link color, leave empty for default
-    background_color = '' # header background color, leave empty for default
 
-    image = 'img/header_bg_example.jpg' # Use header image. This option is only valid if the theme is configured to the "header" style. 
+  enabled = true
+
+  # Hero image (optional)
+  image = 'img/header_bg_example.jpg' # Use header image. This option is only valid if the theme is configured to the "header" style. 
+  
+  alt_text = 'alt text for header image' # Set alt text for header image, default empty
+
+
+  # The following options are mostly used when the navbar is in "header" mode, i.e. not fixed-top
+  # font_color = '' # header font color, leave empty for default # wieder einbauen?
+  # link_color = '' # header link color, leave empty for default # wieder einbauen?
+  # background_color = '' # header background color, leave empty for default # keinen eigenen Background mehr?
+
     
-    alt_text = 'alt text for header image' # Set alt text for header image, default empty
-    display_header_text = true # display the title and subtitle - yes or no?
-    title_on_image = true # true|false, default false. Display title and subtitle as overlay in the foreground of the image. It is only possible to set the title as image overlay if an image is available. If no image is configured, the theme will do a fallback to non-overlay, i.e. title and subtitle will be displayed above the main navigation. 
-    font_color_title = '#f8f8f8ff' # For all colors, please use #rrggbb format with # and 6 characters
-    font_color_subtitle = '#242432'
-    overlay_alignment = 'lt' # lt = left/top, mt = middle/top, rt = right/top, lb = left/bottom, mb = middle/bottom, rb = right/bottom
-    overlay_distance_vertical = '60' # Dependent on the overlay_alignment option, this option is used to modify the vertical distance between the margin and the title/subtitle. This allows to place the title and subtitle on nearly any place related to the header image. 
-    overlay_distance_horizontal = '20' # The same as above, but for horizontal distance. 
-    overlay_distance_between = '0' # Distance between title and subtitle 
-    overlay_background_color = '#000000'
-    overlay_transparency = '0' # default 70%, allowed values from 0 - 100 (without % sign!). This option enables a transparent background of title and subtitle. This is useful if the "titleOnImage" option is true, so the title is placed as overlay above the image. If this option is set to 0 or an empty value, the transparency color setting will be disabled. 
-    move_title = false # If title is placed as overlay: Move title above the header image on small smartphone displays, default false
+  # Text display
+  show_text = true
+  text_on_image = true
+
+  # Text alignment on image:
+  # lt = left/top, mt = middle/top, rt = right/top
+  # lb = left/bottom, mb = middle/bottom, rb = right/bottom
+  overlay_alignment = "lb"
+
+  # Padding inside the hero overlay (use rem values)
+  overlay_padding = "1rem"
+
+  # Improve readability on images
+  text_shadow = true
+
+    #font_color_title = '#f8f8f8ff' # For all colors, please use #rrggbb format with # and 6 characters # ersetzt durch colors.title
+    
+    #font_color_subtitle = '#242432' # wieder einbauen? # ersetzt durch colors.subtitle
+
+    # overlay_distance_vertical = '60' # Dependent on the overlay_alignment option, this option is used to modify the vertical distance between the margin and the title/subtitle. This allows to place the title and subtitle on nearly any place related to the header image.  # keine pixelgenaue Positionierung mehr
+
+    # overlay_distance_horizontal = '20' # The same as above, but for horizontal distance. # s.o.
+
+    # overlay_distance_between = '0' # Distance between title and subtitle # spacing via CSS
+
+    # overlay_background_color = '#000000' # ersetzt durch overlay box
+    # overlay_transparency = '0' # default 70%, allowed values from 0 - 100 (without % sign!). This option enables a transparent background of title and subtitle. This is useful if the "titleOnImage" option is true, so the title is placed as overlay above the image. If this option is set to 0 or an empty value, the transparency color setting will be disabled. # ersetzt durch opacity
+
+    # move_title = false # If title is placed as overlay: Move title above the header image on small smartphone displays, default false # JS-Hack entfernt
+
+# Optional color overrides.
+# Leave empty to use Bootstrap / Bootswatch defaults.
+[params.theme.header.colors]
+  title = "" # use rrggbb
+  subtitle = "" # use rrggbb
+
+
+# Typography settings for hero title and subtitle
+# Uses modern fluid sizing via CSS clamp()
+[params.theme.header.type]
+
+  # Font weights
+  #title_weight = 800
+  #subtitle_weight = 450
+
+  # Responsive font sizes (rem recommended)
+  title_min = "1.15rem"
+  title_max = "3.0rem"
+  subtitle_min = "0.9rem"
+  subtitle_max = "1.55rem"
+
+  # Limit line length for better readability
+  text_max_width = "68ch"
+
+  # Prevent title wrapping on large screens
+  title_nowrap = true
 
 
 # Footer configuration
@@ -152,15 +204,18 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 
 [params.fonts]
    
-    #header_title = 'Exo' # set font, use string, e.g. "Lucida, Verdana, sans-serif". You can use any font value. Please activate Google Font option if you want to include Google Fonts, see their names on https://fonts.google.com/
-    #header_title_googlefont = true # If the font in the above variable is a Google font, set this option to true. 
-    #header_title_variant = '800' # font variant, if available, e.g. "regular", "bold" etc. Not every font is available in multiple variants.
-    #header_title_size = '50px' # set font size, empty for default settings. Valid values are '20px', '1.2em' and so on
+    header_title = '' # Exoset font, use string, e.g. "Lucida, Verdana, sans-serif". You can use any font value. Please activate Google Font option if you want to include Google Fonts, see their names on https://fonts.google.com/ # applies to .hero-title
+
+
+    header_title_googlefont = false # If the font in the above variable is a Google font, set this option to true. # unchanged
+    #header_title_variant = '800' # font variant, if available, e.g. "regular", "bold" etc. Not every font is available in multiple variants. # unchanged
+
+    #header_title_size = '50px' # set font size, empty for default settings. Valid values are '20px', '1.2em' and so on # weg - pixel sizes not supported anymore
     
-    #header_subtitle = 'Exo' # Font settings for subtitle
-    #header_subtitle_googlefont = true # If the font in the above variable is a Google font, set this option to true. 
-    #header_subtitle_variant = '600' # See above
-    #header_subtitle_size = '30px' # See above
+    header_subtitle = '' # Font settings for subtitle # now applies to .hero-subtitle
+    header_subtitle_googlefont = false # If the font in the above variable is a Google font, set this option to true. # unchanged
+    #header_subtitle_variant = '600' # See above # unchanged
+    #header_subtitle_size = '30px' # See above # replaced by fluid sizing
 
     #navbar = 'Lucida, Verdana' # font settings for navigation bar
     #navbar_googlefont = false # If the font in the above variable is a Google font, set this option to true.  
@@ -173,7 +228,7 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
     body_size = '' # See above
 
     headline = 'Open Sans' # font settings for body content
-    headline_googlefont = true # If the font in the above variable is a Google font, set this option to true. 
+    headline_googlefont = false # If the font in the above variable is a Google font, set this option to true. 
     headline_variant = '' # See above
     headline_base_size = '' # Set base font of headlines. The real size of H1 - H6 will be calculated based on this size with the same resize factors as in the CSS framework. Choose a size of 0 (zero) to use the default font size of the theme. Please use only integer values without "px", "em" or something else. 
 

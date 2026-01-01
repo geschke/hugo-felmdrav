@@ -1,7 +1,9 @@
-{{- $img := .Site.Params.theme.header.image -}}
-{{- $showText := .Site.Params.theme.header.display_header_text | default true -}}
-{{- $titleOnImage := .Site.Params.theme.header.title_on_image | default true -}}
-{{- $align := .Site.Params.theme.header.overlay_alignment | default "lb" -}}
+{{- $h := .Site.Params.theme.header -}}
+
+{{- $img := $h.image -}}
+{{- $showText := $h.show_text | default true -}}
+{{- $textOnImage := $h.text_on_image | default true -}}
+{{- $align := $h.overlay_alignment | default "lb" -}}
 
 {{- $pos := "justify-content-start align-items-start text-start" -}}
 {{- if eq $align "mt" -}}{{ $pos = "justify-content-center align-items-start text-center" -}}
@@ -12,68 +14,67 @@
 {{- end -}}
 
 <div id="header" role="banner">
-
   <div class="container">
     <header class="masthead">
 
       {{ if $img }}
-      <a href="{{ .Site.BaseURL }}" rel="home" class="hero d-block position-relative overflow-hidden">
-        <img src="{{ .Site.BaseURL }}{{ $img }}" class="hero-img w-100" alt="">
+        <a href="{{ .Site.BaseURL }}" rel="home" class="hero d-block position-relative overflow-hidden">
+          <img src="{{ .Site.BaseURL }}{{ $img }}" class="hero-img w-100" alt="{{ $h.alt_text | default "" }}">
 
-        {{ if and $showText $titleOnImage }}
-        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex {{ $pos }}">
-          <div class="hero-overlay container">
-            <div class="hero-text">
-              <div class="hero-title"
-                style="{{ if .Site.Params.theme.header.font_color_title }}color: {{ .Site.Params.theme.header.font_color_title }};{{ end }}">
-                {{ .Site.Title }}
+          {{ if and $showText $textOnImage }}
+            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex {{ $pos }}">
+              <div class="hero-overlay container">
+                <div class="hero-text">
+                  <div class="hero-title" {{ with $h.colors.title }}style="color: {{ . }};"{{ end }}>
+                    {{ .Site.Title }}
+                  </div>
+
+                  {{ with .Site.Params.subtitle }}
+                    <div class="hero-subtitle" {{ with $h.colors.subtitle }}style="color: {{ . }};"{{ end }}>
+                      {{ . }}
+                    </div>
+                  {{ end }}
+                </div>
               </div>
-              {{ with .Site.Params.subtitle }}
-              <div class="hero-subtitle"
-                style="{{ if $.Site.Params.theme.header.font_color_subtitle }}color: {{ $.Site.Params.theme.header.font_color_subtitle }};{{ end }}">
-                {{ . }}
-              </div>
-              {{ end }}
             </div>
-          </div>
-        </div>
-        {{ end }}
-      </a>
+          {{ end }}
+        </a>
       {{ end }}
 
-      {{ if and $showText (or (not $img) (not $titleOnImage)) }}
-      <div class="py-3">
-        <h1 class="m-0">
-          <a href="{{ .Site.BaseURL }}" class="header-url">{{ .Site.Title }}</a>
-        </h1>
-        {{ with .Site.Params.subtitle }}
-        <p class="m-0 opacity-75">{{ . }}</p>
-        {{ end }}
-      </div>
+      {{/* Fallback: show title/subtitle above nav (no image OR no overlay) */}}
+      {{ if and $showText (or (not $img) (not $textOnImage)) }}
+        <div class="py-3">
+          <h1 class="m-0">
+            <a href="{{ .Site.BaseURL }}" class="header-url">{{ .Site.Title }}</a>
+          </h1>
+          {{ with .Site.Params.subtitle }}
+            <p class="m-0 opacity-75">{{ . }}</p>
+          {{ end }}
+        </div>
       {{ end }}
 
       {{ if .Site.Menus.main }}
-      <nav id="navbarMain"
-        class="navbar navbar-expand-sm mb-3 {{ .Site.Params.navbar.color_scheme }} {{ .Site.Params.navbar.bg_scheme }}"
-        {{ if .Site.Params.navbar.background_color }}style="background-color: {{ .Site.Params.navbar.background_color }};"{{ end }}>
+        <nav id="navbarMain"
+             class="navbar navbar-expand-sm mb-3 {{ .Site.Params.navbar.color_scheme }} {{ .Site.Params.navbar.bg_scheme }}"
+             {{ if .Site.Params.navbar.background_color }}style="background-color: {{ .Site.Params.navbar.background_color }};"{{ end }}>
+          <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+            <div class="navbar-collapse collapse {{ .Site.Params.navbar.text_alignment }}" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto">
+                {{- partial "navbar_items.html" . -}}
+              </ul>
 
-          <div class="navbar-collapse collapse {{ .Site.Params.navbar.text_alignment }}" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto">
-              {{- partial "navbar_items.html" . -}}
-            </ul>
-            <div class="d-flex align-items-center ms-auto">
-              {{- partial "navbar_right.html" . -}}
+              <div class="d-flex align-items-center ms-auto">
+                {{- partial "navbar_right.html" . -}}
+              </div>
             </div>
           </div>
-        </div>
-      </nav>
+        </nav>
       {{ end }}
 
     </header>

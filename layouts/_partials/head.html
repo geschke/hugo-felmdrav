@@ -1,300 +1,197 @@
 <head>
-    <meta charset="utf-8" />
-    <title>{{ if .Page.Title }}{{ .Page.Title }}{{ end }}{{ if and (.Page.Title) (.Site.Params.append_site_title) }} | {{ end }}{{ if .Site.Params.append_site_title }}{{ .Site.Title }}{{ end }}</title>
+  <meta charset="utf-8" />
+  <title>
+    {{ if .Page.Title }}{{ .Page.Title }}{{ end }}
+    {{ if and (.Page.Title) (.Site.Params.append_site_title) }} | {{ end }}
+    {{ if .Site.Params.append_site_title }}{{ .Site.Title }}{{ end }}
+  </title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {{ range $metaName, $metaValue := .Site.Params.meta }}
-    <meta name="{{ $metaName }}" content="{{ htmlUnescape $metaValue }}">{{ end }}
+  {{ range $metaName, $metaValue := .Site.Params.meta }}
+    <meta name="{{ $metaName }}" content="{{ htmlUnescape $metaValue }}">
+  {{ end }}
 
-{{ if .Site.Params.favicon }}
-<link rel="icon" type="image/x-icon" href="{{ .Site.BaseURL }}{{ .Site.Params.favicon }}" />
-{{ end }}
+  {{ if .Site.Params.favicon }}
+    <link rel="icon" type="image/x-icon" href="{{ .Site.BaseURL }}{{ .Site.Params.favicon }}" />
+  {{ end }}
 
+  {{/* ------------------------------------------------------------------
+       Bootstrap / Bootswatch + felmdrav.css (Hugo Pipes)
+     ------------------------------------------------------------------ */}}
 
-{{/* Hugo Pipes: Bootstrap + Theme-CSS */}}
-
-{{- $bootstrapPath := "css/bootstrap.min.css" -}}
-{{- with .Site.Params.theme.bootstrap_theme -}}
-  {{- if ne . "" -}}
-    {{- $bootstrapPath = printf "css/bootswatch/%s/bootstrap.min.css" . -}}
+  {{- $bootstrapPath := "css/bootstrap.min.css" -}}
+  {{- with .Site.Params.theme.bootstrap_theme -}}
+    {{- if ne . "" -}}
+      {{- $bootstrapPath = printf "css/bootswatch/%s/bootstrap.min.css" . -}}
+    {{- end -}}
   {{- end -}}
-{{- end -}}
 
+  {{- $bootstrap := resources.Get $bootstrapPath -}}
+  {{- if not $bootstrap -}}
+    {{- $bootstrap = resources.Get "css/bootstrap.min.css" -}}
+  {{- end -}}
 
-{{- $bootstrap := resources.Get $bootstrapPath -}}
+  {{- $felmdrav := resources.Get "css/felmdrav.css" -}}
 
-{{- if not $bootstrap -}}
-  {{- /* fallback if Bootswatch path is wrong/missing */ -}}
-  {{- $bootstrapPath = "css/bootstrap.min.css" -}}
-  {{- $bootstrap = resources.Get $bootstrapPath -}}
-{{- end -}}
+  {{- $styles := slice $bootstrap $felmdrav
+      | resources.Concat "css/felmdrav-bundle.css"
+      | resources.Minify
+      | resources.Fingerprint
+  -}}
 
-{{- $felmdrav := resources.Get "css/felmdrav.css" -}}
+  <link rel="stylesheet"
+        href="{{ $styles.RelPermalink }}"
+        integrity="{{ $styles.Data.Integrity }}">
 
-{{- $styles := slice $bootstrap $felmdrav
-    | resources.Concat "css/felmdrav-bundle.css"
-    | resources.Minify
-    | resources.Fingerprint
--}}
+  <link rel="stylesheet" href="{{ "css/bootstrap-icons.min.css" | relURL }}">
 
-<link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}">
-<link rel="stylesheet" href="{{ "css/bootstrap-icons.min.css" | relURL }}">
+  {{/* ------------------------------------------------------------------
+       JS (keep – functions.js still contains non-header logic)
+     ------------------------------------------------------------------ */}}
+  <script src="{{ "js/jquery-3.7.1.min.js" | relURL }}"></script>
+  <script src="{{ "js/functions.js" | relURL }}"></script>
+  {{- partial "javascript_header.html" . -}}
 
+  {{/* ------------------------------------------------------------------
+       Layout basics
+     ------------------------------------------------------------------ */}}
 
-<script type="text/javascript">
-    var azbalacSettingHeaderMoveTitle = '{{ .Site.Params.theme.header.move_title }}';
-</script>
-<script src="{{ "js/jquery-3.7.1.min.js" | relURL }}"></script>
-<script src="{{ "js/functions.js" | relURL }}"></script>
+  {{- $navbarStyle := default "fixed-top" site.Params.navbar.style -}}
+  {{- with .Params.navbar.style -}}
+    {{- $navbarStyle = . -}}
+  {{- end -}}
 
+  {{/* ------------------------------------------------------------------
+       Header / Hero tokens (NEW, Bootstrap-first)
+     ------------------------------------------------------------------ */}}
 
-{{- $overlayBackgroundColorFallback := "#000000" -}}
-{{- $overlayBackgroundColor := trim $overlayBackgroundColorFallback "#" -}}
+  {{- $h  := site.Params.theme.header -}}
+  {{- $ht := $h.type -}}
+  {{- $hc := $h.colors -}}
 
-{{- if .Site.Params.theme.header.overlay_background_color -}}
-    {{- $overlayBackgroundColor = trim .Site.Params.theme.header.overlay_background_color "#" -}}
-    {{- $overlayBackgroundColorFallback = .Site.Params.theme.header.overlay_background_color -}}
-{{ end }}
-{{- $overlayTransparency := 70 -}} {{- /* default transparency 70% */ -}} 
-{{- if .Site.Params.theme.header.overlay_transparency -}}
-    {{- $overlayTransparency = int .Site.Params.theme.header.overlay_transparency -}}
-{{- end -}}
+  {{- $heroPad  := default "1rem"  $h.overlay_padding -}}
+  {{- $titleMin := default "1.15rem" $ht.title_min -}}
+  {{- $titleMax := default "3rem"    $ht.title_max -}}
+  {{- $subMin   := default "0.9rem"  $ht.subtitle_min -}}
+  {{- $subMax   := default "1.55rem" $ht.subtitle_max -}}
+  {{- $textMaxW := default "68ch"    $ht.text_max_width -}}
 
-{{- $overlayBackgroundTranspHex := printf "%1.2f" (div $overlayTransparency 100.0) -}}
+  {{- $titleW := default 800 $ht.title_weight -}}
+  {{- $subW   := default 450 $ht.subtitle_weight -}}
 
-{{- $rr := int (printf "0x%s" (substr $overlayBackgroundColor 0 2)) -}}
-{{- $gg := int (printf "0x%s" (substr $overlayBackgroundColor 2 2)) -}}
-{{- $bb := int (printf "0x%s" (substr $overlayBackgroundColor 4 2)) -}}
-{{- $overlayBackgroundColor := printf " rgba(%d,%d,%d,%s)" $rr $gg $bb $overlayBackgroundTranspHex -}}
+  {{- $nowrap := default true $ht.title_nowrap -}}
+  {{- $shadow := default true $h.text_shadow -}}
 
-<style>
+  <style>
+    :root{
+      --hero-pad: {{ $heroPad }};
+      --hero-title-min: {{ $titleMin }};
+      --hero-title-max: {{ $titleMax }};
+      --hero-sub-min: {{ $subMin }};
+      --hero-sub-max: {{ $subMax }};
+      --hero-text-maxw: {{ $textMaxW }};
+      --hero-title-weight: {{ $titleW }};
+      --hero-sub-weight: {{ $subW }};
+    }
 
-{{/* page override wins over site default */}}
-
-{{- $navbarStyle := default "fixed-top" site.Params.navbar.style -}}
-{{- with .Params.navbar.style -}}
-  {{- $navbarStyle = . -}}
-{{- end -}}
-
-body {
-
-    {{- if eq $navbarStyle "fixed-top" -}}
-    /* Move down content because we have a fixed navbar that is 60px tall */
-
+    body{
+      {{- if eq $navbarStyle "fixed-top" -}}
         {{- $paddingTop := 60 -}}
-        {{- if .Site.Params.navbar.adjust_header -}}
-            {{- $paddingTop  = add 60 .Site.Params.navbar.adjust_header -}}
+        {{- if site.Params.navbar.adjust_header -}}
+          {{- $paddingTop = add 60 site.Params.navbar.adjust_header -}}
         {{- end -}}
-        padding-top: {{ $paddingTop }}px; 
-    {{- end -}}
+        padding-top: {{ $paddingTop }}px;
+      {{- end -}}
 
+      {{- if site.Params.theme.background_color -}}
+        background-color: {{ site.Params.theme.background_color }};
+      {{- end -}}
 
-    {{- if .Site.Params.theme.background_color -}}
-        background-color: {{ .Site.Params.theme.background_color }};
-    {{- end -}}
-
-    {{- $backgroundImage := .Site.Params.theme.background_image -}}
-    {{- if $backgroundImage -}}
-        background-image: url("{{ .Site.BaseURL }}{{ $backgroundImage }}");
-        {{- $backgroundRepeat := "repeat" -}}
-        {{- if .Site.Params.theme.background_image_repeat -}}
-            {{- $backgroundRepeat =  .Site.Params.theme.background_image_repeat -}}
-        {{- end -}}
-        background-repeat: {{ $backgroundRepeat }};
-    {{- end -}}
-
-}
-
-
-
-</style>
-
-
-
-{{/* Header Title Font Settings */}}
-    {{- $headerTitleVariant := "" -}}
-    {{- if .Site.Params.fonts.header_title_variant -}}
-        {{- $headerTitleVariant = (printf ":%s" .Site.Params.fonts.header_title_variant) -}}
-    {{- end -}}
-    {{- if .Site.Params.fonts.header_title_googlefont -}}
-        {{- safeHTML (printf "<link id=\"typography-header-title-font\" rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?%s\">" (querify "family" (printf "%s%s" (trim .Site.Params.fonts.header_title "\"") $headerTitleVariant ))    ) -}}
-    {{- end -}}
-<style id="typography-title" type="text/css">
-    {{- if .Site.Params.fonts.header_title -}}
-    #site-header-text a {
-        font-family: {{ safeCSS .Site.Params.fonts.header_title }};
-    }
-    {{- end -}}
-    {{- if .Site.Params.fonts.header_title_size -}}
-    #site-header-text a {
-        font-size: {{ .Site.Params.fonts.header_title_size }}; 
+      {{- if site.Params.theme.background_image -}}
+        background-image: url("{{ site.BaseURL }}{{ site.Params.theme.background_image }}");
+        background-repeat: {{ site.Params.theme.background_image_repeat | default "repeat" }};
+      {{- end -}}
     }
 
-    {{- end -}}
-</style>
+    /* Hero header glue (Bootstrap handles colors) */
+    .hero-overlay{ padding: var(--hero-pad); }
 
-{{/* Header Subtitle Font Settings */}}
-    {{- $headerSubtitleVariant := "" -}}
-    {{- if .Site.Params.fonts.header_subtitle_variant -}}
-        {{- $headerSubtitleVariant = (printf ":%s" .Site.Params.fonts.header_subtitle_variant) -}}
-    {{- end -}}
-    {{- if .Site.Params.fonts.header_subtitle_googlefont -}}
-        {{- safeHTML (printf "<link id=\"typography-header-subtitle-font\" rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?%s\">" (querify "family" (printf "%s%s" (trim .Site.Params.fonts.header_subtitle "\"") $headerSubtitleVariant ))    ) -}}
-    {{- end -}}
-<style id="typography-subtitle" type="text/css">
-    {{- if .Site.Params.fonts.header_subtitle -}}
-    #site-description {
-        font-family: {{ safeCSS .Site.Params.fonts.header_subtitle }};
-    }
-    {{- end -}}
-    {{- if .Site.Params.fonts.header_subtitle_size -}}
-    #site-description {
-        font-size: {{ .Site.Params.fonts.header_subtitle_size }}; 
+    .hero-text{
+      max-width: min(var(--hero-text-maxw), 100%);
+      {{- if $shadow -}}
+      text-shadow: 0 1px 12px rgba(0,0,0,0.35);
+      {{- end -}}
     }
 
-    {{- end -}}
-</style>
+    .hero-title{
+      font-weight: var(--hero-title-weight);
+      font-size: clamp(var(--hero-title-min), 2.2vw + 0.65rem, var(--hero-title-max));
+      line-height: 1.05;
+      white-space: {{ if $nowrap }}nowrap{{ else }}normal{{ end }};
+    }
 
-{{/* Body Font Settings */}}
-    {{- $bodyVariant := "" -}}
-    {{- if .Site.Params.fonts.body_variant -}}
-        {{- $bodyVariant = (printf ":%s" .Site.Params.fonts.body_variant) -}}
-    {{- end -}}
-    {{- if .Site.Params.fonts.body_googlefont -}}
-        {{- safeHTML (printf "<link id=\"typography-body-font\" rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?%s\">" (querify "family" (printf "%s%s" (trim .Site.Params.fonts.body "\"") $bodyVariant ))    ) -}}
-    {{- end -}}
-<style id="typography-body" type="text/css">
-    {{- if .Site.Params.fonts.body -}}
-    body {
-        font-family: {{ safeCSS .Site.Params.fonts.body }};
+    .hero-subtitle{
+      font-weight: var(--hero-sub-weight);
+      font-size: clamp(var(--hero-sub-min), 1.1vw + 0.5rem, var(--hero-sub-max));
+      line-height: 1.2;
+      text-wrap: pretty;
+    }
+
+    {{- if $nowrap -}}
+    @media (max-width: 360px){
+      .hero-title{ white-space: normal; }
     }
     {{- end -}}
-    {{- if .Site.Params.fonts.body_size -}}
-    body {
-        font-size: {{ .Site.Params.fonts.body_size }}; 
-    }
-    {{- end -}}
-</style>
 
-{{/* Navbar Font Settings */}}
-    {{- $navbarVariant := "" -}}
-    {{- if .Site.Params.fonts.navbar_variant -}}
-        {{- $navbarVariant = (printf ":%s" .Site.Params.fonts.navbar_variant) -}}
-    {{- end -}}
-    {{- if .Site.Params.fonts.navbar_googlefont -}}
-        {{- safeHTML (printf "<link id=\"typography-navbar-font\" rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?%s\">" (querify "family" (printf "%s%s" (trim .Site.Params.fonts.navbar "\"") $navbarVariant ))    ) -}}
-    {{- end -}}
-<style id="typography-navbar" type="text/css">
-    {{- if .Site.Params.fonts.navbar -}}
-    nav#navbarMain {
-        font-family: {{ safeCSS .Site.Params.fonts.navbar }};
-    }
-    {{- end -}}
-    {{- if .Site.Params.fonts.navbar_size -}}
-    nav#navbarMain {
-        font-size: {{ safeCSS .Site.Params.fonts.navbar_size }}; 
-    }
-    nav#navbarMain ul.dropdown-menu {
-        font-size: {{ safeCSS .Site.Params.fonts.navbar_size }};
-    }
-    {{- end -}}
-</style>
+    /* Colors only if explicitly configured */
+    {{- if $hc.title }}
+      .hero-title{ color: {{ $hc.title }}; }
+    {{- end }}
+    {{- if $hc.subtitle }}
+      .hero-subtitle{ color: {{ $hc.subtitle }}; }
+    {{- end }}
+  </style>
 
-{{/* Headline Font Settings */}}
-    {{- $headlineVariant := "" -}}
-    {{- if .Site.Params.fonts.headline_variant -}}
-        {{- $headlineVariant = (printf ":%s" .Site.Params.fonts.headline_variant) -}}
+  {{/* ------------------------------------------------------------------
+       Fonts (new selectors for hero)
+     ------------------------------------------------------------------ */}}
+
+  {{/* Header Title Font */}}
+  {{- if and site.Params.fonts.header_title_googlefont site.Params.fonts.header_title -}}
+    {{- safeHTML (printf
+      "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?%s\">"
+      (querify "family"
+        (printf "%s:%s"
+          (trim site.Params.fonts.header_title "\"")
+          (site.Params.fonts.header_title_variant | default "800")
+        )
+      )
+    ) -}}
+  {{- end }}
+  <style>
+    {{- if site.Params.fonts.header_title -}}
+      .hero-title{ font-family: {{ safeCSS site.Params.fonts.header_title }}; }
     {{- end -}}
-    {{- if and .Site.Params.fonts.headline_googlefont .Site.Params.fonts.headline -}}
-        {{- safeHTML (printf "<link id=\"typography-headline-font\" rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?%s\">" (querify "family" (printf "%s%s" (trim .Site.Params.fonts.headline "\"") $headlineVariant ))    ) -}}
+  </style>
+
+  {{/* Header Subtitle Font */}}
+  {{- if and site.Params.fonts.header_subtitle_googlefont site.Params.fonts.header_subtitle -}}
+    {{- safeHTML (printf
+      "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?%s\">"
+      (querify "family"
+        (printf "%s:%s"
+          (trim site.Params.fonts.header_subtitle "\"")
+          (site.Params.fonts.header_subtitle_variant | default "450")
+        )
+      )
+    ) -}}
+  {{- end }}
+  <style>
+    {{- if site.Params.fonts.header_subtitle -}}
+      .hero-subtitle{ font-family: {{ safeCSS site.Params.fonts.header_subtitle }}; }
     {{- end -}}
-<style id="typography-headline" type="text/css">
-    {{- if .Site.Params.fonts.headline -}}
-    h1, h2, h3, h4, h5, h6 {
-                font-family: {{ safeCSS .Site.Params.fonts.headline }}; 
-            }
-    {{- end -}}
-    {{- if .Site.Params.fonts.headline_base_size -}}
-        {{/* size calculations from Bootstrap framework */}}
-        {{- $sizeBase := int .Site.Params.fonts.headline_base_size }}
-        {{- $sizeH1 := printf "%d%s" (int (math.Floor (mul $sizeBase 2.6))) "px" -}}
-        {{- $sizeH2 := printf "%d%s" (int (math.Floor (mul $sizeBase 2.15))) "px" -}}
-        {{- $sizeH3 := printf "%d%s" (int (math.Ceil (mul $sizeBase 1.7))) "px" -}}
-        {{- $sizeH4 := printf "%d%s" (int (math.Ceil (mul $sizeBase 1.28))) "px" -}}
-        {{- $sizeH5 := printf "%d%s" (int $sizeBase) "px" -}}
-        {{- $sizeH6 := printf "%d%s" (int (math.Ceil (mul $sizeBase 0.85))) "px" -}}
-        {{- $sizeSubtitle := printf "%d%s" (int (math.Floor (mul $sizeBase 1.5))) "px" -}}
-        
-        h1 {
-            font-size: {{ safeCSS $sizeH1 }};
-            }
-        h2 {
-            font-size: {{ safeCSS $sizeH2 }};
-        }
-        h3 {
-        font-size: {{ safeCSS $sizeH3 }};
-        }
-        h4 {
-            font-size: {{ safeCSS $sizeH4 }};
-        }
-        h5 {
-            font-size: {{ safeCSS $sizeH5 }};
-        }
-        h6 {
-            font-size: {{ safeCSS $sizeH6 }};
-        }
-        #site-description {
-            font-size: {{ safeCSS $sizeSubtitle }};
-        }
-    {{- end -}}
-</style>
+  </style>
 
-
-{{ if eq $navbarStyle "header" }}
-   
-    <script type="text/javascript">
-        var azbalacSettingHeaderColor = { 'bg': '{{ $overlayBackgroundColorFallback }}',
-            'transp': '{{ $overlayTransparency }}'
-            };
-
-    </script>
-    <style type="text/css">
-        #site-header-text a, #site-description {
-                background: "{{ safeCSS $overlayBackgroundColorFallback }}"; /* fallback color */
-            background: {{ safeCSS $overlayBackgroundColor }};
-            
-        }
-    </style>
-    {{/* end */}}
-    {{ if .Site.Params.theme.header.overlay_distance_between }}
-    <style type="text/css">
-        #site-header-box-title {
-            margin-bottom: {{ .Site.Params.theme.header.overlay_distance_between }}px;
-        }
-    </style>
-    {{ end }}
-    {{ if or .Site.Params.theme.header.overlay_distance_vertical .Site.Params.theme.header.overlay_distance_horizontal }}
-    <style type="text/css">
-        #site-header-container-overlay {
-        {{ if or (eq .Site.Params.theme.header.overlay_alignment "lt") (eq .Site.Params.theme.header.overlay_alignment "lb") }}
-            left: {{ .Site.Params.theme.header.overlay_distance_horizontal }}px;
-        {{ else if or (eq .Site.Params.theme.header.overlay_alignment "mt") ( eq .Site.Params.theme.header.overlay_alignment "mb") }}
-            
-        {{ else if or (eq .Site.Params.theme.header.overlay_alignment "rt") ( eq .Site.Params.theme.header.overlay_alignment "rb") }}
-            right: {{ .Site.Params.theme.header.overlay_distance_horizontal }}px;
-        {{ end }}
-        {{ if or (eq .Site.Params.theme.header.overlay_alignment "lt") (eq .Site.Params.theme.header.overlay_alignment "mt") (eq .Site.Params.theme.header.overlay_alignment "rt") }}
-            top: {{ .Site.Params.theme.header.overlay_distance_vertical }}px;
-        {{ else if or ( eq .Site.Params.theme.header.overlay_alignment "lb") ( eq .Site.Params.theme.header.overlay_alignment "mb")  ( eq .Site.Params.theme.header.overlay_alignment "rb") }}
-            bottom: {{ .Site.Params.theme.header.overlay_distance_vertical }}px;
-        {{ end }}
-        }
-    </style>
-    {{ end }}
-
-{{ end }}
-{{- partial "head_includes.html" . }}
-
-{{- partial "javascript_header.html" . }}
+  {{- partial "head_includes.html" . -}}
 </head>
