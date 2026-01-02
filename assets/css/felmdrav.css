@@ -13,9 +13,6 @@
   color: var(--felmdrav-footer-link, var(--bs-link-hover-color));
 }
 
-/*.footer-container > .container {
-  padding-top: 20px;
-}*/
 
 .subfooter-container {
   background-color: var(--felmdrav-subfooter-bg, var(--bs-tertiary-bg));
@@ -30,52 +27,6 @@
   color: var(--felmdrav-subfooter-link, var(--bs-link-hover-color));
 }
 
-
-/*
-.subfooter-container > .container {
-  padding-top: 20px; 
-}*/
-
-
-/* media query stuff, new widths come from Bootstrap grid widths */
-/*
-#media-width-detection-element {
-  display: block;
-  height: 1px;
-  width: 100%;
-
-}
-
-
-@media (max-width: 575.98px) {
-  #media-width-detection-element {
-      width: 1px;
-  }
-}
-
-@media (min-width: 576px) and (max-width: 767.98px) {
-  #media-width-detection-element {
-      width: 540px;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 991.98px) {
-  #media-width-detection-element {
-      width: 720px;
-  }
-}
-@media (min-width: 992px) and (max-width: 1199.98px) {
-  #media-width-detection-element {
-      width: 960px;
-  }
-}
-@media (min-width: 1200px) {
-  #media-width-detection-element {
-      width: 1140px;
-  }
-}
-
-*/
 
 
 /* Hero image: keep it clean */
@@ -94,6 +45,7 @@
   max-width: min(60ch, 100%);
   text-shadow: 0 1px 12px rgba(0,0,0,0.35);
 }
+
 
 /* Modern responsive type (no media queries needed) */
 .hero-title{
@@ -119,13 +71,11 @@
     text-wrap: pretty;
 }
 
-.hero-overlay{
-  padding: clamp(0.5rem, 2vw, 1.5rem);
-}
-
-.hero-text{
-  max-width: min(60ch, 100%);
-   text-shadow: 0 1px 12px rgba(0,0,0,0.35);
+.hero,
+.hero:hover,
+.hero:focus {
+  color: inherit;
+  text-decoration: none;
 }
 
 

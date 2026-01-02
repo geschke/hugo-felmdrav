@@ -111,8 +111,8 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
   # Padding inside the hero overlay (use rem values)
   overlay_padding = "1rem"
 
-  # Improve readability on images
-  text_shadow = true
+  # Improve readability on images (optional, default false)
+  text_shadow = false
 
     #font_color_title = '#f8f8f8ff' # For all colors, please use #rrggbb format with # and 6 characters # ersetzt durch colors.title
     
@@ -129,11 +129,34 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 
     # move_title = false # If title is placed as overlay: Move title above the header image on small smartphone displays, default false # JS-Hack entfernt
 
+[params.theme.header.backdrop]
+  # Default OFF: enable only if needed for readability
+  enabled = false
+
+  # Background color behind title+subtitle (#rrggbb only)
+  color = "#257a30ff"
+
+  
+  # Opacity of the backdrop box (0.0 .. 1.0)
+  opacity = 0.25
+
+  # Box styling
+  radius = "0.5rem"
+  padding = "0.75rem 1rem"
+
+
+[params.theme.header.text_shadow_style]
+  # Shadow color (hex only)
+  color = "#487245ff"
+
+  # Shadow opacity (0.0 .. 1.0)
+  opacity = 0.75
+
 # Optional color overrides.
 # Leave empty to use Bootstrap / Bootswatch defaults.
 [params.theme.header.colors]
-  title = "" # use rrggbb
-  subtitle = "" # use rrggbb
+  title = "#1b2921ff" # use rrggbb
+  subtitle = "#2f577fff" # use rrggbb
 
 
 # Typography settings for hero title and subtitle

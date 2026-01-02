@@ -81,7 +81,48 @@
   {{- $subW   := default 450 $ht.subtitle_weight -}}
 
   {{- $nowrap := default true $ht.title_nowrap -}}
-  {{- $shadow := default true $h.text_shadow -}}
+  {{- $shadow := default false $h.text_shadow -}}
+
+
+{{/* Text shadow style (optional) */}}
+{{- $ts := $h.text_shadow_style -}}
+{{- $tsColorFallback := "#000000" -}}
+{{- $tsOpacity := 0.35 -}}
+
+{{- with $ts.opacity -}}
+  {{- $tsOpacity = float . -}}
+{{- end -}}
+{{- if lt $tsOpacity 0.0 -}}{{- $tsOpacity = 0.0 -}}{{- end -}}
+{{- if gt $tsOpacity 1.0 -}}{{- $tsOpacity = 1.0 -}}{{- end -}}
+
+{{- $tsColorHex := trim (default $tsColorFallback $ts.color) "#" -}}
+{{- $tsRR := int (printf "0x%s" (substr $tsColorHex 0 2)) -}}
+{{- $tsGG := int (printf "0x%s" (substr $tsColorHex 2 2)) -}}
+{{- $tsBB := int (printf "0x%s" (substr $tsColorHex 4 2)) -}}
+{{- $tsAlpha := printf "%0.2f" $tsOpacity -}}
+{{- $tsRGBA := printf "rgba(%d,%d,%d,%s)" $tsRR $tsGG $tsBB $tsAlpha -}}
+
+
+
+  {{- $bd := $h.backdrop -}}
+  {{- $bdEnabled := default false $bd.enabled -}}
+  {{- $bdColorFallback := "#000000" -}}
+  {{- $bdOpacity := 0.55 -}}
+  {{- $bdRadius := default "0.5rem" $bd.radius -}}
+  {{- $bdPad := default "0.75rem 1rem" $bd.padding -}}
+
+  {{- if $bd.opacity -}}
+    {{- $bdOpacity = float $bd.opacity -}}
+  {{- end -}}
+  {{- if lt $bdOpacity 0.0 -}}{{- $bdOpacity = 0.0 -}}{{- end -}}
+  {{- if gt $bdOpacity 1.0 -}}{{- $bdOpacity = 1.0 -}}{{- end -}}
+
+  {{- $bdColorHex := trim (default $bdColorFallback $bd.color) "#" -}}
+  {{- $rr := int (printf "0x%s" (substr $bdColorHex 0 2)) -}}
+  {{- $gg := int (printf "0x%s" (substr $bdColorHex 2 2)) -}}
+  {{- $bb := int (printf "0x%s" (substr $bdColorHex 4 2)) -}}
+  {{- $bdAlpha := printf "%0.2f" $bdOpacity -}}
+  {{- $bdRGBA := printf "rgba(%d,%d,%d,%s)" $rr $gg $bb $bdAlpha -}}
 
   <style>
     :root{
@@ -93,7 +134,17 @@
       --hero-text-maxw: {{ $textMaxW }};
       --hero-title-weight: {{ $titleW }};
       --hero-sub-weight: {{ $subW }};
+
+    {{- if $bdEnabled }}
+      --hero-backdrop-bg: {{ safeCSS $bdRGBA }};
+      --hero-backdrop-radius: {{ safeCSS $bdRadius }};
+      --hero-backdrop-pad: {{ safeCSS $bdPad }};
+    {{- end }}
+
+
     }
+
+
 
     body{
       {{- if eq $navbarStyle "fixed-top" -}}
@@ -119,10 +170,21 @@
 
     .hero-text{
       max-width: min(var(--hero-text-maxw), 100%);
+
       {{- if $shadow -}}
-      text-shadow: 0 1px 12px rgba(0,0,0,0.35);
+      text-shadow: 0 1px 12px {{ safeCSS $tsRGBA }};
       {{- end -}}
     }
+
+
+
+    /* Backdrop box (optional, OFF by default) */
+    .hero-text.is-backdrop{
+      background: var(--hero-backdrop-bg);
+      border-radius: var(--hero-backdrop-radius);
+      padding: var(--hero-backdrop-pad);
+    }
+
 
     .hero-title{
       font-weight: var(--hero-title-weight);

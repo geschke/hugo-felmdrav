@@ -4,6 +4,8 @@
 {{- $showText := $h.show_text | default true -}}
 {{- $textOnImage := $h.text_on_image | default true -}}
 {{- $align := $h.overlay_alignment | default "lb" -}}
+{{- $bd := $h.backdrop -}}
+{{- $bdEnabled := $bd.enabled | default false -}}
 
 {{- $pos := "justify-content-start align-items-start text-start" -}}
 {{- if eq $align "mt" -}}{{ $pos = "justify-content-center align-items-start text-center" -}}
@@ -24,7 +26,7 @@
           {{ if and $showText $textOnImage }}
             <div class="position-absolute top-0 start-0 w-100 h-100 d-flex {{ $pos }}">
               <div class="hero-overlay container">
-                <div class="hero-text">
+                <div class="hero-text{{ if $bdEnabled }} is-backdrop{{ end }}">
                   <div class="hero-title" {{ with $h.colors.title }}style="color: {{ . }};"{{ end }}>
                     {{ .Site.Title }}
                   </div>
