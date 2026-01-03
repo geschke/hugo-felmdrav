@@ -1,7 +1,6 @@
-# Felmdrav Theme for Hugo
+# Felmdrav - A Hugo Theme
 
-
-Felmdrav is a clean and minimalistic theme for Hugo, built on the
+Felmdrav is a clean and minimalistic Hugo theme, built on the
 [Bootstrap v5](https://getbootstrap.com/) CSS framework.
 
 Felmdrav originates from **Tikva**, a theme originally developed by the author for **Grav CMS** and later ported to **Hugo**.
@@ -259,85 +258,192 @@ included with Felmdrav.
   (e.g. `no-repeat`, `repeat`, `repeat-x`, `repeat-y`).
 
 
-### Header Configuration
+### Header (Hero) Configuration
 
-Header-related options are defined under the `[params.theme.header]` section.
-These settings mainly affect layouts where the navigation bar is rendered in
-`header` mode and control the appearance of the page header area.
+This section controls the global header / hero area at the top of the site.
+The header is fully optional and can be enabled or disabled as a whole.
 
-#### Colors
+The header (hero) area is intentionally Bootstrap-first.
+If no custom colors or styles are defined, all typography and colors are inherited from Bootstrap or the selected Bootswatch theme.
+Header-specific options are designed to extend the default behavior, not to replace it.
 
-- `font_color`  
-  Text color used in the header area.  
-  Leave empty to use the theme default.
+- **`enabled`**
+Enables or disables the complete header/hero area.
+If set to `false`, the theme renders only the navigation bar without any hero section.
 
-- `link_color`  
-  Link color used in the header area.  
-  Leave empty to use the theme default.
+- **`image`**
+Optional hero image displayed at the top of the page.
+If an image is set and `text_on_image` is enabled, the site title and subtitle can be rendered as an overlay on top of this image.
+If left empty, the header falls back to a text-only layout.
 
-- `background_color`  
-  Background color of the header area.  
-  Leave empty to use the theme default.
+- **`alt_text`**
+Alt text for the hero image.
+This improves accessibility and should briefly describe the image content.
+If left empty, no alt text is rendered.
 
-#### Header Image
 
-- `image`  
-  Enables a header image. The file must be located in the site’s `static`
-  directory (e.g. `img/header.jpg`).  
-  This option is only relevant when the navbar style is set to `header`.
+#### Header Text Display
 
-- `alt_text`  
-  Alternative text for the header image.
+- **`show_text`**
+Controls whether the site title and subtitle are rendered at all.
+If set to `false`, the header image (if present) is shown without any text.
 
-#### Title and Subtitle Display
+- **`text_on_image`**
+Controls whether the title and subtitle are rendered as an overlay on top of the hero image.
+If set to `false`, the text is rendered below the image instead.
+If no image is configured, this option is ignored and the text is rendered normally.
 
-- `display_header_text`  
-  Enables or disables the display of the site title and subtitle in the header.
 
-- `title_on_image`  
-  If enabled, the title and subtitle are rendered as an overlay on top of the
-  header image.  
-  If no image is configured, the theme falls back to displaying the title and
-  subtitle above the navigation bar.
+#### Overlay Alignment
 
-- `font_color_title`  
-  Text color of the title when rendered on the image overlay.
+- **`overlay_alignment`**
+Defines the position of the title and subtitle when they are rendered on top of the hero image.
 
-- `font_color_subtitle`  
-  Text color of the subtitle when rendered on the image overlay.
+  Available values:
 
-#### Overlay Positioning
+  * `lt` – left / top
+  * `mt` – center / top
+  * `rt` – right / top
+  * `lb` – left / bottom
+  * `mb` – center / bottom
+  * `rb` – right / bottom
 
-- `overlay_alignment`  
-  Controls the position of the title/subtitle overlay on the image.  
-  Supported values are:
-  `lt`, `mt`, `rt`, `lb`, `mb`, `rb`
-  (left/middle/right × top/bottom).
+  This option only applies when `text_on_image = true`.
 
-- `overlay_distance_vertical`  
-  Vertical offset (in pixels) from the selected alignment edge.
 
-- `overlay_distance_horizontal`  
-  Horizontal offset (in pixels) from the selected alignment edge.
+#### Overlay Padding
 
-- `overlay_distance_between`  
-  Vertical spacing (in pixels) between title and subtitle.
+- **`overlay_padding`**
+Defines the inner padding of the hero text container when rendered on top of the image.
+Use CSS units (recommended: `rem`) to control spacing around the title and subtitle.
 
-#### Overlay Background
+This option helps improve readability and fine-tune the visual balance of the hero text against the background image.
 
-- `overlay_background_color`  
-  Background color of the overlay container.
 
-- `overlay_transparency`  
-  Transparency of the overlay background.  
-  Allowed values range from `0` to `100` (without percent sign).  
-  A value of `0` disables the overlay background.
+### Header Backdrop (Optional Text Background)
 
-#### Mobile Behavior
+This section controls an optional backdrop box behind the hero title and subtitle.
+The backdrop is designed to improve text readability on complex or high-contrast images.
 
-- `move_title`  
-  If enabled and the title is rendered as an image overlay, the title is moved
-  above the header image on small screens to improve readability.
+By default, the backdrop is disabled to keep the header clean and minimal.
+
+- **`enabled`**
+Enables or disables the backdrop box behind the header title and subtitle.
+If set to `false`, no background box is rendered and the text is displayed directly on top of the image.
+
+- **`color`**
+Defines the background color of the backdrop box.
+The value must be a hex color in `#rrggbb` format.
+If left empty, the backdrop automatically falls back to the header title color.
+
+- **`opacity`**
+Controls the transparency of the backdrop box.
+Valid values range from `0.0` (fully transparent) to `1.0` (fully opaque).
+Lower values create a subtle background, higher values increase contrast and readability.
+
+- **`radius`**
+Defines the border radius of the backdrop box.
+Use CSS units (for example `rem`) to control how rounded the box corners appear.
+
+- **`padding`**
+Defines the inner padding of the backdrop box.
+This controls the spacing between the text and the edges of the backdrop background.
+
+
+### Header Text Shadow (Optional)
+
+This section controls an optional text shadow for the hero title and subtitle.
+The text shadow can be used to improve readability on bright or high-contrast background images or to create stylistic effects.
+
+By default, the text shadow is disabled to keep the header typography clean and modern.
+
+- **`enabled`**
+Enables or disables the text shadow for the header title and subtitle.
+If set to `false`, no shadow is applied.
+
+- **`color`**
+Defines the color of the text shadow.
+The value must be a hex color in `#rrggbb` format.
+If left empty, the shadow color falls back to the header title color.
+
+- **`opacity`**
+Controls the opacity of the text shadow.
+Valid values range from `0.0` (fully transparent) to `1.0` (fully opaque).
+Higher values result in a stronger, more visible shadow effect.
+
+
+### Header Colors (Optional Overrides)
+
+This section allows optional color overrides for the header text and background.
+If no values are set, the theme uses the default colors provided by Bootstrap or the selected Bootswatch theme.
+
+- **`title`**
+Defines the text color of the header title.
+The value must be a hex color in `#rrggbb` format.
+If left empty, the default Bootstrap text or link color is used.
+
+- **`subtitle`**
+Defines the text color of the header subtitle.
+The value must be a hex color in `#rrggbb` format.
+If left empty, the default Bootstrap text color is used.
+
+- **`background_color`**
+Defines the background color of the entire header area.
+This color is applied behind the hero image or text-only header.
+If left empty, the background color is inherited from Bootstrap defaults or the page background.
+
+
+### Header Typography (Hero Title and Subtitle)
+
+This section controls the typography of the hero title and subtitle.
+The theme uses modern, fluid typography based on CSS `clamp()` to adapt smoothly across different screen sizes without relying on media queries.
+
+**Font weights**
+
+- **`title_weight`**
+Defines the font weight of the hero title.
+If not set, the default font weight defined by the theme or Bootstrap is used.
+
+- **`subtitle_weight`**
+Defines the font weight of the hero subtitle.
+If not set, the default font weight defined by the theme or Bootstrap is used.
+
+
+**Responsive font sizes**
+
+- **`title_min`**
+Defines the minimum font size of the hero title.
+This size is used on very small screens.
+
+- **`title_max`**
+Defines the maximum font size of the hero title.
+This size is used on large screens.
+
+- **`subtitle_min`**
+Defines the minimum font size of the hero subtitle.
+
+- **`subtitle_max`**
+Defines the maximum font size of the hero subtitle.
+
+All size values should use CSS units, with `rem` being the recommended choice.
+
+
+**Text layout and wrapping**
+
+- **`text_max_width`**
+Limits the maximum line length of the hero text container.
+This helps maintain readability on very wide screens.
+
+- **`title_nowrap`**
+Prevents the hero title from wrapping onto multiple lines on large screens.
+This is useful for short titles that should remain on a single line for visual impact.
+
+
+All color values must be provided as hex colors (`#rrggbb`).
+Other color formats are not supported.
+
+Advanced customization can always be done by overriding the theme CSS.
+The configuration options are designed to cover common use cases without adding unnecessary complexity.
 
 
 ### Footer and Subfooter
@@ -497,9 +603,6 @@ Both system fonts and Google Fonts are supported.
   Font weight or variant (for example `regular`, `600`, `800`).
   Availability depends on the selected font.
 
-* `header_title_size`
-  Font size for the header title (for example `50px`).
-  Leave empty to use the theme default.
 
 #### Header Subtitle
 
@@ -512,8 +615,6 @@ Both system fonts and Google Fonts are supported.
 * `header_subtitle_variant`
   Font weight or variant for the subtitle.
 
-* `header_subtitle_size`
-  Font size for the subtitle text.
 
 #### Navigation Bar
 

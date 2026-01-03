@@ -1,6 +1,6 @@
 baseurl = "https://example.com/"
 languageCode = "en_US"
-title = "Hugo Felmdrav Theme"
+title = "Felmdrav - A Hugo Theme"
 
 theme = "hugo-felmdrav"
 
@@ -44,7 +44,7 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
     
     color_scheme = "navbar-dark" # navbar-light, navbar-dark
     
-    bg_scheme = "bg-primary" # see Bootstrap docs, bg.* utilities https://getbootstrap.com/docs/4.1/utilities/colors/
+    bg_scheme = "bg-primary" # see Bootstrap docs, bg.* utilities https://getbootstrap.com/docs/5.3/utilities/background/
     
     background_color = ''  # custom background color parameters, e.g. #e3f2fd !important, If color is set, it will be used for background. Set empty for above selection.
     
@@ -91,13 +91,6 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
   image = 'img/header_bg_example.jpg' # Use header image. This option is only valid if the theme is configured to the "header" style. 
   
   alt_text = 'alt text for header image' # Set alt text for header image, default empty
-
-
-  # The following options are mostly used when the navbar is in "header" mode, i.e. not fixed-top
-  # font_color = '' # header font color, leave empty for default # wieder einbauen?
-  # link_color = '' # header link color, leave empty for default # wieder einbauen?
-  # background_color = '' # header background color, leave empty for default # keinen eigenen Background mehr?
-
     
   # Text display
   show_text = true
@@ -111,23 +104,6 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
   # Padding inside the hero overlay (use rem values)
   overlay_padding = "1rem"
 
-  # Improve readability on images (optional, default false)
-  text_shadow = false
-
-    #font_color_title = '#f8f8f8ff' # For all colors, please use #rrggbb format with # and 6 characters # ersetzt durch colors.title
-    
-    #font_color_subtitle = '#242432' # wieder einbauen? # ersetzt durch colors.subtitle
-
-    # overlay_distance_vertical = '60' # Dependent on the overlay_alignment option, this option is used to modify the vertical distance between the margin and the title/subtitle. This allows to place the title and subtitle on nearly any place related to the header image.  # keine pixelgenaue Positionierung mehr
-
-    # overlay_distance_horizontal = '20' # The same as above, but for horizontal distance. # s.o.
-
-    # overlay_distance_between = '0' # Distance between title and subtitle # spacing via CSS
-
-    # overlay_background_color = '#000000' # ersetzt durch overlay box
-    # overlay_transparency = '0' # default 70%, allowed values from 0 - 100 (without % sign!). This option enables a transparent background of title and subtitle. This is useful if the "titleOnImage" option is true, so the title is placed as overlay above the image. If this option is set to 0 or an empty value, the transparency color setting will be disabled. # ersetzt durch opacity
-
-    # move_title = false # If title is placed as overlay: Move title above the header image on small smartphone displays, default false # JS-Hack entfernt
 
 [params.theme.header.backdrop]
   # Default OFF: enable only if needed for readability
@@ -145,7 +121,9 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
   padding = "0.75rem 1rem"
 
 
-[params.theme.header.text_shadow_style]
+[params.theme.header.text_shadow]
+  enabled = false
+
   # Shadow color (hex only)
   color = "#487245ff"
 
@@ -155,8 +133,13 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 # Optional color overrides.
 # Leave empty to use Bootstrap / Bootswatch defaults.
 [params.theme.header.colors]
-  title = "#1b2921ff" # use rrggbb
-  subtitle = "#2f577fff" # use rrggbb
+  title = "#222222ff" # use rrggbb
+  subtitle = "#435465ff" # use rrggbb
+
+
+  # The following options are mostly used when the navbar is in "header" mode, i.e. not fixed-top
+  background_color = '' # header background color, leave empty for default
+
 
 
 # Typography settings for hero title and subtitle
@@ -332,12 +315,41 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 
 
   [[menu.main]]
-    identifier = "about"
-    name = "About"
-    url = "/about/"
-    pageRef = "/about"
+    identifier = "components"
+    name = "Components"
+    url = "/components/"
+    pageRef = "/components"
     weight = 30
 
+
+  [[menu.main]]
+    name = "Layout"
+    identifier = "layout"
+    url = "#"
+    weight = 40
+
+  [[menu.main]]
+    name = "Sidebar left (3/9)"
+    parent = "layout"
+    url = "/layout/sidebar-left/"
+    weight = 10
+
+  [[menu.main]]
+    name = "Sidebar right (4/8)"
+    parent = "layout"
+    url = "/layout/sidebar-right/"
+    weight = 20
+
+  [[menu.main]]
+    name = "Both sidebars (3/6/3)"
+    parent = "layout"
+    url = "/layout/sidebar-both/"
+    weight = 30
+
+  [[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 50
 # [[menu.main]]
 #    identifier = "about-team"
 #    name = "Team"

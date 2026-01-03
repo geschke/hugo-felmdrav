@@ -70,6 +70,9 @@
   {{- $ht := $h.type -}}
   {{- $hc := $h.colors -}}
 
+  {{/* Base text color for hero-related effects */}}
+  {{- $baseTextColor := default "#000000" $hc.title -}}
+
   {{- $heroPad  := default "1rem"  $h.overlay_padding -}}
   {{- $titleMin := default "1.15rem" $ht.title_min -}}
   {{- $titleMax := default "3rem"    $ht.title_max -}}
@@ -81,12 +84,12 @@
   {{- $subW   := default 450 $ht.subtitle_weight -}}
 
   {{- $nowrap := default true $ht.title_nowrap -}}
-  {{- $shadow := default false $h.text_shadow -}}
-
 
 {{/* Text shadow style (optional) */}}
-{{- $ts := $h.text_shadow_style -}}
-{{- $tsColorFallback := "#000000" -}}
+{{- $ts := $h.text_shadow -}}
+{{- $tsEnabled := default false $ts.enabled -}}
+
+{{/* - $tsColorFallback := "#000000" - */}}
 {{- $tsOpacity := 0.35 -}}
 
 {{- with $ts.opacity -}}
@@ -95,7 +98,9 @@
 {{- if lt $tsOpacity 0.0 -}}{{- $tsOpacity = 0.0 -}}{{- end -}}
 {{- if gt $tsOpacity 1.0 -}}{{- $tsOpacity = 1.0 -}}{{- end -}}
 
-{{- $tsColorHex := trim (default $tsColorFallback $ts.color) "#" -}}
+{{/*- $tsColorHex := trim (default $tsColorFallback $ts.color) "#" - */}}
+{{- $tsColorHex := trim (default $baseTextColor $ts.color) "#" -}}
+
 {{- $tsRR := int (printf "0x%s" (substr $tsColorHex 0 2)) -}}
 {{- $tsGG := int (printf "0x%s" (substr $tsColorHex 2 2)) -}}
 {{- $tsBB := int (printf "0x%s" (substr $tsColorHex 4 2)) -}}
@@ -103,10 +108,10 @@
 {{- $tsRGBA := printf "rgba(%d,%d,%d,%s)" $tsRR $tsGG $tsBB $tsAlpha -}}
 
 
-
+{{/* Text backdrop (optional) */}}
   {{- $bd := $h.backdrop -}}
   {{- $bdEnabled := default false $bd.enabled -}}
-  {{- $bdColorFallback := "#000000" -}}
+  {{/*- $bdColorFallback := "#000000" -*/}}
   {{- $bdOpacity := 0.55 -}}
   {{- $bdRadius := default "0.5rem" $bd.radius -}}
   {{- $bdPad := default "0.75rem 1rem" $bd.padding -}}
@@ -117,7 +122,8 @@
   {{- if lt $bdOpacity 0.0 -}}{{- $bdOpacity = 0.0 -}}{{- end -}}
   {{- if gt $bdOpacity 1.0 -}}{{- $bdOpacity = 1.0 -}}{{- end -}}
 
-  {{- $bdColorHex := trim (default $bdColorFallback $bd.color) "#" -}}
+  {{/*- $bdColorHex := trim (default $bdColorFallback $bd.color) "#" -*/}}
+  {{- $bdColorHex := trim (default $baseTextColor $bd.color) "#" -}}
   {{- $rr := int (printf "0x%s" (substr $bdColorHex 0 2)) -}}
   {{- $gg := int (printf "0x%s" (substr $bdColorHex 2 2)) -}}
   {{- $bb := int (printf "0x%s" (substr $bdColorHex 4 2)) -}}
@@ -171,7 +177,7 @@
     .hero-text{
       max-width: min(var(--hero-text-maxw), 100%);
 
-      {{- if $shadow -}}
+      {{- if $tsEnabled -}}
       text-shadow: 0 1px 12px {{ safeCSS $tsRGBA }};
       {{- end -}}
     }
