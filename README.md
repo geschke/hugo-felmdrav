@@ -966,38 +966,33 @@ documentation:
 
 
 
-
 ## Content Blocks (Page Composition)
 
-Felmdrav implements a **block-based page composition mechanism**.
-Blocks are defined in a page’s front matter and assembled by the page template.
-This allows pages to be composed from reusable content blocks instead of
-hardcoding sections into templates.
+Felmdrav uses **content blocks** to build pages from reusable sections. A block is a combination of:
 
-Blocks are **not limited to the home page**.
-They can, in principle, be used on any page type. Whether blocks are rendered
-depends on the template used by the page. The provided examples focus on the
-home page because it is the most common use case.
+* **content** (data and text), stored as a dedicated content page under `content/blocks/…`
+* **structure and styling** (layout markup), implemented as an element template under `layouts/_partials/elements/…`
+
+This separation keeps block content easy to edit (front matter in content files) while the visual layout stays inside the theme.
+
+In practice, blocks are used in two ways:
+
+* as an ordered list of sections in front matter (commonly on the home page)
+* inline inside Markdown files via a shortcode (for flexible mixing of blocks and regular text)
 
 
-### Page Configuration
+### Using Blocks on the Home Page
 
-Blocks are defined in the front matter of a page using a `sections` list.
-Each entry defines one block and its position on the page.
+The home page usually defines blocks in the front matter as a list of sections.
+Each section entry selects a block **type** and points to a block **content** page.
 
-Example (as used in `index.md`):
+Example:
 
 ```
 home:
   sections:
     - type: hero-split
       content: blocks/hero-a
-    - type: hero-split
-      content: blocks/hero-b
-    - type: hero-centered
-      content: blocks/hero-b
-    - type: features-icons
-      content: blocks/features-a
     - type: features-hanging-icons
       columns: 3
       content: blocks/features-a
@@ -1006,108 +1001,266 @@ home:
       content: blocks/features-cards-a
 ```
 
+The order of entries defines the order on the page.
+
 Each section entry consists of:
 
-* `type`
-  The block type. This determines which template is used to render the block.
+* **type**
+  The block type. This decides which element template is used for rendering.
 
-* `content`
-  Path to the content file (relative to the `content/` directory) that provides the data for the block.
+* **content**
+  A path relative to the `content/` directory, pointing to the block content file.
 
-  Some block types support additional options, such as `columns`.
+* **optional parameters**
+  Additional settings used by certain block types (for example `columns`).
 
-The order of blocks in the list defines the visual order on the page.
 
+### Using Blocks Inside Markdown Pages
 
-### Block Content Files
+To place blocks between regular Markdown content, use the generic `block` shortcode.
+This allows free composition like:
 
-Each block is backed by a dedicated content file. These files usually contain
-**front matter only** and no body content.
+* block
+* normal Markdown text
+* another block
 
-Block content files are typically stored in a dedicated directory, for example:
+Example:
 
 ```
-content/blocks/
+{{< block type="features-cards" content="blocks/features-cards-a" columns="3" >}}
 ```
 
+All shortcode parameters (except `type` and `content`) are treated as **section parameters** and made available to the block templates the same way as on the home page.
 
-### Hero Blocks
 
-Hero blocks are used for prominent introductory sections. Felmdrav currently
-provides multiple hero variants (for example split or centered layouts).
+### Where Block Content Lives
 
-A typical hero block defines:
+Block content is stored as dedicated content pages, typically under:
 
-* `title`
-  Main heading of the hero block.
+* `content/blocks/…`
 
-* `lead`
-  Short descriptive text displayed below the title.
+These block pages usually contain **front matter only** (no body content).
+They provide the data the element template renders, such as titles, lists of items, images, links, tags, and similar configuration.
 
-* `buttons`
+---
+
+### Where Block Layout Is Defined
+
+Block layout and styling is defined by **element templates** inside the theme:
+
+* `layouts/_partials/elements/<type>.html`
+
+The `type` value selects the element template. For example:
+
+* `type: hero-split`: `layouts/_partials/elements/hero-split.html`
+* `type: features-cards`:`layouts/_partials/elements/features-cards.html`
+
+Element templates receive three values:
+
+* **root**: the page that embeds the block (used for navigation helpers like `relref`)
+* **section**: the section configuration (type, columns, and other section parameters)
+* **block**: the resolved block content page from `content/blocks/…` (including page resources)
+
+This design keeps responsibilities clean:
+
+* **content authors** edit block data under `content/blocks/…`
+* **theme/layout authors** implement and style block templates under `layouts/_partials/elements/…`
+
+
+## Content Blocks Reference
+
+### Block: `hero-split`
+
+Two-column hero block with text and optional buttons on the left and an optional image on the right.
+
+#### Usage
+
+* Home page: `type: hero-split`, `content: blocks/<name>`
+* Markdown: `{{< block type="hero-split" content="blocks/<name>" >}}`
+
+---
+
+#### Block Content (`content/blocks/<name>/index.md`)
+
+The hero block is configured via front matter only.
+
+**Fields:**
+
+* **title**
+  Main heading of the hero block (page title). Rendered as `<h1>`. *(optional)*
+
+* **lead**
+  Short descriptive text displayed below the title. Rendered as a Bootstrap `lead` paragraph. *(optional)*
+
+* **buttons**
   Optional list of call-to-action buttons.
+
   Each button defines:
 
-  * text
-  * ref or url
-  * style (Bootstrap button style)
+  * `text` – button label
+  * `ref` or `url` – internal reference or external link
+  * `style` – Bootstrap button style (default: `primary`)
 
-* `image`
-  Optional image configuration with `src` and `alt`.
+* **image**
+  Optional image shown in the right column.
 
-Example hero block:
+  Fields:
+
+  * `src` – image filename, relative path, or URL
+  * `alt` – alternative text used for accessibility and SEO *(optional)*
+
+  If `src` matches a page resource of the block content page, that resource is used.
+  Otherwise, the value is treated as a regular path or URL.
+
+#### Example
 
 ```
 ---
-title: "Hero heading A"
-lead: "Short lead text for hero A."
+title: "Welcome to Felmdrav"
+lead: "A minimal, block-based Hugo theme."
 buttons:
-  - text: "Primary action"
+  - text: "Get started"
     ref: "posts"
     style: "primary"
-  - text: "Secondary"
+  - text: "GitHub"
+    url: "https://github.com/geschke/hugo-felmdrav"
+    style: "outline-secondary"
+image:
+  src: "hero.png"
+  alt: "Abstract hero image"
+---
+```
+
+#### Notes
+
+* If no image is defined, the layout collapses to text-only.
+* If the block content page cannot be resolved, nothing is rendered.
+
+
+### Block: `hero-centered`
+
+Centered hero block with optional buttons and an optional image displayed below the text.
+
+#### Usage
+
+* Home page: `type: hero-centered`, `content: blocks/<name>`
+* Markdown: `{{< block type="hero-centered" content="blocks/<name>" >}}`
+
+
+#### Block Content (`content/blocks/<name>/index.md`)
+
+Configured via front matter only.
+
+**Fields:**
+
+* **title**
+  Main heading of the hero block (page title). Rendered as centered `<h1>`. *(optional)*
+
+* **lead**
+  Short descriptive text displayed below the title. Rendered as a centered Bootstrap `lead` paragraph (muted). *(optional)*
+
+* **buttons**
+  Optional list of call-to-action buttons (centered).
+
+  Each button defines:
+
+  * `text` – button label
+  * `ref` or `url` – internal reference or external link
+  * `style` – Bootstrap button style (default: `primary`)
+
+* **image**
+  Optional image shown **below** the text/buttons (centered).
+
+  Fields:
+
+  * `src` – image filename, relative path, or URL
+  * `alt` – alternative text used for accessibility and SEO *(optional)*
+
+  If `src` matches a page resource of the block content page, that resource is used.
+  Otherwise, the value is treated as a regular path or URL.
+
+#### Example
+
+```
+---
+title: "Felmdrav in a nutshell"
+lead: "Centered hero layout with optional buttons and a framed image."
+buttons:
+  - text: "Documentation"
+    ref: "posts"
+    style: "primary"
+  - text: "About"
     ref: "about"
     style: "outline-secondary"
 image:
   src: "hero.png"
-  alt: "Hero image A"
+  alt: "Preview image"
 ---
 ```
 
-### Features Blocks
+#### Notes
 
-Features blocks are used to present lists of features or highlights. Felmdrav
-supports multiple feature layouts, such as icon-based lists or card-based
-layouts.
-
-Common properties include:
-
-* `title`
-  Optional block heading.
-
-* `items`
-A list of feature entries.
+* Layout is centered (`text-center`) with a constrained text width (`col-lg-8 col-md-10 mx-auto`).
+* The image is rendered only if `image.src` is set; it is displayed below the content with rounded corners and a border.
+* If the block content page cannot be resolved, nothing is rendered.
 
 
-Each feature item may define:
+### Block: `features-icons`
 
-* `icon`
-  Icon class name. Felmdrav uses **Bootstrap Icons**.
+Icon-based feature list displayed in a responsive grid layout. Each feature consists of an icon, title, text, and an optional link.
 
-* `title`
-  Feature title.
+#### Usage
 
-* `text`
-  Short descriptive text.
+* Home page: `type: features-icons`, `content: blocks/<name>`
+* Markdown: `{{< block type="features-icons" content="blocks/<name>" >}}`
 
-* `link`
-  Optional link definition with `ref` or `url` and a button `style`.
 
-Example (hanging icons):
+#### Block Content (`content/blocks/<name>/index.md`)
+
+Configured via front matter only.
+
+**Fields:**
+
+* **title**
+  Block heading rendered above the feature grid. *(optional)*
+
+* **items**
+  List of feature entries. *(required)*
+
+  Each item defines:
+
+  * `icon` – Bootstrap Icons class name (e.g. `bi bi-lightning-charge`) *(optional)*
+  * `title` – feature title *(optional)*
+  * `text` – short descriptive text *(optional)*
+  * `link` – optional link definition (see below)
+
+**Link fields (per item):**
+
+* `text` – link label
+* `ref` or `url` – internal reference or external link
+* `style` – Bootstrap button style *(optional)*
+
+If `style` is set, the link is rendered as a small button.
+Otherwise, it is rendered as a simple text link with a chevron icon.
+
+
+#### Section Parameters
+
+* **columns**
+  Number of columns for large screens.
+  Section-level value overrides the block’s default.
+  Defaults to `3`.
+
+* **show_title**
+  Controls whether the block title is rendered.
+  Defaults to `true`.
+
+
+#### Example
 
 ```
 ---
-title: "Features"
+title: "Key features"
 items:
   - icon: "bi bi-lightning-charge"
     title: "Fast and minimal"
@@ -1115,25 +1268,161 @@ items:
     link:
       text: "Learn more"
       ref: "posts"
-      style: "primary"
+  - icon: "bi bi-layers"
+    title: "Composable"
+    text: "Pages are built from reusable content blocks."
+  - icon: "bi bi-brush"
+    title: "Clean design"
+    text: "Focused on readability and structure."
 ---
 ```
 
-### Cards-Based Features
 
-Card-based feature blocks display items as visual cards.
+#### Notes
 
-Each card item may define:
+* Icons use **Bootstrap Icons**.
+* The grid adapts responsively using Bootstrap’s `row-cols-*` classes.
+* If no link is defined for an item, it is rendered as plain content.
+* If the block content page cannot be resolved, nothing is rendered.
 
-* title
-* text
-* image
-* optional tags
-* optional link
 
-Cards without a link are rendered as non-clickable informational elements.
 
-Example:
+### Block: `features-hanging-icons`
+
+Feature list with “hanging” icons on the left and text on the right, displayed in a responsive grid.
+
+#### Usage
+
+* Home page: `type: features-hanging-icons`, `content: blocks/<name>`
+* Markdown: `{{< block type="features-hanging-icons" content="blocks/<name>" >}}`
+
+
+#### Block Content (`content/blocks/<name>/index.md`)
+
+Configured via front matter only.
+
+**Fields:**
+
+* **title**
+  Block heading rendered above the grid. *(optional)*
+
+* **items**
+  List of feature entries. *(required)*
+
+  Each item defines:
+
+  * `icon` – Bootstrap Icons class name (e.g. `bi bi-star`) *(optional)*
+  * `title` – feature title *(optional)*
+  * `text` – short descriptive text *(optional)*
+  * `link` – optional button-style link (see below)
+
+**Link fields (per item):**
+
+* `text` – button label
+* `ref` or `url` – internal reference or external link
+* `style` – Bootstrap button style (default: `primary`)
+
+Links are rendered as small Bootstrap buttons.
+
+
+#### Section Parameters
+
+* **columns**
+  Number of columns for large screens.
+  Section-level value overrides the block’s default.
+  Defaults to `3`.
+
+* **show_title**
+  Controls whether the block title is rendered.
+  Defaults to `true`.
+
+
+#### Example
+
+```
+---
+title: "Highlights"
+items:
+  - icon: "bi bi-lightning-charge"
+    title: "Fast"
+    text: "Minimal building blocks with clear responsibilities."
+    link:
+      text: "Learn more"
+      ref: "posts"
+      style: "primary"
+  - icon: "bi bi-shield-check"
+    title: "Robust"
+    text: "Works well for both landing pages and documentation sites."
+  - icon: "bi bi-brush"
+    title: "Clean"
+    text: "Focused on readability and structure."
+---
+```
+
+
+#### Notes
+
+* Icons use **Bootstrap Icons**.
+* Item links are always rendered as buttons (no plain text-link variant in this block).
+* If the block content page cannot be resolved, nothing is rendered.
+
+
+
+### Block: `features-cards`
+
+Card-based feature grid. Each item is rendered as a visual card with optional background image, optional tags, and an optional link (clickable whole card).
+
+#### Usage
+
+* Home page: `type: features-cards`, `content: blocks/<name>`
+* Markdown: `{{< block type="features-cards" content="blocks/<name>" >}}`
+
+
+#### Block Content (`content/blocks/<name>/index.md`)
+
+Configured via front matter only.
+
+**Fields:**
+
+* **title**
+  Block heading rendered above the card grid. *(optional)*
+
+* **items**
+  List of card entries. *(required)*
+
+  Each item defines:
+
+  * `title` – card title *(optional)*
+  * `text` – short card text *(optional)*
+  * `image` – background image filename/path/URL *(optional)*
+  * `tags` – list of short labels rendered as badges *(optional)*
+  * `link` – optional click target for the whole card (see below)
+
+**Link fields (per item):**
+
+* `ref` or `url` – internal reference or external link
+  If defined, the entire card becomes clickable via a stretched link.
+
+**Image behavior (per item):**
+
+* If `image` matches a page resource of the block content page, that resource is used.
+* Otherwise, `image` is treated as a regular path or URL.
+* The resolved image is applied as a CSS `background-image` on the card.
+
+
+#### Section Parameters
+
+* **columns**
+  Number of columns for large screens.
+  Section-level value overrides the block’s default.
+  Defaults to `3`.
+
+* **show_title**
+  Controls whether the block title is rendered.
+  Defaults to `true`.
+
+
+#### Example
 
 ```
 ---
@@ -1145,20 +1434,24 @@ items:
     tags: ["Design", "Visual"]
     link:
       ref: "posts"
+  - title: "Readable layouts"
+    text: "Cards stay structured even with longer text."
+    tags: ["UX"]
+  - title: "Theme building blocks"
+    text: "Compose pages from reusable content blocks."
+    image: "card-2.png"
+    link:
+      url: "https://example.com"
 ---
 ```
 
-### Extensibility
 
-Blocks are rendered using dedicated templates. New block types can be added,
-and existing ones customized, by creating or overriding block templates in the
-site’s `layouts/` directory.
+#### Notes
 
-The block-based approach keeps responsibilities clearly separated:
-
-* page structure is defined in front matter
-* content lives in block files
-* layout and styling are handled by templates
+* If no `link` is defined, the card is rendered as a non-clickable element.
+* If no `image` is defined, the card is rendered without a background image.
+* Tags are rendered as Bootstrap badges at the bottom of the card.
+* If the block content page cannot be resolved, nothing is rendered.
 
 
 ## Migration from Tikva
