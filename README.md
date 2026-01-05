@@ -1042,8 +1042,6 @@ Block content is stored as dedicated content pages, typically under:
 These block pages usually contain **front matter only** (no body content).
 They provide the data the element template renders, such as titles, lists of items, images, links, tags, and similar configuration.
 
----
-
 ### Where Block Layout Is Defined
 
 Block layout and styling is defined by **element templates** inside the theme:
@@ -1077,8 +1075,6 @@ Two-column hero block with text and optional buttons on the left and an optional
 
 * Home page: `type: hero-split`, `content: blocks/<name>`
 * Markdown: `{{< block type="hero-split" content="blocks/<name>" >}}`
-
----
 
 #### Block Content (`content/blocks/<name>/index.md`)
 
@@ -1286,7 +1282,6 @@ items:
 * If the block content page cannot be resolved, nothing is rendered.
 
 
-
 ### Block: `features-hanging-icons`
 
 Feature list with “hanging” icons on the left and text on the right, displayed in a responsive grid.
@@ -1368,14 +1363,18 @@ items:
 
 
 
+
+
+
 ### Block: `features-cards`
 
-Card-based feature grid. Each item is rendered as a visual card with optional background image, optional tags, and an optional link (clickable whole card).
+Card-based feature grid. Each item is rendered as a visual card with an optional background image, optional tags, and an optional link. If a link is defined, the entire card becomes clickable.
 
 #### Usage
 
 * Home page: `type: features-cards`, `content: blocks/<name>`
 * Markdown: `{{< block type="features-cards" content="blocks/<name>" >}}`
+
 
 
 #### Block Content (`content/blocks/<name>/index.md`)
@@ -1392,22 +1391,53 @@ Configured via front matter only.
 
   Each item defines:
 
-  * `title` – card title *(optional)*
-  * `text` – short card text *(optional)*
-  * `image` – background image filename/path/URL *(optional)*
-  * `tags` – list of short labels rendered as badges *(optional)*
-  * `link` – optional click target for the whole card (see below)
+  * **title** – card title *(optional)*
+  * **text** – short descriptive text *(optional)*
+  * **image** – background image filename, path, or URL *(optional)*
+  * **tags** – list of short labels rendered as badges *(optional)*
+  * **link** – optional click target for the whole card (see below)
+
+  Items may additionally define styling overrides (see *Styling Options* below).
 
 **Link fields (per item):**
 
-* `ref` or `url` – internal reference or external link
+* **ref** or **url** – internal reference or external link
   If defined, the entire card becomes clickable via a stretched link.
 
-**Image behavior (per item):**
+
+
+#### Styling Options
+
+The appearance of cards can be customized using **Bootstrap classes**.
+Styling can be defined globally for the block or overridden per card item.
+
+**Block-level styling fields (optional):**
+
+* **card_classes**
+  Bootstrap classes applied to the outer card element.
+  Default: dark card background.
+
+* **content_classes**
+  Bootstrap classes applied to the card content container (text).
+  Default: white text.
+
+* **badge_classes**
+  Bootstrap classes applied to tag badges.
+  Default: light badges.
+
+**Item-level overrides:**
+
+Each card item may define its own `card_classes`, `content_classes`, and `badge_classes`.
+If present, these override the block-level defaults for that specific card.
+
+
+
+#### Image Behavior (per item)
 
 * If `image` matches a page resource of the block content page, that resource is used.
 * Otherwise, `image` is treated as a regular path or URL.
 * The resolved image is applied as a CSS `background-image` on the card.
+
 
 
 #### Section Parameters
@@ -1422,37 +1452,14 @@ Configured via front matter only.
   Defaults to `true`.
 
 
-#### Example
-
-```
----
-title: "Custom cards"
-items:
-  - title: "Matrix-like visuals"
-    text: "Abstract code fragments and digital noise as background."
-    image: "card-1.png"
-    tags: ["Design", "Visual"]
-    link:
-      ref: "posts"
-  - title: "Readable layouts"
-    text: "Cards stay structured even with longer text."
-    tags: ["UX"]
-  - title: "Theme building blocks"
-    text: "Compose pages from reusable content blocks."
-    image: "card-2.png"
-    link:
-      url: "https://example.com"
----
-```
-
 
 #### Notes
 
 * If no `link` is defined, the card is rendered as a non-clickable element.
 * If no `image` is defined, the card is rendered without a background image.
 * Tags are rendered as Bootstrap badges at the bottom of the card.
+* Styling defaults are optimized for dark images but can be overridden for light backgrounds.
 * If the block content page cannot be resolved, nothing is rendered.
-
 
 ## Migration from Tikva
 
@@ -1473,7 +1480,7 @@ and component markup follow Bootstrap 5 conventions. If your site relied on
 Bootstrap 4 behavior or custom CSS targeting older Bootstrap markup, review and
 adjust accordingly.
 
-**Sidebars and layout: one sidebar → two sidebars + grid**
+**Sidebars and layout: one sidebar ->  two sidebars + grid**
 Tikva used a simpler sidebar approach. Felmdrav supports **two sidebars**
 (left/right) and a configurable **grid layout**.
 

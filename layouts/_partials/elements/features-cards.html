@@ -13,6 +13,10 @@
 {{- if gt $cols 12 -}}{{- $cols = 12 -}}{{- end -}}
 
 {{- $showTitle := $sec.show_title | default true -}}
+{{- $cardDefaults := $block.Params.card_classes | default "text-bg-dark" -}}
+{{- $contentDefaults := $block.Params.content_classes | default "text-white" -}}
+{{- $badgeDefaults := $block.Params.badge_classes | default "badge text-bg-light" -}}
+
 
 <section class="mb-5 py-5">
   <div class="container-fluid px-0">
@@ -29,6 +33,10 @@
       {{- $image := $it.image | default "" -}}
       {{- $tags := $it.tags | default (slice) -}}
       {{- $link := $it.link -}}
+      {{- $cardClasses := $it.card_classes | default $cardDefaults -}}
+      {{- $contentClasses := $it.content_classes | default $contentDefaults -}}
+      {{- $badgeClasses := $it.badge_classes | default $badgeDefaults -}}
+
 
       {{- /* Resolve background image: prefer Page Resource */ -}}
       {{- $bg := "" -}}
@@ -54,28 +62,16 @@
       {{- end -}}
 
 
-
-      {{- /* Optional click target for whole card */ -}}
-      {{- $href := "" -}}
-      {{- if $link -}}
-      {{- with $link.ref -}}
-      {{- $href = relref $root . -}}
-      {{- else -}}
-      {{- with $link.url -}}
-      {{- $href = . -}}
-      {{- end -}}
-      {{- end -}}
-      {{- end -}}
-
       <div class="col">
         <div
-          class="card card-cover {{ if $href }}position-relative{{ end }} h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+          class="card card-cover {{ if $href }}position-relative{{ end }} h-100 overflow-hidden rounded-4 shadow-lg {{ $cardClasses }}"
+
           {{- if $bg -}} style="background-image: url('{{ $bg }}');" {{- end -}}>
           {{- if $href -}}
           <a class="stretched-link" href="{{ $href }}" aria-label="{{ $itTitle }}"></a>
           {{- end -}}
 
-          <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+          <div class="d-flex flex-column h-100 p-5 pb-3 {{ $contentClasses }}">
 
             {{- if $itTitle -}}
             <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">{{ $itTitle }}</h3>

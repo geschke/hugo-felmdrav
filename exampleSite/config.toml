@@ -88,7 +88,7 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
   enabled = true
 
   # Hero image (optional)
-  image = 'img/header_bg_example.jpg' # Use header image. This option is only valid if the theme is configured to the "header" style. 
+  image = 'img/header_bg_example.png' # Use header image. This option is only valid if the theme is configured to the "header" style. 
   
   alt_text = 'alt text for header image' # Set alt text for header image, default empty
     
