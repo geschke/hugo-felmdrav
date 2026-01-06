@@ -5,7 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## 0.1.0 - 2025-12-xx - Migration from (now deprecated) Tikva Theme 
+**Note on project history**
+
+Felmdrav is a **new theme**, developed as a **successor to the now deprecated Tikva theme**.
+
+While this changelog contains the historical change log of Tikva for reference,
+Felmdrav should be considered a **fresh start** in terms of architecture, layout system, and supported Hugo versions.
+
+The initial motivation for this rewrite was the migration from **Bootstrap 4 to Bootstrap 5**, which enabled a broader cleanup and redesign of the theme.
+Key differences include:
+
+* migration to **Bootstrap 5**
+* adoption of Hugo’s **new template and directory structure**
+* a redesigned, **block-based page composition system**
+* removal of legacy dependencies and concepts from Tikva
+
+For a detailed description of Felmdrav’s architecture and usage, please refer to the README.
+
+All **future changes specific to Felmdrav** will continue to be documented in this file.
+
+## 0.1.0 - 2025-12-xx - Initial Felmdrav release (Tikva-based rewrite)
 
 ### Changed
 

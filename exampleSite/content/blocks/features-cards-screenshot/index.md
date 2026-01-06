@@ -26,5 +26,5 @@ items:
     image: "feature_bg_03.png"
     #tags: ["External"]
     link:
-      url: "https://example.com"
+      url: "https://github.com/geschke/hugo-felmdrav"
 ---

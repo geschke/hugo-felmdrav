@@ -22,6 +22,6 @@ items:
     text: "Order and presence are controlled from the home composer."
     link:
       text: "Docs"
-      url: "https://example.com"
+      url: "https://github.com/geschke/hugo-felmdrav"
       style: "outline-secondary"
 ---

@@ -1,4 +1,21 @@
 {{- $h := .Site.Params.theme.header -}}
+{{- $p := . -}}
+{{- $ph := $p.Params.header | default dict -}}
+
+{{- $showHeaderText := $ph.show | default true -}}
+
+{{- $title := .Site.Title -}}
+{{- if isset $ph "title" -}}
+  {{- $title = index $ph "title" -}}
+{{- end -}}
+
+{{- $subtitle := .Site.Params.subtitle -}}
+{{- if isset $ph "subtitle" -}}
+  {{- $subtitle = index $ph "subtitle" -}}
+{{- end -}}
+
+
+
 
 {{- $img := $h.image -}}
 {{- $showText := $h.show_text | default true -}}
@@ -24,15 +41,15 @@
       <a href="{{ .Site.BaseURL }}" rel="home" class="hero d-block position-relative overflow-hidden">
         <img src="{{ .Site.BaseURL }}{{ $img }}" class="hero-img w-100" alt="{{ $h.alt_text | default "" }}">
 
-        {{ if and $showText $textOnImage }}
+        {{ if and $showText $textOnImage $showHeaderText }}
         <div class="position-absolute top-0 start-0 w-100 h-100 d-flex {{ $pos }}">
           <div class="hero-overlay container">
             <div class="hero-text{{ if $bdEnabled }} is-backdrop{{ end }}">
               <div class="hero-title" {{ with $h.colors.title }}style="color: {{ . }};" {{ end }}>
-                {{ .Site.Title }}
+                {{ $title }}
               </div>
 
-              {{ with .Site.Params.subtitle }}
+              {{ with $subtitle }}
               <div class="hero-subtitle" {{ with $h.colors.subtitle }}style="color: {{ . }};" {{ end }}>
                 {{ . }}
               </div>
@@ -45,7 +62,7 @@
       {{ end }}
 
       {{/* Fallback: show title/subtitle above nav (no image OR no overlay) */}}
-      {{ if and $showText (or (not $img) (not $textOnImage)) }}
+      {{ if and $showText $showHeaderText (or (not $img) (not $textOnImage)) }}
       <div class="py-3">
         <div class="hero-text{{ if $bdEnabled }} is-backdrop{{ end }}">
           <div class="hero-title" {{ with $h.colors.title }}style="color: {{ . }};" {{ end }}>

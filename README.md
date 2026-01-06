@@ -53,6 +53,9 @@ Most layout behavior is controlled through clear configuration options, avoiding
 * Support for custom CSS and JavaScript via placeholder partials
 
 
+Felmdrav requires Hugo ≥ 0.146.0, as it is based on the new directory and template structure introduced in recent Hugo versions.
+
+
 ## Demo
 
 A live demo of the theme, based on the included `exampleSite`, is available here:
@@ -320,7 +323,7 @@ Use CSS units (recommended: `rem`) to control spacing around the title and subti
 This option helps improve readability and fine-tune the visual balance of the hero text against the background image.
 
 
-### Header Backdrop (Optional Text Background)
+#### Header Backdrop (Optional Text Background)
 
 This section controls an optional backdrop box behind the hero title and subtitle.
 The backdrop is designed to improve text readability on complex or high-contrast images.
@@ -350,7 +353,7 @@ Defines the inner padding of the backdrop box.
 This controls the spacing between the text and the edges of the backdrop background.
 
 
-### Header Text Shadow (Optional)
+#### Header Text Shadow (Optional)
 
 This section controls an optional text shadow for the hero title and subtitle.
 The text shadow can be used to improve readability on bright or high-contrast background images or to create stylistic effects.
@@ -372,7 +375,7 @@ Valid values range from `0.0` (fully transparent) to `1.0` (fully opaque).
 Higher values result in a stronger, more visible shadow effect.
 
 
-### Header Colors (Optional Overrides)
+#### Header Colors (Optional Overrides)
 
 This section allows optional color overrides for the header text and background.
 If no values are set, the theme uses the default colors provided by Bootstrap or the selected Bootswatch theme.
@@ -393,7 +396,7 @@ This color is applied behind the hero image or text-only header.
 If left empty, the background color is inherited from Bootstrap defaults or the page background.
 
 
-### Header Typography (Hero Title and Subtitle)
+#### Header Typography (Hero Title and Subtitle)
 
 This section controls the typography of the hero title and subtitle.
 The theme uses modern, fluid typography based on CSS `clamp()` to adapt smoothly across different screen sizes without relying on media queries.
@@ -444,6 +447,17 @@ Other color formats are not supported.
 
 Advanced customization can always be done by overriding the theme CSS.
 The configuration options are designed to cover common use cases without adding unnecessary complexity.
+
+
+#### Page-level header overrides
+
+ By default, the header displays the site title and subtitle as defined in the global configuration.
+
+ Individual pages may override this behavior using the `header` section in front matter:
+
+ * `header.title` and `header.subtitle` override the global values
+ * setting a value to an empty string disables it explicitly
+ * `header.show: false` hides the header text (title and subtitle) while keeping the header layout intact
 
 
 ### Footer and Subfooter
