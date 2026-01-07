@@ -1,23 +1,5 @@
 {{ define "main" }}
-  {{ partial "layout/page-grid.html" (dict 
-    "page" . 
+  {{ partial "layout/page-grid.html" (dict
+    "page" .
     "content_partial" "pages/home-content.html") }}
 {{ end }}
-
-
-{{/*
-{{ define "main" }}
-
-  {{- $defaultSidebar := false -}}
-  {{- $withSidebar := .Params.sidebar | default $defaultSidebar -}}
-  {{- $sidebarPos := .Params.sidebar_pos | default (.Site.Params.sidebar.default_pos | default "right") -}}
-
-  {{ partial "layout/page-grid.html" (dict
-      "root" .
-      "sidebar" $withSidebar
-      "sidebar_pos" $sidebarPos
-      "content_partial" "pages/home-content.html"
-  ) }}
-
-{{ end }}
-*/}}
