@@ -1,0 +1,179 @@
+{{- /* Featured posts (Bootstrap blog example inspired). */ -}}
+
+{{- $root := .root -}}
+{{- $sec := .section -}}
+
+{{- with .block -}}
+  {{- $block := . -}}
+
+  {{- $title := $block.Title | default "" -}}
+  {{- $items := $block.Params.items | default (slice) -}}
+
+  {{- /* Columns: section override wins, block can provide default, otherwise 2. */ -}}
+  {{- $cols := $sec.columns | default ($block.Params.columns | default 2) -}}
+  {{- if lt $cols 1 -}}{{- $cols = 1 -}}{{- end -}}
+  {{- if gt $cols 4 -}}{{- $cols = 4 -}}{{- end -}}
+
+  {{- $showTitle := $sec.show_title | default true -}}
+
+  {{- /* Defaults. */ -}}
+  {{- $defaultLinkText := $block.Params.link_text | default "Weiterlesen" -}}
+
+  {{- /* Desktop thumbnail defaults (right side, fixed width). */ -}}
+  {{- $thumb := $block.Params.thumb | default (dict) -}}
+  {{- $thumbW := $thumb.width | default 240 -}}
+
+  {{- /* Desktop card height (like Bootstrap example). */ -}}
+  {{- $cardH := $block.Params.card_height | default 240 -}}
+
+  {{- /* Fallback thumbnail background (used only when an item has no image.src). */ -}}
+  {{- $fallback := $block.Params.fallback | default (dict) -}}
+  {{- $fallbackClasses := $fallback.classes | default "bg-body-secondary" -}}
+  {{- $fallbackText := $fallback.text | default "" -}}
+
+  {{- /* Date formatting: prefer site-wide settings. */ -}}
+  {{- $dateFmt := $root.Site.Params.date_format | default ($root.Site.Params.dateFormat | default ":date_medium") -}}
+
+  <section class="mb-1 py-0">
+    <div class="container-fluid px-0">
+
+      {{- if and $showTitle $title -}}
+        <h2 class="pb-2">{{ $title }}</h2>
+      {{- end -}}
+
+      <div class="row mb-2 row-cols-1 row-cols-lg-{{ $cols }} g-4">
+
+        {{- range $it := $items -}}
+          {{- $itTitle := $it.title | default "" -}}
+          {{- $text := $it.text | default "" -}}
+
+          {{- $category := $it.category | default "" -}}
+          {{- $date := $it.date -}}
+
+          {{- $link := $it.link -}}
+
+          {{- $img := $it.image | default (dict) -}}
+          {{- $src := $img.src | default "" -}}
+          {{- $alt := $img.alt | default "" -}}
+          {{- $pos := $img.position | default "center center" -}}
+
+          {{- /* Resolve thumbnail image: prefer page resource, fallback to given path. */ -}}
+          {{- $thumbSrc := "" -}}
+          {{- if $src -}}
+            {{- $res := $block.Resources.GetMatch $src -}}
+            {{- if $res -}}
+              {{- $thumbSrc = $res.RelPermalink -}}
+            {{- else -}}
+              {{- $thumbSrc = $src -}}
+            {{- end -}}
+          {{- end -}}
+
+          {{- /* Resolve href (ref wins over url). */ -}}
+          {{- $href := "" -}}
+          {{- with $link -}}
+            {{- with .ref -}}
+              {{- $href = relref $root . -}}
+            {{- else -}}
+              {{- with .url -}}
+                {{- $href = . -}}
+              {{- end -}}
+            {{- end -}}
+          {{- end -}}
+
+          {{- /* Link text: item.link.text -> block default -> "Weiterlesen". */ -}}
+          {{- $lt := $defaultLinkText -}}
+          {{- with $link -}}
+            {{- with .text -}}{{- $lt = . -}}{{- end -}}
+          {{- end -}}
+
+          <div class="col">
+            <div class="border rounded overflow-hidden shadow-sm position-relative">
+
+              {{- /* Mobile / tablet: text only (no image), like Bootstrap example. */ -}}
+              <div class="d-lg-none p-4 d-flex flex-column position-static">
+                {{- if $category -}}
+                  <div class="mb-2 text-body">{{ $category }}</div>
+                {{- end -}}
+
+                {{- if $itTitle -}}
+                  <h3 class="mb-1">{{ $itTitle }}</h3>
+                {{- end -}}
+
+                {{- if $date -}}
+                  {{- $dt := time.AsTime $date -}}
+                  <div class="mb-1 text-body-secondary">{{ $dt | time.Format $dateFmt }}</div>
+                {{- end -}}
+
+                {{- if $text -}}
+                  <p class="card-text mb-auto">{{ $text }}</p>
+                {{- end -}}
+
+                {{- if and $href $lt -}}
+                  <a href="{{ $href }}" class="icon-link gap-1 icon-link-hover stretched-link">
+                    {{ $lt }}
+                    <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                  </a>
+                {{- end -}}
+              </div>
+
+              {{- /* Desktop: fixed card height + image on the right. */ -}}
+              <div class="d-none d-lg-flex align-items-stretch" style="height: {{ $cardH }}px;">
+                <div class="flex-grow-1 p-4 d-flex flex-column position-static">
+                  {{- if $category -}}
+                    <div class="mb-2 text-body">{{ $category }}</div>
+                  {{- end -}}
+
+                  {{- if $itTitle -}}
+                    <h3 class="mb-1">{{ $itTitle }}</h3>
+                  {{- end -}}
+
+                  {{- if $date -}}
+                    {{- $dt := time.AsTime $date -}}
+                    <div class="mb-1 text-body-secondary">{{ $dt | time.Format $dateFmt }}</div>
+                  {{- end -}}
+
+                  {{- if $text -}}
+                    <p class="card-text mb-auto">{{ $text }}</p>
+                  {{- end -}}
+
+                  {{- if and $href $lt -}}
+                    <a href="{{ $href }}" class="icon-link gap-1 icon-link-hover stretched-link">
+                      {{ $lt }}
+                      <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                    </a>
+                  {{- end -}}
+                </div>
+
+                <div class="flex-shrink-0" style="width: {{ $thumbW }}px;">
+                  {{- if $thumbSrc -}}
+                    <img
+                      src="{{ $thumbSrc }}"
+                      alt="{{ $alt }}"
+                      loading="lazy"
+                      class="d-block"
+                      style="width: {{ $thumbW }}px; height: {{ $cardH }}px; object-fit: cover; object-position: {{ $pos }};"
+                    >
+                  {{- else -}}
+                    <div
+                      class="d-flex align-items-center justify-content-center {{ $fallbackClasses }}"
+                      style="width: {{ $thumbW }}px; height: {{ $cardH }}px;"
+                      aria-label="{{ $alt | default "Thumbnail fallback" }}"
+                    >
+                      {{- if $fallbackText -}}
+                        <span class="text-body-secondary small">{{ $fallbackText }}</span>
+                      {{- end -}}
+                    </div>
+                  {{- end -}}
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        {{- end -}}
+
+      </div>
+    </div>
+  </section>
+
+{{- end -}}

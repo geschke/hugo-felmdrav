@@ -710,7 +710,7 @@ Global defaults are defined in `config.toml`:
   right = "main"
   ```
 
-  → renders content from `content/sections/sidebar-main/`.
+  renders content from `content/sections/sidebar-main/`.
 
 If a side is set to an empty string (`""`), no sidebar is rendered on that side.
 

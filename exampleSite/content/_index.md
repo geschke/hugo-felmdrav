@@ -1,6 +1,8 @@
 ---
 home:
   sections:
+    - type: featured-posts
+      content: blocks/featured-posts
     - type: hero-split
       content: blocks/hero-a
     - type: hero-split
