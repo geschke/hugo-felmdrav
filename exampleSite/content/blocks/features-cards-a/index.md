@@ -1,5 +1,6 @@
 ---
-title: "Custom cards"
+title: "Custom lalaCards"
+headless: true
 items:
   - title: "Matrix-like visuals"
     text: "Abstract code fragments and digital noise as background."

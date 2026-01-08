@@ -1,5 +1,6 @@
 ---
 title: "Features"
+headless: true
 items:
   - icon: "bi bi-lightning-charge"
     title: "Fast and minimal"
