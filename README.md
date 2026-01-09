@@ -47,6 +47,7 @@ Most layout behavior is controlled through clear configuration options, avoiding
 * Integration of **Bootstrap Icons** (no Font Awesome dependency)
 * Multiple built-in visual styles, including selected **Bootswatch** themes
 * Reusable **content blocks** (e.g. hero sections, feature/icon blocks)
+* Context-aware **content listing system** with recursive sections, sorting, and aggregation via front matter
 * Customizable typography settings, including **Google Fonts** support
 * Flexible footer and optional subfooter areas
 * Optional analytics integration (Google Analytics, Matomo)
@@ -828,155 +829,173 @@ This system is intentionally:
 
 There is no legacy behavior and no implicit sidebar positioning logic.
 
-### Analytics
 
-Felmdrav supports web analytics using Hugo’s built-in features and optional
-theme-specific integrations.
+## Content Lists & Section Listings
 
-#### Google Analytics
+Felmdrav provides a flexible, declarative system for presenting content lists, keeping **content structure and presentation logic clearly separated** while avoiding the need for custom layout files.
 
-Google Analytics is handled via Hugo’s internal templates.
-To enable it, set the `googleAnalytics` option at the **top level** of your
-`config.toml` (not inside `[params]`).
+The list system adapts automatically to its context (section pages, aggregated lists, nested content) and can be fine-tuned through explicit front matter configuration when needed.
+
+
+### Default Behavior
+
+Felmdrav automatically determines how a list should behave:
+
+* On section pages (e.g. `/posts/`, `/press/`), all pages within that section are listed
+* Nested content (e.g. `/posts/2026/01/...`) is included by default
+* On non-section list pages, Felmdrav falls back to the site’s `mainSections` configuration
+
+This makes the system suitable for WordPress-style blogs as well as multi-section corporate websites.
+
+
+### List Configuration (`list`)
+
+List behavior is controlled via the `list` object in a page’s front matter.
+
+```yaml
+list:
+  recursive: true
+  sort_by: date
+```
+
+All options are **optional**. When omitted, Felmdrav applies sensible defaults.
+
+
+#### Available Options:
+
+`recursive`: Controls whether subdirectories are included.
+  - `true` (default): include all nested content
+  - `false`: list only direct children
 
 Example:
 
-```toml
-googleAnalytics = "UA-123-45"
+```yaml
+list:
+  recursive: false
 ```
 
-Felmdrav does not modify or wrap Hugo’s Google Analytics integration.
-Behavior is identical to the standard Hugo implementation.
+`sections`: Builds a list from **multiple sections**.
+  - Useful for aggregated news or update pages
+  - Overrides section-based listing
 
-#### Matomo
+Example:
 
-Felmdrav includes built-in support for Matomo analytics.
-
-Matomo settings are configured under the following section:
-
-```toml
-[params.analytics.matomo]
-enabled = false
-url = "https://analytics.example.com"
-site_id = 0
+```yaml
+list:
+  sections: ["posts", "presse"]
 ```
 
-* `enabled`
-  Enables or disables Matomo tracking.
+`mode`: Overrides automatic context detection.
 
-* `url`
-  Base URL of the Matomo instance.
+  - `main_sections`: use `.Site.MainSections`
+  - default behavior is context-aware and usually sufficient
 
-* `site_id`
-  Numeric site ID as defined in Matomo.
+Example:
 
-#### Custom Analytics Snippets
-
-If you require a custom Matomo setup or want to use a different analytics
-solution, you can override the analytics partials provided by the theme.
-
-Custom snippets can be added by placing your own files in:
-
-```
-layouts/partials/analytics/
+```yaml
+list:
+  mode: main_sections
 ```
 
-Hugo’s lookup order ensures that your custom partials are used instead of the
-theme defaults.
 
+#### Sorting Options
 
-### Image Processing
+Sorting can be customized per list.
 
-Felmdrav can optionally use image processing features from the upstream project
-*hugo-theme-bootstrap* (HBS). This allows extended rendering behavior for images
-embedded in Markdown content.
+`sort_by`: Defines the primary sort field.
 
-Image processing settings are configured under:
+Supported values:
 
-```toml
-[params.images]
-extended_rendering = false
+* `date` (default)
+* `weight`
+* `title`
+
+Example (alphabetical listing):
+
+```yaml
+list:
+  sort_by: title
 ```
 
-* `extended_rendering`
-  Enables extended image rendering.
-  The backward-compatible default is `false`. Set to `true` to activate the
-  extended rendering functions.
+`sort_order`: Controls sort direction.
 
-If enabled, images may be rendered with additional processing behavior as
-documented by HBS. See the upstream documentation for details:
+Supported values:
 
-[https://hbs.razonyang.com/v1/en/docs/image-processing/](https://hbs.razonyang.com/v1/en/docs/image-processing/)
+* `desc` (default)
+* `asc`
 
+Example (explicit ascending order):
 
-### Post Options
-
-Post-related options are configured under:
-
-```toml
-[params.post]
-image_title_as_caption = false
+```yaml
+list:
+  sort_by: title
+  sort_order: asc
 ```
 
-* `image_title_as_caption`
-  If enabled, the image title is used as the caption.
+Note: Since `desc` is the default, it does not need to be specified explicitly.
 
-Markdown example:
 
-```md
-![Image Caption](/image.jpg "This is my image title as caption")
+
+### Examples
+
+#### Corporate Blog
+
+Lists all blog posts recursively, sorted by date descending (defaults applied).
+
+```yaml
+---
+title: Corporate Blog
+list:
+  recursive: true
+---
 ```
 
-When `image_title_as_caption` is set to `true`, the theme uses the image title
-string (`"..."`) as the rendered caption.
+#### Support Products
 
+Alphabetical listing of product documentation pages.
 
-### Menus
-
-Felmdrav uses Hugo’s standard menu configuration. Menus can be defined in
-`config.toml` (as shown in the `exampleSite`) or directly in content front
-matter.
-
-Example configuration:
-
-```toml
-[menu]
-
-  [[menu.main]]
-    identifier = "home"
-    name = "Home"
-    url = "/"
-    weight = 10
-
-  [[menu.main]]
-    identifier = "posts"
-    name = "Blog"
-    url = "/posts/"
-    weight = 20
+```yaml
+---
+title: Support Products
+list:
+  sort_by: title
+  sort_order: asc
+---
 ```
 
-For advanced menu features (nested menus, `pageRef`, multilingual menus, etc.),
-refer to the Hugo documentation:
+#### Aggregated News Page
 
-[https://gohugo.io/content-management/menus/](https://gohugo.io/content-management/menus/)
+Combines blog posts and press releases into a single feed.
 
-
-### Taxonomies
-
-Felmdrav uses Hugo’s standard taxonomy configuration. Taxonomies are defined at
-the top level of `config.toml`:
-
-```toml
-[taxonomies]
-category = "categories"
-tag = "tags"
-series = "series"
+```yaml
+---
+title: News
+list:
+  sections: ["posts", "presse"]
+---
 ```
 
-For details on configuring and using taxonomies, refer to the Hugo
-documentation:
+### Implementation Notes (for Developers)
 
-[https://gohugo.io/content-management/taxonomies/](https://gohugo.io/content-management/taxonomies/)
+Felmdrav implements content listings using a custom template setup built on top of Hugo’s list rendering mechanism.
+
+* `layouts/list.html`
+  This is the primary Hugo list template used by Felmdrav.
+
+* `layouts/_partials/pages/list-content.html`
+  This is a Felmdrav-specific partial containing the core list logic (page selection, recursion, sorting, pagination).
+
+Hugo itself only invokes `list.html` automatically.
+The `list-content.html` partial is explicitly included by Felmdrav to provide a reusable and extensible listing implementation.
+
+Developers who want to customize or extend list behavior should start with `list-content.html`, as it encapsulates all list-related logic without requiring changes to content structure or additional layout files.
+
+
+
+
+
+
+
 
 
 
@@ -1379,7 +1398,6 @@ items:
 
 
 
-
 ### Block: `features-cards`
 
 Card-based feature grid. Each item is rendered as a visual card with an optional background image, optional tags, and an optional link. If a link is defined, the entire card becomes clickable.
@@ -1474,6 +1492,159 @@ If present, these override the block-level defaults for that specific card.
 * Tags are rendered as Bootstrap badges at the bottom of the card.
 * Styling defaults are optimized for dark images but can be overridden for light backgrounds.
 * If the block content page cannot be resolved, nothing is rendered.
+
+
+## Analytics
+
+Felmdrav supports web analytics using Hugo’s built-in features and optional
+theme-specific integrations.
+
+### Google Analytics
+
+Google Analytics is handled via Hugo’s internal templates.
+To enable it, set the `googleAnalytics` option at the **top level** of your
+`config.toml` (not inside `[params]`).
+
+Example:
+
+```toml
+googleAnalytics = "UA-123-45"
+```
+
+Felmdrav does not modify or wrap Hugo’s Google Analytics integration.
+Behavior is identical to the standard Hugo implementation.
+
+### Matomo
+
+Felmdrav includes built-in support for Matomo analytics.
+
+Matomo settings are configured under the following section:
+
+```toml
+[params.analytics.matomo]
+enabled = false
+url = "https://analytics.example.com"
+site_id = 0
+```
+
+* `enabled`
+  Enables or disables Matomo tracking.
+
+* `url`
+  Base URL of the Matomo instance.
+
+* `site_id`
+  Numeric site ID as defined in Matomo.
+
+### Custom Analytics Snippets
+
+If you require a custom Matomo setup or want to use a different analytics
+solution, you can override the analytics partials provided by the theme.
+
+Custom snippets can be added by placing your own files in:
+
+```
+layouts/partials/analytics/
+```
+
+Hugo’s lookup order ensures that your custom partials are used instead of the
+theme defaults.
+
+
+## Image Processing
+
+Felmdrav can optionally use image processing features from the upstream project
+*hugo-theme-bootstrap* (HBS). This allows extended rendering behavior for images
+embedded in Markdown content.
+
+Image processing settings are configured under:
+
+```toml
+[params.images]
+extended_rendering = false
+```
+
+* `extended_rendering`
+  Enables extended image rendering.
+  The backward-compatible default is `false`. Set to `true` to activate the
+  extended rendering functions.
+
+If enabled, images may be rendered with additional processing behavior as
+documented by HBS. See the upstream documentation for details:
+
+[https://hbs.razonyang.com/v1/en/docs/image-processing/](https://hbs.razonyang.com/v1/en/docs/image-processing/)
+
+
+## Post Options
+
+Post-related options are configured under:
+
+```toml
+[params.post]
+image_title_as_caption = false
+```
+
+* `image_title_as_caption`
+  If enabled, the image title is used as the caption.
+
+Markdown example:
+
+```md
+![Image Caption](/image.jpg "This is my image title as caption")
+```
+
+When `image_title_as_caption` is set to `true`, the theme uses the image title
+string (`"..."`) as the rendered caption.
+
+
+## Menus
+
+Felmdrav uses Hugo’s standard menu configuration. Menus can be defined in
+`config.toml` (as shown in the `exampleSite`) or directly in content front
+matter.
+
+Example configuration:
+
+```toml
+[menu]
+
+  [[menu.main]]
+    identifier = "home"
+    name = "Home"
+    url = "/"
+    weight = 10
+
+  [[menu.main]]
+    identifier = "posts"
+    name = "Blog"
+    url = "/posts/"
+    weight = 20
+```
+
+For advanced menu features (nested menus, `pageRef`, multilingual menus, etc.),
+refer to the Hugo documentation:
+
+[https://gohugo.io/content-management/menus/](https://gohugo.io/content-management/menus/)
+
+
+## Taxonomies
+
+Felmdrav uses Hugo’s standard taxonomy configuration. Taxonomies are defined at
+the top level of `config.toml`:
+
+```toml
+[taxonomies]
+category = "categories"
+tag = "tags"
+series = "series"
+```
+
+For details on configuring and using taxonomies, refer to the Hugo
+documentation:
+
+[https://gohugo.io/content-management/taxonomies/](https://gohugo.io/content-management/taxonomies/)
+
+
 
 ## Migration from Tikva
 

@@ -1,8 +1,9 @@
-
 ---
-title: My Blog 
-date: 2018-11-14
-publishdate: 2018-11-14
+title: My Blog
+list:
+  recursive: true
+  sort_by: date
+  sort_order: asc
 sidebar:
   right: main
 grid:
@@ -11,5 +12,5 @@ grid:
   right: 3
 ---
 
-This is a blog example.
+This is a blog example. 
 
