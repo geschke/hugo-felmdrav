@@ -4,6 +4,13 @@ date: 2026-01-09
 #publishdate: 2026-01-10
 tags: ["Theme","Blog", "Felmdrav"]
 #hideMeta: true
+featured:
+  in: ["home"]
+  image: 
+    src: "img/felmdrav_theme_release.png"
+    alt: "Felmdrav Theme Release"
+    position: "center"
+
 ---
 
 With the latest updates to the Felmdrav theme, we’re introducing **Featured Posts** — a simple way to highlight selected content where it matters most.

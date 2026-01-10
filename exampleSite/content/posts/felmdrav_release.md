@@ -4,6 +4,15 @@ date: 2026-01-10
 #publishdate: 2026-01-10
 tags: ["Theme","Blog"]
 #hideMeta: true
+category: "Announcement"
+featured:
+  in: ["home"]
+  weight: 100
+  excerpt: "The Felmdrav Hugo theme is now officially released."
+  image:
+    src: "img/felmdrav_theme_release.png"
+    alt: "Felmdrav Theme Release"
+    position: "center top"
 ---
 
 The **Felmdrav Hugo theme** is now officially released.
