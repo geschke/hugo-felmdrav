@@ -3,12 +3,14 @@ title: Featured Posts Announcement
 date: 2026-01-09
 #publishdate: 2026-01-10
 tags: ["Theme","Blog", "Felmdrav"]
+#category: "Announcement"
+
 #hideMeta: true
 featured:
   in: ["home"]
   image: 
-    src: "img/felmdrav_theme_release.png"
-    alt: "Felmdrav Theme Release"
+    src: "img/featured_posts_announcement.png"
+    alt: "New: Featured Posts"
     position: "center"
 
 ---

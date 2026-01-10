@@ -5,14 +5,19 @@
 {{- $showHeaderText := $ph.show | default true -}}
 
 {{- $title := .Site.Title -}}
-{{- if isset $ph "title" -}}
-  {{- $title = index $ph "title" -}}
+{{- with $ph -}}
+  {{- with index . "title" -}}
+    {{- $title = . -}}
+  {{- end -}}
 {{- end -}}
 
 {{- $subtitle := .Site.Params.subtitle -}}
-{{- if isset $ph "subtitle" -}}
-  {{- $subtitle = index $ph "subtitle" -}}
+{{- with $ph -}}
+  {{- with index . "subtitle" -}}
+    {{- $subtitle = . -}}
+  {{- end -}}
 {{- end -}}
+
 
 
 

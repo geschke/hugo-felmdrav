@@ -52,14 +52,39 @@
         {{- $f := $p.Params.featured | default (dict) -}}
         {{- $fimg := index $f "image" | default (dict) -}}
 
+        {{- $imgSrc := "" -}}
+        {{- $rawSrc := index $fimg "src" | default "" -}}
+        {{- if $rawSrc -}}
+          {{- $res := $p.Resources.GetMatch $rawSrc -}}
+          {{- if $res -}}
+            {{- $imgSrc = $res.RelPermalink -}}
+          {{- else -}}
+            {{- $imgSrc = $rawSrc | relURL -}}
+          {{- end -}}
+        {{- end -}}
+
+
+        {{- /* Build teaser text: excerpt -> summary (hard-truncated) */ -}}
+        {{- $teaser := index $f "excerpt" | default "" -}}
+        {{- if not $teaser -}}
+          {{- $teaser = $p.Summary | plainify | truncate 140 -}}
+        {{- end -}}
+
+
+        {{- $cat := $p.Params.category | default "" -}}
+        {{- $tags := $p.Params.tags | default (slice) -}}
+        {{- if and (not $cat) (gt (len $tags) 0) -}}
+          {{- $cat = index $tags 0 -}}
+        {{- end -}}
+
         {{- $it := dict
           "title" $p.Title
-          "text"  ((index $f "excerpt") | default $p.Summary)
+          "text"  $teaser
           "date"  $p.Date
-          "category" ($p.Params.category | default "")
+          "category" $cat
           "tags" ($p.Params.tags | default (slice))
           "image" (dict
-            "src" (index $fimg "src" | default "")
+            "src" $imgSrc
             "alt" (index $fimg "alt" | default "")
             "position" (index $fimg "position" | default "center center")
           )

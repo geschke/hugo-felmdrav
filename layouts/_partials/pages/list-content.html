@@ -5,9 +5,12 @@
 {{- $list := .Params.list -}}
 
 {{- $recursive := true -}}
-{{- if isset $list "recursive" -}}
-  {{- $recursive = $list.recursive -}}
+{{- with $list -}}
+  {{- with .recursive -}}
+    {{- $recursive = . -}}
+  {{- end -}}
 {{- end -}}
+
 
 {{- $sections := $list.sections -}}
 {{- $mode := $list.mode | default "" -}}

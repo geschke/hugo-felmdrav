@@ -1,9 +1,9 @@
 ---
-title: "Featured"
+#title: "Featured"
 #items: []              # optional; wenn vorhanden, werden die zuerst gerendert
 section: "posts"       # optional; wenn gesetzt, wird danach aufgefüllt
 featured_key: "home"   # optional; default = "home"
-limit: 4               # optional; 0/fehlt => alle
+limit: 2              # optional; 0/fehlt => alle
 columns: 2
 link_text: "Read More"
 
