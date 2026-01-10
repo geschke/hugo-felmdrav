@@ -13,7 +13,7 @@ fallback:
 items:
   - title: "Clear Structure"
     text: "Pages are composed from well-defined blocks instead of hard-coded layouts."
-    date: 2025-12-24
+    date: "2026-01-10"
     #image:
     #  src: "feature_01.png"
     #  alt: "Feature image 1"

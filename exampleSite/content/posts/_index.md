@@ -3,7 +3,7 @@ title: My Blog
 list:
   recursive: true
   sort_by: date
-  sort_order: asc
+  sort_order: desc
 sidebar:
   right: main
 grid:
