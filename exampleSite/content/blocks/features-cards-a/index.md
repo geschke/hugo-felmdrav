@@ -1,5 +1,5 @@
 ---
-title: "Custom lalaCards"
+title: "Custom Cards"
 headless: true
 items:
   - title: "Matrix-like visuals"
