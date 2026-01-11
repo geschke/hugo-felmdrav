@@ -1,3 +1,12 @@
+← [Docs Overview](../README.md) ·
+[Featured Posts](featured-posts.md) ·
+[Hero Split](hero-split.md) ·
+[Hero Centered](hero-centered.md) ·
+[Features Icons](features-icons.md) ·
+[Features Hanging Icons](features-hanging-icons.md) ·
+[Features Cards](features-cards.md)
+
+
 
 ### Block: `features-hanging-icons`
 
@@ -78,4 +87,9 @@ items:
 * Item links are always rendered as buttons (no plain text-link variant in this block).
 * If the block content page cannot be resolved, nothing is rendered.
 
+
+--- 
+
+← Previous: [Features Icons](features-icons.md)
+Next: [Features Cards](features-cards.md) →
 

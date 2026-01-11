@@ -1,3 +1,12 @@
+← [Docs Overview](../README.md) ·
+[Featured Posts](featured-posts.md) ·
+[Hero Split](hero-split.md) ·
+[Hero Centered](hero-centered.md) ·
+[Features Icons](features-icons.md) ·
+[Features Hanging Icons](features-hanging-icons.md) ·
+[Features Cards](features-cards.md)
+
+
 
 ### Block: `hero-centered`
 
@@ -65,3 +74,9 @@ image:
 * Layout is centered (`text-center`) with a constrained text width (`col-lg-8 col-md-10 mx-auto`).
 * The image is rendered only if `image.src` is set; it is displayed below the content with rounded corners and a border.
 * If the block content page cannot be resolved, nothing is rendered.
+
+
+--- 
+
+← Previous: [Hero Split](hero-split.md)
+Next: [Features Icons](features-icons.md) →

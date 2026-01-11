@@ -1,3 +1,12 @@
+← [Docs Overview](../README.md) ·
+[Featured Posts](featured-posts.md) ·
+[Hero Split](hero-split.md) ·
+[Hero Centered](hero-centered.md) ·
+[Features Icons](features-icons.md) ·
+[Features Hanging Icons](features-hanging-icons.md) ·
+[Features Cards](features-cards.md)
+
+
 
 ### Block: `featured-posts`
 
@@ -273,3 +282,7 @@ fill_sort: "title_asc"
 ---
 ```
 
+--- 
+
+← Previous: [Blocks Overview](README.md)
+Next: [Hero Split](hero-split.md) →

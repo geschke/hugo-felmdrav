@@ -1,3 +1,16 @@
+← [Main README](../README.md) ·
+[Configuration](configuration.md) ·
+[Layout & Sidebars](layout-and-sidebars.md) ·
+[Footer & Subfooter](footer-and-subfooter.md) ·
+[Content Blocks](blocks/README.md) ·
+[Content Lists](content-lists.md) ·
+[Typography](typography.md) ·
+[Image Processing](images.md) ·
+[Analytics](analytics.md) ·
+[Menus & Taxonomies](menus-and-taxonomies.md) ·
+[Migration](migration-from-tikva.md)
+
+
 
 ## Content Lists & Section Listings
 
@@ -158,3 +171,7 @@ Hugo itself only invokes `list.html` automatically.
 The `list-content.html` partial is explicitly included by Felmdrav to provide a reusable and extensible listing implementation.
 
 Developers who want to customize or extend list behavior should start with `list-content.html`, as it encapsulates all list-related logic without requiring changes to content structure or additional layout files.
+
+
+← Previous: [Content Blocks](blocks/README.md)
+Next: [Typography](typography.md) →

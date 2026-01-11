@@ -1,3 +1,10 @@
+← [Docs Overview](../README.md) ·
+[Featured Posts](featured-posts.md) ·
+[Hero Split](hero-split.md) ·
+[Hero Centered](hero-centered.md) ·
+[Features Icons](features-icons.md) ·
+[Features Hanging Icons](features-hanging-icons.md) ·
+[Features Cards](features-cards.md)
 
 
 ### Block: `features-cards`
@@ -95,3 +102,6 @@ If present, these override the block-level defaults for that specific card.
 * Styling defaults are optimized for dark images but can be overridden for light backgrounds.
 * If the block content page cannot be resolved, nothing is rendered.
 
+--- 
+
+← Previous: [Features Hanging Icons](features-hanging-icons.md)

@@ -1,3 +1,12 @@
+← [Docs Overview](../README.md) ·
+[Featured Posts](featured-posts.md) ·
+[Hero Split](hero-split.md) ·
+[Hero Centered](hero-centered.md) ·
+[Features Icons](features-icons.md) ·
+[Features Hanging Icons](features-hanging-icons.md) ·
+[Features Cards](features-cards.md)
+
+
 
 ## Content Blocks (Page Composition)
 
@@ -117,4 +126,20 @@ This design keeps responsibilities clean:
 
 * **[`features-cards`](features-cards.md)**
   Card-based feature grid with optional images and links.
+
+
+--- 
+
+
+
+Next: [Featured Posts](featured-posts.md) →
+
+
+--- 
+
+Main Docs: 
+
+← Previous: [Footer & Subfooter](../footer-and-subfooter.md)
+Next: [Content Lists](../content-lists.md) →
+
 

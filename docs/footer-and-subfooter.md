@@ -1,11 +1,24 @@
+← [Main README](../README.md) ·
+[Configuration](configuration.md) ·
+[Layout & Sidebars](layout-and-sidebars.md) ·
+[Footer & Subfooter](footer-and-subfooter.md) ·
+[Content Blocks](blocks/README.md) ·
+[Content Lists](content-lists.md) ·
+[Typography](typography.md) ·
+[Image Processing](images.md) ·
+[Analytics](analytics.md) ·
+[Menus & Taxonomies](menus-and-taxonomies.md) ·
+[Migration](migration-from-tikva.md)
 
-### Footer and Subfooter
+
+
+## Footer and Subfooter
 
 Felmdrav renders footer and subfooter content using **headless page bundles**.
 Both sections are content-driven and are only rendered if the corresponding
 content structure exists and the section is enabled in the configuration.
 
-#### Footer
+### Footer
 
 The footer is a multi-column content area rendered at the bottom of each page.
 
@@ -88,7 +101,7 @@ layouts/partials/footer_column.html
 ```
 
 
-#### Subfooter
+### Subfooter
 
 The subfooter is rendered below the footer and is typically used for small
 meta information such as copyright notices or legal links.
@@ -126,3 +139,9 @@ To customize how individual subfooter items are rendered, override:
 ```
 layouts/partials/subfooter_item.html
 ```
+
+
+--- 
+
+← Previous: [Layout & Sidebars](layout-and-sidebars.md)
+Next: [Content Blocks](blocks/README.md) →

@@ -120,6 +120,7 @@ Detailed documentation is available in the /docs directory:
 - [Typography](docs/typography.md)
 - [Image Processing](docs/images.md)
 - [Analytics](docs/analytics.md)
+- [Menus & Taxonomies](docs/menus-and-taxonomies.md)
 - [Migration from Tikva](docs/migration-from-tikva.md)
 
 

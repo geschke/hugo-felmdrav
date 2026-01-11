@@ -1,3 +1,16 @@
+← [Main README](../README.md) ·
+[Configuration](configuration.md) ·
+[Layout & Sidebars](layout-and-sidebars.md) ·
+[Footer & Subfooter](footer-and-subfooter.md) ·
+[Content Blocks](blocks/README.md) ·
+[Content Lists](content-lists.md) ·
+[Typography](typography.md) ·
+[Image Processing](images.md) ·
+[Analytics](analytics.md) ·
+[Menus & Taxonomies](menus-and-taxonomies.md) ·
+[Migration](migration-from-tikva.md)
+
+
 
 ## Image Processing
 
@@ -44,3 +57,7 @@ Markdown example:
 When `image_title_as_caption` is set to `true`, the theme uses the image title
 string (`"..."`) as the rendered caption.
 
+--- 
+
+← Previous: [Typography](typography.md)
+Next: [Analytics](analytics.md) →

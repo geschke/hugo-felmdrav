@@ -1,3 +1,15 @@
+← [Main README](../README.md) ·
+[Configuration](configuration.md) ·
+[Layout & Sidebars](layout-and-sidebars.md) ·
+[Footer & Subfooter](footer-and-subfooter.md) ·
+[Content Blocks](blocks/README.md) ·
+[Content Lists](content-lists.md) ·
+[Typography](typography.md) ·
+[Image Processing](images.md) ·
+[Analytics](analytics.md) ·
+[Menus & Taxonomies](menus-and-taxonomies.md) ·
+[Migration](migration-from-tikva.md)
+
 
 ## Menus
 
@@ -46,3 +58,8 @@ documentation:
 
 [https://gohugo.io/content-management/taxonomies/](https://gohugo.io/content-management/taxonomies/)
 
+
+--- 
+
+← Previous: [Analytics](analytics.md)
+Next: [Migration from Tikva](migration-from-tikva.md) →

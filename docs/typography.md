@@ -1,5 +1,17 @@
+← [Main README](../README.md) ·
+[Configuration](configuration.md) ·
+[Layout & Sidebars](layout-and-sidebars.md) ·
+[Footer & Subfooter](footer-and-subfooter.md) ·
+[Content Blocks](blocks/README.md) ·
+[Content Lists](content-lists.md) ·
+[Typography](typography.md) ·
+[Image Processing](images.md) ·
+[Analytics](analytics.md) ·
+[Menus & Taxonomies](menus-and-taxonomies.md) ·
+[Migration](migration-from-tikva.md)
 
-### Typography
+
+## Typography
 
 Felmdrav allows fine-grained font configuration for different parts of the site.
 All typography-related options are grouped under the `[params.fonts]` section.
@@ -14,7 +26,7 @@ Fonts can be defined independently for the following areas:
 
 Both system fonts and Google Fonts are supported.
 
-#### Header Title
+### Header Title
 
 * `header_title`
   Font family used for the site title in the header.
@@ -29,7 +41,7 @@ Both system fonts and Google Fonts are supported.
   Availability depends on the selected font.
 
 
-#### Header Subtitle
+### Header Subtitle
 
 * `header_subtitle`
   Font family used for the subtitle.
@@ -41,7 +53,7 @@ Both system fonts and Google Fonts are supported.
   Font weight or variant for the subtitle.
 
 
-#### Navigation Bar
+### Navigation Bar
 
 * `navbar`
   Font family used for navigation items.
@@ -55,7 +67,7 @@ Both system fonts and Google Fonts are supported.
 * `navbar_size`
   Font size for navigation items.
 
-#### Body Text
+### Body Text
 
 * `body`
   Font family used for main content text.
@@ -69,7 +81,7 @@ Both system fonts and Google Fonts are supported.
 * `body_size`
   Font size for body text.
 
-#### Headlines (h1–h6)
+### Headlines (h1–h6)
 
 * `headline`
   Font family used for headlines.
@@ -86,3 +98,7 @@ Both system fonts and Google Fonts are supported.
   framework.
   Set this value to `0` to use the theme default.
 
+--- 
+
+← Previous: [Content Lists](content-lists.md)
+Next: [Image Processing](images.md) →

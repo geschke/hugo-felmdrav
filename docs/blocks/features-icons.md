@@ -1,4 +1,13 @@
 
+← [Docs Overview](../README.md) ·
+[Featured Posts](featured-posts.md) ·
+[Hero Split](hero-split.md) ·
+[Hero Centered](hero-centered.md) ·
+[Features Icons](features-icons.md) ·
+[Features Hanging Icons](features-hanging-icons.md) ·
+[Features Cards](features-cards.md)
+
+
 ### Block: `features-icons`
 
 Icon-based feature list displayed in a responsive grid layout. Each feature consists of an icon, title, text, and an optional link.
@@ -78,3 +87,9 @@ items:
 * The grid adapts responsively using Bootstrap’s `row-cols-*` classes.
 * If no link is defined for an item, it is rendered as plain content.
 * If the block content page cannot be resolved, nothing is rendered.
+
+
+--- 
+
+← Previous: [Hero Centered](hero-centered.md)
+Next: [Features Hanging Icons](features-hanging-icons.md) →

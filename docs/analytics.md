@@ -1,3 +1,16 @@
+← [Main README](../README.md) ·
+[Configuration](configuration.md) ·
+[Layout & Sidebars](layout-and-sidebars.md) ·
+[Footer & Subfooter](footer-and-subfooter.md) ·
+[Content Blocks](blocks/README.md) ·
+[Content Lists](content-lists.md) ·
+[Typography](typography.md) ·
+[Image Processing](images.md) ·
+[Analytics](analytics.md) ·
+[Menus & Taxonomies](menus-and-taxonomies.md) ·
+[Migration](migration-from-tikva.md)
+
+
 
 ## Analytics
 
@@ -54,3 +67,8 @@ layouts/partials/analytics/
 
 Hugo’s lookup order ensures that your custom partials are used instead of the
 theme defaults.
+
+--- 
+
+← Previous: [Image Processing](images.md)
+Next: [Menus & Taxonomies](menus-and-taxonomies.md) →

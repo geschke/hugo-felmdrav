@@ -1,3 +1,14 @@
+← [Main README](../README.md) ·
+[Configuration](configuration.md) ·
+[Layout & Sidebars](layout-and-sidebars.md) ·
+[Footer & Subfooter](footer-and-subfooter.md) ·
+[Content Blocks](blocks/README.md) ·
+[Content Lists](content-lists.md) ·
+[Typography](typography.md) ·
+[Image Processing](images.md) ·
+[Analytics](analytics.md) ·
+[Menus & Taxonomies](menus-and-taxonomies.md) ·
+[Migration](migration-from-tikva.md)
 
 
 ## Migration from Tikva
@@ -79,3 +90,8 @@ configuration or template structure. The most reliable migration approach is:
 keep your content, then re-apply your layout and design preferences using
 Felmdrav’s configuration and templates.
 
+
+
+--- 
+
+← Previous: [Menus & Taxonomies](menus-and-taxonomies.md)

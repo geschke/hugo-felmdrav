@@ -1,4 +1,17 @@
 
+← [Main README](../README.md) ·
+[Configuration](configuration.md) ·
+[Layout & Sidebars](layout-and-sidebars.md) ·
+[Footer & Subfooter](footer-and-subfooter.md) ·
+[Content Blocks](blocks/README.md) ·
+[Content Lists](content-lists.md) ·
+[Typography](typography.md) ·
+[Image Processing](images.md) ·
+[Analytics](analytics.md) ·
+[Menus & Taxonomies](menus-and-taxonomies.md) ·
+[Migration](migration-from-tikva.md)
+
+
 ## Sidebar & Grid Layout Configuration
 
 This theme provides a flexible but simple layout system based on **sidebars** and a **Bootstrap-style grid**.
@@ -150,3 +163,7 @@ This system is intentionally:
 
 There is no legacy behavior and no implicit sidebar positioning logic.
 
+--- 
+
+← Previous: [Configuration](configuration.md)
+Next: [Footer & Subfooter](footer-and-subfooter.md) →

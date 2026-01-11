@@ -1,3 +1,16 @@
+← [Main README](../README.md) ·
+[Configuration](configuration.md) ·
+[Layout & Sidebars](layout-and-sidebars.md) ·
+[Footer & Subfooter](footer-and-subfooter.md) ·
+[Content Blocks](blocks/README.md) ·
+[Content Lists](content-lists.md) ·
+[Typography](typography.md) ·
+[Image Processing](images.md) ·
+[Analytics](analytics.md) ·
+[Menus & Taxonomies](menus-and-taxonomies.md) ·
+[Migration](migration-from-tikva.md)
+
+
 
 ## Configuration
 
@@ -351,3 +364,8 @@ The configuration options are designed to cover common use cases without adding 
  * `header.title` and `header.subtitle` override the global values
  * setting a value to an empty string disables it explicitly
  * `header.show: false` hides the header text (title and subtitle) while keeping the header layout intact
+
+
+---
+
+Next: [Layout & Sidebars](layout-and-sidebars.md) →

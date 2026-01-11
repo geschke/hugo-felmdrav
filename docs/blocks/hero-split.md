@@ -1,3 +1,10 @@
+← [Docs Overview](../README.md) ·
+[Featured Posts](featured-posts.md) ·
+[Hero Split](hero-split.md) ·
+[Hero Centered](hero-centered.md) ·
+[Features Icons](features-icons.md) ·
+[Features Hanging Icons](features-hanging-icons.md) ·
+[Features Cards](features-cards.md)
 
 
 ### Block: `hero-split`
@@ -64,3 +71,8 @@ image:
 
 * If no image is defined, the layout collapses to text-only.
 * If the block content page cannot be resolved, nothing is rendered.
+
+--- 
+
+← Previous: [Featured Posts](featured-posts.md)
+Next: [Hero Centered](hero-centered.md) →
