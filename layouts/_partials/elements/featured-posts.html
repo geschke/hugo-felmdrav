@@ -188,7 +188,7 @@
   {{- /* Date formatting: prefer site-wide settings. */ -}}
   {{- $dateFmt := $root.Site.Params.date_format | default ($root.Site.Params.dateFormat | default ":date_medium") -}}
 
-  <section class="mb-1 py-0">
+  <section class="mb-1 pt-2">
     <div class="container-fluid px-0">
 
       {{- if and $showTitle $title -}}

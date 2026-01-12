@@ -1,5 +1,5 @@
 ---
-title: "Custom cards features cards screenshot"
+#title: "Custom cards features cards screenshot"
 #headless: true
 # Block defaults (optional)
 card_classes: "text-bg-light text-body"

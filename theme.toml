@@ -1,6 +1,6 @@
 # Name       : Felmdrav
 # Version    : 0.2.0
-# Released   : 2026-01-06
+# Released   : 2026-01-12
 
 name = "Felmdrav"
 license = "MIT"
@@ -11,12 +11,10 @@ demosite = "https://geschke.github.io/hugo-felmdrav/"
 
 tags = [
   "bootstrap",
-  "responsive",
-  "configurable",
-  "flexible",
-  "grid",
-  "sidebar",
-  "blog"
+  "minimal",
+  "blog",
+  "company",
+  "docs"
 ]
 
 features = [

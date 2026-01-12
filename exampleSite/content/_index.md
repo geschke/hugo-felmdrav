@@ -1,17 +1,17 @@
 ---
 home:
   sections:
-    #- type: featured-posts
-    #  content: blocks/featured-posts
-    #- type: hero-split
-    #  content: blocks/hero-a
+    - type: featured-posts
+      content: blocks/featured-posts
+    - type: hero-centered
+      content: blocks/hero-b
+    - type: hero-split
+      content: blocks/hero-a
     #- type: hero-split
     #  content: blocks/hero-b
-    #- type: hero-centered
-    #  content: blocks/hero-b
-    #- type: features-icons
-    #  #columns: 2
-    #  content: blocks/features-a  
+    - type: features-icons
+      #columns: 2
+      content: blocks/features-a  
     - type: features-hanging-icons
       columns: 3
       content: blocks/features-a  
