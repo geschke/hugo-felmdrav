@@ -12,20 +12,6 @@ When migrating the Hugo theme from Bootstrap 4 to **Bootstrap 5**, it became cle
 
 To clearly distinguish this modernized Hugo theme from its predecessor, the project was renamed to **Felmdrav**, which is now the **Bootstrap 5–based successor of Tikva for Hugo**.
 
-## Evolution and Design Goals
-
-While Felmdrav retains the minimalist design principles of Tikva, it introduces several structural and technical improvements tailored specifically for Hugo:
-
-* Migration to **Bootstrap 5** with a clean, modern markup
-* A **flexible grid system** based on Bootstrap’s 12-column layout
-* **Configurable sidebars** with global defaults and per-page overrides
-* Replacement of Font Awesome with **Bootstrap Icons**
-* A small set of reusable **content blocks**, such as hero sections and feature/icon blocks
-* Integration of multiple **Bootswatch** styles with additional custom refinements
-* Optional color and style adjustments via configuration
-
-The focus is on **clarity, predictability, and extensibility**, rather than feature overload or heavy abstraction.
-
 ## Philosophy
 
 Felmdrav aims to stay:
@@ -36,7 +22,6 @@ Felmdrav aims to stay:
 * flexible without becoming complex
 
 Most layout behavior is controlled through clear configuration options, avoiding hidden defaults or implicit logic wherever possible.
-
 
 ## Features
 
