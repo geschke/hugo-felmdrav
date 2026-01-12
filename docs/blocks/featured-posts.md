@@ -15,6 +15,8 @@ The block supports both **manually curated items** and **automatically selected 
 
 The visual layout is fixed. The block controls **content selection only**, not presentation.
 
+![Featured Posts Example](images/screenshot_featured_posts.png)
+
 #### Usage
 
 * Home page: `type: featured-posts`, `content: blocks/<name>`

@@ -1,9 +1,9 @@
 ---
 #title: "Featured"
-#items: []              # optional; wenn vorhanden, werden die zuerst gerendert
-section: "posts"       # optional; wenn gesetzt, wird danach aufgefüllt
-featured_key: "home"   # optional; default = "home"
-limit: 2              # optional; 0/fehlt => alle
+#items: []               # optional; if present, these are rendered first
+section: "posts"        # optional; used to auto-fill remaining slots
+featured_key: "home"    # optional; default = "home"
+limit: 4                # optional; 0 or omitted = no limit
 columns: 2
 link_text: "Read More"
 

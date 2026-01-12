@@ -8,6 +8,7 @@ tags: ["Theme","Blog", "Felmdrav"]
 #hideMeta: true
 featured:
   in: ["home"]
+  excerpt: "With the latest updates to the Felmdrav theme, we’re introducing Featured Posts."
   image: 
     src: "img/featured_posts_announcement.png"
     alt: "New: Featured Posts"
