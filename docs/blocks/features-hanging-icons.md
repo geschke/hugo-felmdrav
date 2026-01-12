@@ -1,4 +1,4 @@
-← [Docs Overview](../README.md) ·
+← [Docs Overview](../../README.md) ·
 [Featured Posts](featured-posts.md) ·
 [Hero Split](hero-split.md) ·
 [Hero Centered](hero-centered.md) ·
@@ -8,17 +8,19 @@
 
 
 
-### Block: `features-hanging-icons`
+## Block: `features-hanging-icons`
 
 Feature list with “hanging” icons on the left and text on the right, displayed in a responsive grid.
 
-#### Usage
+![Features Hanging Icons Example](images/screenshot_features_hanging_icons.png)
+
+### Usage
 
 * Home page: `type: features-hanging-icons`, `content: blocks/<name>`
 * Markdown: `{{< block type="features-hanging-icons" content="blocks/<name>" >}}`
 
 
-#### Block Content (`content/blocks/<name>/index.md`)
+### Block Content (`content/blocks/<name>/index.md`)
 
 Configured via front matter only.
 
@@ -46,7 +48,7 @@ Configured via front matter only.
 Links are rendered as small Bootstrap buttons.
 
 
-#### Section Parameters
+### Section Parameters
 
 * **columns**
   Number of columns for large screens.
@@ -58,7 +60,7 @@ Links are rendered as small Bootstrap buttons.
   Defaults to `true`.
 
 
-#### Example
+### Example
 
 ```
 ---
@@ -81,7 +83,7 @@ items:
 ```
 
 
-#### Notes
+### Notes
 
 * Icons use **Bootstrap Icons**.
 * Item links are always rendered as buttons (no plain text-link variant in this block).

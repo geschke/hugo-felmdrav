@@ -1,4 +1,4 @@
-← [Docs Overview](../README.md) ·
+← [Docs Overview](../../README.md) ·
 [Featured Posts](featured-posts.md) ·
 [Hero Split](hero-split.md) ·
 [Hero Centered](hero-centered.md) ·
@@ -7,16 +7,19 @@
 [Features Cards](features-cards.md)
 
 
-### Block: `hero-split`
+## Block: `hero-split`
 
 Two-column hero block with text and optional buttons on the left and an optional image on the right.
 
-#### Usage
+![Hero Split Example](images/screenshot_hero_split.png)
+
+
+### Usage
 
 * Home page: `type: hero-split`, `content: blocks/<name>`
 * Markdown: `{{< block type="hero-split" content="blocks/<name>" >}}`
 
-#### Block Content (`content/blocks/<name>/index.md`)
+### Block Content (`content/blocks/<name>/index.md`)
 
 The hero block is configured via front matter only.
 
@@ -48,7 +51,7 @@ The hero block is configured via front matter only.
   If `src` matches a page resource of the block content page, that resource is used.
   Otherwise, the value is treated as a regular path or URL.
 
-#### Example
+### Example
 
 ```
 ---
@@ -67,7 +70,7 @@ image:
 ---
 ```
 
-#### Notes
+### Notes
 
 * If no image is defined, the layout collapses to text-only.
 * If the block content page cannot be resolved, nothing is rendered.

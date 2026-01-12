@@ -1,4 +1,4 @@
-← [Docs Overview](../README.md) ·
+← [Docs Overview](../../README.md) ·
 [Featured Posts](featured-posts.md) ·
 [Hero Split](hero-split.md) ·
 [Hero Centered](hero-centered.md) ·
@@ -8,17 +8,20 @@
 
 
 
-### Block: `hero-centered`
+## Block: `hero-centered`
 
 Centered hero block with optional buttons and an optional image displayed below the text.
 
-#### Usage
+![Hero Centered Example](images/screenshot_hero_centered.jpg)
+
+
+### Usage
 
 * Home page: `type: hero-centered`, `content: blocks/<name>`
 * Markdown: `{{< block type="hero-centered" content="blocks/<name>" >}}`
 
 
-#### Block Content (`content/blocks/<name>/index.md`)
+### Block Content (`content/blocks/<name>/index.md`)
 
 Configured via front matter only.
 
@@ -50,7 +53,7 @@ Configured via front matter only.
   If `src` matches a page resource of the block content page, that resource is used.
   Otherwise, the value is treated as a regular path or URL.
 
-#### Example
+### Example
 
 ```
 ---
@@ -69,7 +72,7 @@ image:
 ---
 ```
 
-#### Notes
+### Notes
 
 * Layout is centered (`text-center`) with a constrained text width (`col-lg-8 col-md-10 mx-auto`).
 * The image is rendered only if `image.src` is set; it is displayed below the content with rounded corners and a border.

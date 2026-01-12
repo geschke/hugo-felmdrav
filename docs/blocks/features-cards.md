@@ -1,4 +1,4 @@
-← [Docs Overview](../README.md) ·
+← [Docs Overview](../../README.md) ·
 [Featured Posts](featured-posts.md) ·
 [Hero Split](hero-split.md) ·
 [Hero Centered](hero-centered.md) ·
@@ -7,18 +7,20 @@
 [Features Cards](features-cards.md)
 
 
-### Block: `features-cards`
+## Block: `features-cards`
 
 Card-based feature grid. Each item is rendered as a visual card with an optional background image, optional tags, and an optional link. If a link is defined, the entire card becomes clickable.
 
-#### Usage
+![Featured Cards Example](images/screenshot_features_cards.png)
+
+
+### Usage
 
 * Home page: `type: features-cards`, `content: blocks/<name>`
 * Markdown: `{{< block type="features-cards" content="blocks/<name>" >}}`
 
 
-
-#### Block Content (`content/blocks/<name>/index.md`)
+### Block Content (`content/blocks/<name>/index.md`)
 
 Configured via front matter only.
 
@@ -47,7 +49,7 @@ Configured via front matter only.
 
 
 
-#### Styling Options
+### Styling Options
 
 The appearance of cards can be customized using **Bootstrap classes**.
 Styling can be defined globally for the block or overridden per card item.
@@ -73,7 +75,7 @@ If present, these override the block-level defaults for that specific card.
 
 
 
-#### Image Behavior (per item)
+### Image Behavior (per item)
 
 * If `image` matches a page resource of the block content page, that resource is used.
 * Otherwise, `image` is treated as a regular path or URL.
@@ -81,7 +83,7 @@ If present, these override the block-level defaults for that specific card.
 
 
 
-#### Section Parameters
+### Section Parameters
 
 * **columns**
   Number of columns for large screens.
@@ -94,7 +96,7 @@ If present, these override the block-level defaults for that specific card.
 
 
 
-#### Notes
+### Notes
 
 * If no `link` is defined, the card is rendered as a non-clickable element.
 * If no `image` is defined, the card is rendered without a background image.

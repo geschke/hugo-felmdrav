@@ -1,5 +1,5 @@
 
-← [Docs Overview](../README.md) ·
+← [Docs Overview](../../README.md) ·
 [Featured Posts](featured-posts.md) ·
 [Hero Split](hero-split.md) ·
 [Hero Centered](hero-centered.md) ·
@@ -8,17 +8,20 @@
 [Features Cards](features-cards.md)
 
 
-### Block: `features-icons`
+## Block: `features-icons`
 
 Icon-based feature list displayed in a responsive grid layout. Each feature consists of an icon, title, text, and an optional link.
 
-#### Usage
+![Features Icons Example](images/screenshot_features_icons.png)
+
+
+### Usage
 
 * Home page: `type: features-icons`, `content: blocks/<name>`
 * Markdown: `{{< block type="features-icons" content="blocks/<name>" >}}`
 
 
-#### Block Content (`content/blocks/<name>/index.md`)
+### Block Content (`content/blocks/<name>/index.md`)
 
 Configured via front matter only.
 
@@ -47,7 +50,7 @@ If `style` is set, the link is rendered as a small button.
 Otherwise, it is rendered as a simple text link with a chevron icon.
 
 
-#### Section Parameters
+### Section Parameters
 
 * **columns**
   Number of columns for large screens.
@@ -59,7 +62,7 @@ Otherwise, it is rendered as a simple text link with a chevron icon.
   Defaults to `true`.
 
 
-#### Example
+### Example
 
 ```
 ---
@@ -81,7 +84,7 @@ items:
 ```
 
 
-#### Notes
+### Notes
 
 * Icons use **Bootstrap Icons**.
 * The grid adapts responsively using Bootstrap’s `row-cols-*` classes.

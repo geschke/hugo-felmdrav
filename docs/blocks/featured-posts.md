@@ -1,4 +1,4 @@
-← [Docs Overview](../README.md) ·
+← [Docs Overview](../../README.md) ·
 [Featured Posts](featured-posts.md) ·
 [Hero Split](hero-split.md) ·
 [Hero Centered](hero-centered.md) ·
@@ -8,7 +8,7 @@
 
 
 
-### Block: `featured-posts`
+## Block: `featured-posts`
 
 Displays a list of highlighted articles as responsive blog-style cards.
 The block supports both **manually curated items** and **automatically selected content** from a section, with configurable sorting and fallback behavior.
@@ -17,13 +17,13 @@ The visual layout is fixed. The block controls **content selection only**, not p
 
 ![Featured Posts Example](images/screenshot_featured_posts.png)
 
-#### Usage
+### Usage
 
 * Home page: `type: featured-posts`, `content: blocks/<name>`
 * Markdown: `{{< block type="featured-posts" content="blocks/<name>" >}}`
 
 
-#### Block Content (`content/blocks/<name>/index.md`)
+### Block Content (`content/blocks/<name>/index.md`)
 
 The featured-posts block is configured via front matter only.
 
@@ -82,7 +82,7 @@ The featured-posts block is configured via front matter only.
 
 
 
-#### Manual Items (`items`)
+### Manual Items (`items`)
 
 Manual items define their complete content and are independent of articles.
 
@@ -106,7 +106,7 @@ Each item defines:
 
 
 
-#### Article Front Matter (for Automatic Selection)
+### Article Front Matter (for Automatic Selection)
 
 Articles may define a `featured` block in their front matter to participate in automatic selection.
 
@@ -133,7 +133,7 @@ Supported fields:
 
 
 
-#### Content Selection and Fallback Rules
+### Content Selection and Fallback Rules
 
 The block resolves content in a strict and predictable order:
 
@@ -149,7 +149,7 @@ Articles are never rendered more than once.
 
 
 
-#### Teaser Text Resolution
+### Teaser Text Resolution
 
 The teaser text displayed in each card is resolved as follows:
 
@@ -160,7 +160,7 @@ The teaser text displayed in each card is resolved as follows:
 The full article content is never rendered inside the featured-posts block.
 
 
-#### Category and Tag Resolution
+### Category and Tag Resolution
 
 The label shown above the title is resolved as follows:
 
@@ -169,7 +169,7 @@ The label shown above the title is resolved as follows:
 3. No label, if neither exists
 
 
-#### Notes
+### Notes
 
 * Manual items always take precedence over automatically selected content.
 * Automatic filling only occurs when `limit` is greater than zero and `fill_content` is enabled.
@@ -177,9 +177,9 @@ The label shown above the title is resolved as follows:
 * If no image is available, a block-defined fallback background is rendered.
 * If no content is available, the block renders nothing.
 
-#### Examples
+### Examples
 
-##### Example 1: Manual Items Only (Fully Curated)
+#### Example 1: Manual Items Only (Fully Curated)
 
 Renders only manually defined items. No automatic content selection.
 
@@ -201,7 +201,7 @@ items:
 ---
 ```
 
-##### Example 2: Automatic Featured Posts Only
+#### Example 2: Automatic Featured Posts Only
 
 Automatically selects featured articles from a section.
 
@@ -216,7 +216,7 @@ limit: 4
 
 Articles must define `featured.in: ["home"]` to appear.
 
-##### Example 3: Automatic with Fill (Latest Posts)
+#### Example 3: Automatic with Fill (Latest Posts)
 
 Explicitly featured articles are shown first.
 Remaining slots are filled with the latest posts from the same section.
@@ -232,7 +232,7 @@ fill_sort: "date_desc"
 ---
 ```
 
-##### Example 4: Mixed Mode (Manual + Automatic)
+#### Example 4: Mixed Mode (Manual + Automatic)
 
 Manual items are rendered first, followed by automatically selected posts.
 
@@ -256,7 +256,7 @@ items:
 ---
 ```
 
-##### Example 5: Strict Mode (No Auto-Fill)
+#### Example 5: Strict Mode (No Auto-Fill)
 
 Only explicitly featured articles are rendered.
 No fallback filling occurs, even if fewer items than `limit` are available.
