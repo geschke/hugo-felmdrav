@@ -23,7 +23,7 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
   unsafe = true
 
 [security]
-  allowContent = ['text/html']
+  allowContent = ['text/html', 'text/markdown']
 
 # For all color settings, please use the format "#rrggbb". 
 
