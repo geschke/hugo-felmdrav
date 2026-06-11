@@ -1,5 +1,5 @@
 baseurl = "https://example.com/"
-languageCode = "en_US"
+locale = "en_US"
 title = "Felmdrav - A Hugo Theme"
 
 theme = "hugo-felmdrav"
@@ -22,6 +22,8 @@ DefaultContentLanguage = "en" # current values: "en" or "de"
 [markup.goldmark.renderer]
   unsafe = true
 
+[security]
+  allowContent = ['text/html']
 
 # For all color settings, please use the format "#rrggbb". 
 
